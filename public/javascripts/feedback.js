@@ -2,6 +2,9 @@ $(document).ready(function() {
 
   $('input[type="checkbox"], input[type="radio"]').click(function() {
     ga('send', 'event', this.id, 'click');
+    if ( $('h1:first-child').attr('id') === "serviceReceived" ) {
+      ga('send', 'event', 'category', 'action', {'dimension73': this.id}, 'click');
+    }
   });
 
   $('[class*="checkboxgroup-clear"]').on('change', function() {
