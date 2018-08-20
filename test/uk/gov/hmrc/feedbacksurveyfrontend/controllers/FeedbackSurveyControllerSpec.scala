@@ -24,6 +24,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.feedbacksurveyfrontend.services.{OriginConfigItem, OriginService}
 import uk.gov.hmrc.feedbacksurveyfrontend.utils.MockTemplateRenderer
+import uk.gov.hmrc.play.binders.Origin
 import uk.gov.hmrc.renderer.TemplateRenderer
 import utils.FeedbackSurveySessionKeys._
 import utils.UnitTestTraits
@@ -98,6 +99,16 @@ class FeedbackSurveyControllerSpec extends UnitTestTraits {
     "Go to the Thank you page " in new SpecSetup {
       val result = TestFeedbackSurveyController.recommendService.apply(testRequest("thankYou"))
       status(result) shouldBe OK
+    }
+
+    "return valid origin from session" in new SpecSetup {
+      val result = TestFeedbackSurveyController.getOriginFromSession(testRequest(""))
+      result shouldBe Origin(origin)
+    }
+
+    "return default origin when no origin is available" in new SpecSetup {
+      val result = TestFeedbackSurveyController.getOriginFromSession(FakeRequest(GET, "/feedback-survey/"))
+      result shouldBe Origin.Default
     }
   }
 }
