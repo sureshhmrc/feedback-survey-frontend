@@ -112,6 +112,9 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
   }
 
   def getOriginFromSession(implicit request: Request[_]): Origin = {
-    Origin(request.session.get(sessionOriginService).get)
+    request.session.get(sessionOriginService) match {
+      case Some(origin) => Origin(origin)
+      case _=> Origin.Default
+    }
   }
 }
