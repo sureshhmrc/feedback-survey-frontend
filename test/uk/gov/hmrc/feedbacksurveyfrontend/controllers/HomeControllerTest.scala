@@ -52,5 +52,11 @@ class HomeControllerTest extends UnitTestTraits {
       val result = controllerUnderTest.start(Origin("TOKEN1")).apply(FakeRequest("GET", ""))
       status(result) shouldBe SEE_OTHER
     }
+
+    "redirect to FeedbackSurveyController.ableToDo when origin is valid" in {
+      val controllerUnderTest = buildFakeHomeController
+      val result = controllerUnderTest.start(Origin("TOKEN1")).apply(FakeRequest("GET", ""))
+      redirectLocation(result) should contain("/feedback-survey/ableToDo/TOKEN1")
+    }
   }
 }
