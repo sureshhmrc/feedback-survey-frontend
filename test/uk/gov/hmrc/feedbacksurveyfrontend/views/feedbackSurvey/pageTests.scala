@@ -49,7 +49,7 @@ class pageTests extends UnitTestTraits with HtmlUtils {
   "FeedbackSurvey Controller" should {
 
     "render ableToDo page correctly" in {
-      val document: Document = TestLookupController.ableToDo.apply(testRequest(page = "ableToDo"))
+      val document: Document = TestLookupController.ableToDo("AWRS")(testRequest(page = "ableToDo"))
       document.getElementById("intro").text shouldBe Messages("feedbackSurvey.page1.para1")
       document.getElementById("gdpr").text shouldBe Messages("feedbackSurvey.page1.para2")
       document.getElementById("ableToDoWhatNeeded_legend").text should include(Messages("feedbackSurvey.page1.question1"))
@@ -58,17 +58,17 @@ class pageTests extends UnitTestTraits with HtmlUtils {
     }
 
     "render usingService page correctly" in {
-      val document: Document = TestLookupController.usingService.apply(testRequest(page = "usingService"))
+      val document: Document = TestLookupController.usingService("AWRS")(testRequest(page = "usingService"))
       document.getElementById("beforeUsingThisService").text shouldBe Messages("feedbackSurvey.page2.question1")
     }
 
     "render aboutService page correctly" in {
-      val document: Document = TestLookupController.aboutService.apply(testRequest(page = "aboutService"))
+      val document: Document = TestLookupController.aboutService("AWRS")(testRequest(page = "aboutService"))
       document.getElementById("serviceReceived").text shouldBe Messages("feedbackSurvey.page3.question1")
     }
 
     "render recommendService page correctly" in {
-      val document: Document = TestLookupController.recommendService.apply(testRequest(page = "recommendService"))
+      val document: Document = TestLookupController.recommendService("AWRS")(testRequest(page = "recommendService"))
       document.getElementById("reasonForRatingHeader").text shouldBe Messages("feedbackSurvey.page4.question2")
     }
 

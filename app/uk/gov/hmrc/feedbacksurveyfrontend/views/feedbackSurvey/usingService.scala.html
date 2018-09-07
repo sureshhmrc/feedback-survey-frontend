@@ -20,14 +20,14 @@
 @import uk.gov.hmrc.renderer.TemplateRenderer
 
 
-@(page2: Form[models.feedbackSurveyModels.UsingService])(implicit request: Request[_], messages: play.api.i18n.Messages, templateRenderer: TemplateRenderer)
+@(page2: Form[models.feedbackSurveyModels.UsingService], origin: String)(implicit request: Request[_], messages: play.api.i18n.Messages, templateRenderer: TemplateRenderer)
 
 @uk.gov.hmrc.feedbacksurveyfrontend.views.html.main_template(
   title = "feedbackSurvey.giveFeedBackPageTitle.page2.question1",
-  backlinkUrl = controllers.routes.FeedbackSurveyController.ableToDo.url
+  backlinkUrl = controllers.routes.FeedbackSurveyController.ableToDo(origin).url
 ) {
   <h1 id="beforeUsingThisService" class="heading-large">@Messages("feedbackSurvey.page2.question1")</h1>
-  @uk.gov.hmrc.play.views.html.helpers.form(action = controllers.routes.FeedbackSurveyController.usingServiceContinue){
+  @uk.gov.hmrc.play.views.html.helpers.form(action = controllers.routes.FeedbackSurveyController.usingServiceContinue(origin)){
     <form>
       <div class="form-group">
         <fieldset class="margin-bottom">

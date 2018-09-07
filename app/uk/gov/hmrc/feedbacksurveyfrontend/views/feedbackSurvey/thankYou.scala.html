@@ -19,11 +19,11 @@
 @import uk.gov.hmrc.renderer.TemplateRenderer
 
 
-@(urLinkUrl: Option[String])(implicit request: Request[_], messages: play.api.i18n.Messages, templateRenderer: TemplateRenderer)
+@(urLinkUrl: Option[String], origin: String)(implicit request: Request[_], messages: play.api.i18n.Messages, templateRenderer: TemplateRenderer)
 
 @uk.gov.hmrc.feedbacksurveyfrontend.views.html.main_template(
   title = "feedbackSurvey.giveFeedBackPageTitle.page5.title",
-  backlinkUrl = controllers.routes.FeedbackSurveyController.recommendService.url
+  backlinkUrl = controllers.routes.FeedbackSurveyController.recommendService(origin).url
 ) {
   <h1 id="thankYou" class="heading-large">@Messages("feedbackSurvey.page5.title")</h1>
   @urLinkUrl.map { urLinkUrl =>

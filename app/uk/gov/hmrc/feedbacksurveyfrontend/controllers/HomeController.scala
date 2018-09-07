@@ -38,9 +38,8 @@ trait HomeController extends FrontendController  {
   def start(origin : Origin): Action[AnyContent] = Action {
     implicit request =>
       if(originService.isValid(Origin(origin.origin))) {
-        Redirect(routes.FeedbackSurveyController.ableToDo).withSession(request.session + (sessionOriginService -> origin.origin))
-      }
-      else {
+        Redirect(routes.FeedbackSurveyController.ableToDo(origin.origin))
+      } else {
         Ok(uk.gov.hmrc.feedbacksurveyfrontend.views.html.error_template("global_errors.title", "global_errors.heading", "global_errors.message"))
       }
   }

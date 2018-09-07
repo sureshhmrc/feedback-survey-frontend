@@ -41,22 +41,22 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
 
   def originService: OriginService
 
-  val ableToDo  = Action { implicit request =>
-    Ok(html.feedbackSurvey.ableToDo(formMappings.ableToDoForm))
+  def ableToDo(origin: String) = Action { implicit request =>
+    Ok(html.feedbackSurvey.ableToDo(formMappings.ableToDoForm, origin))
   }
 
-  val ableToDoContinue =  Action (parse.form(formMappings.ableToDoForm)) { implicit request =>
+  def ableToDoContinue(origin: String) =  Action (parse.form(formMappings.ableToDoForm)) { implicit request =>
         val ableToDoWhatNeeded = request.body.ableToDoWhatNeeded
-    audit("feedback-survey", Map("origin" -> getOriginFromSession.origin,
+    audit("feedback-survey", Map("origin" -> origin,
       "ableToDoWhatNeeded" -> ableToDoWhatNeeded.getOrElse("")), eventTypeSuccess)
-    Redirect(routes.FeedbackSurveyController.usingService)
+    Redirect(routes.FeedbackSurveyController.usingService(origin))
   }
 
-  val usingService =  Action { implicit request =>
-    Ok(html.feedbackSurvey.usingService(formMappings.usingServiceForm))
+  def usingService(origin: String) =  Action { implicit request =>
+    Ok(html.feedbackSurvey.usingService(formMappings.usingServiceForm, origin))
   }
 
-  val usingServiceContinue = Action (parse.form(formMappings.usingServiceForm)) { implicit request =>
+  def usingServiceContinue(origin: String) = Action (parse.form(formMappings.usingServiceForm)) { implicit request =>
     val beforeUsingThisService = request.body.beforeUsingThisService
     var option0, option1, option2, option3, option4, option5, option6: (String,String) = ("","")
     if (beforeUsingThisService.lift(0).isDefined) {option0 = beforeUsingThisService.lift(0).get -> "Checked"}
@@ -67,54 +67,48 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     if (beforeUsingThisService.lift(5).isDefined) {option5 = beforeUsingThisService.lift(5).get -> "Checked"}
     if (beforeUsingThisService.lift(6).isDefined) {option6 = beforeUsingThisService.lift(6).get -> "Checked"}
     audit("feedback-survey", Map(
-      "origin" -> getOriginFromSession.origin,
+      "origin" -> origin,
       option0, option1, option2, option3, option4, option5, option6
     ).filter((t) => t._1 != ""), eventTypeSuccess)
-    Redirect(routes.FeedbackSurveyController.aboutService)
+    Redirect(routes.FeedbackSurveyController.aboutService(origin))
   }
 
-  val aboutService = Action { implicit request =>
-    Ok(html.feedbackSurvey.aboutService(formMappings.aboutServiceForm))
+  def aboutService(origin: String) = Action { implicit request =>
+    Ok(html.feedbackSurvey.aboutService(formMappings.aboutServiceForm, origin))
   }
 
-  val aboutServiceContinue =  Action (parse.form(formMappings.aboutServiceForm)) { implicit request =>
+  def aboutServiceContinue(origin: String) =  Action (parse.form(formMappings.aboutServiceForm)) { implicit request =>
     val serviceReceived = request.body.serviceReceived
-    audit("feedback-survey", Map("origin" -> getOriginFromSession.origin,
+    audit("feedback-survey", Map("origin" -> origin,
       "serviceReceived" -> serviceReceived.getOrElse("")), eventTypeSuccess)
-    Redirect(routes.FeedbackSurveyController.recommendService)
+    Redirect(routes.FeedbackSurveyController.recommendService(origin))
   }
 
-  val recommendService = Action { implicit request =>
-    Ok(html.feedbackSurvey.recommendService(formMappings.recommendServiceForm))
+  def recommendService(origin: String) = Action { implicit request =>
+    Ok(html.feedbackSurvey.recommendService(formMappings.recommendServiceForm, origin))
   }
 
-  val recommendServiceContinue =  Action (parse.form(formMappings.recommendServiceForm)) { implicit request =>
+  def recommendServiceContinue(origin: String) =  Action (parse.form(formMappings.recommendServiceForm)) { implicit request =>
     val reasonForRating = request.body.reasonForRating
     val recommendRating = request.body.recommendRating
     audit("feedback-survey", Map(
-      "origin" -> getOriginFromSession.origin,
+      "origin" -> origin,
       "reasonForRating" -> reasonForRating.getOrElse(""),
       "recommendRating" -> recommendRating.getOrElse("")), eventTypeSuccess)
 
-    originService.customFeedbackUrl(getOriginFromSession(request)) match {
+    originService.customFeedbackUrl(Origin(origin)) match {
       case Some(x) => Redirect(x)
-      case None => Redirect(routes.FeedbackSurveyController.thankYou(getOriginFromSession))
+      case None => Redirect(routes.FeedbackSurveyController.thankYou(Origin(origin)))
     }
   }
 
   def thankYou(origin : Origin): Action[AnyContent] = Action {
     implicit request =>
       if(originService.isValid(Origin(origin.origin))) {
-        Ok(html.feedbackSurvey.thankYou(FrontendAppConfig.urLinkUrl))
+        Ok(html.feedbackSurvey.thankYou(FrontendAppConfig.urLinkUrl, origin.origin))
       } else {
         Ok(html.error_template("global_errors.title", "global_errors.heading", "global_errors.message"))
       }
   }
 
-  def getOriginFromSession(implicit request: Request[_]): Origin = {
-    request.session.get(sessionOriginService) match {
-      case Some(origin) => Origin(origin)
-      case _=> Origin.Default
-    }
-  }
 }
