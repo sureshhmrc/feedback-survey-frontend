@@ -25,7 +25,8 @@ class OriginServiceSpec extends UnitTestTraits {
   val originService = new OriginService {
     override lazy val originConfigItems = List(
       OriginConfigItem(Some("TOKEN1"), None, List.empty),
-      OriginConfigItem(Some("TOKEN2"), Some("http://example.com/custom-feedback-url"), List.empty)
+      OriginConfigItem(Some("TOKEN2"), Some("http://example.com/custom-feedback-url"), List.empty),
+      OriginConfigItem(Some("TOKEN3"), None, List( ("aboutServicePage","thankyouPage") ))
     )
   }
 
@@ -35,11 +36,12 @@ class OriginServiceSpec extends UnitTestTraits {
 
       originService.isValid(Origin("TOKEN1")) shouldBe true
       originService.isValid(Origin("TOKEN2")) shouldBe true
+      originService.isValid(Origin("TOKEN3")) shouldBe true
     }
 
     "fail with an invalid origin" in {
 
-      originService.isValid(Origin("TOKEN3")) shouldBe false
+      originService.isValid(Origin("TOKEN4")) shouldBe false
     }
   }
 
@@ -76,4 +78,12 @@ class OriginServiceSpec extends UnitTestTraits {
     }
   }
 
+  "skip items for service" should {
+    "return the right items for a given service which has skip items" in {
+      originService.skipItemsForService("TOKEN3") shouldBe List( ("aboutServicePage","thankyouPage") )
+    }
+    "return no items for a given service which has no skip items" in {
+      originService.skipItemsForService("TOKEN2") shouldBe List.empty
+    }
+  }
 }

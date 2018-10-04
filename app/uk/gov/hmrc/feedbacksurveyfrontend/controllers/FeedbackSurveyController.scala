@@ -70,7 +70,7 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     val ableToDoWhatNeeded = request.body.ableToDoWhatNeeded
     audit("feedback-survey", Map("origin" -> origin,
       "ableToDoWhatNeeded" -> ableToDoWhatNeeded.getOrElse("")), eventTypeSuccess)
-    redirectToPage(origin, nextPage(origin, ableToDoPage))
+    redirectToPage(origin, nextPage(originService.skipItemsForService(origin), ableToDoPage))
   }
 
   def usingService(origin: String): Action[AnyContent] = Action { implicit request => renderPageLoad(origin, usingServicePage) }
@@ -106,7 +106,7 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
       option0, option1, option2, option3, option4, option5, option6
     ).filter((t) => t._1 != ""), eventTypeSuccess)
 
-    redirectToPage(origin, nextPage(origin, usingServicePage))
+    redirectToPage(origin, nextPage(originService.skipItemsForService(origin), usingServicePage))
   }
 
   def aboutService(origin: String): Action[AnyContent] = Action { implicit request => renderPageLoad(origin, aboutServicePage) }
@@ -115,7 +115,7 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     val serviceReceived = request.body.serviceReceived
     audit("feedback-survey", Map("origin" -> origin,
       "serviceReceived" -> serviceReceived.getOrElse("")), eventTypeSuccess)
-    redirectToPage(origin, nextPage(origin, aboutServicePage))
+    redirectToPage(origin, nextPage(originService.skipItemsForService(origin), aboutServicePage))
   }
 
   def recommendService(origin: String): Action[AnyContent] = Action { implicit request => renderPageLoad(origin, recommendServicePage) }
@@ -127,7 +127,7 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
       "origin" -> origin,
       "reasonForRating" -> reasonForRating.getOrElse(""),
       "recommendRating" -> recommendRating.getOrElse("")), eventTypeSuccess)
-    redirectToPage(origin, nextPage(origin, recommendServicePage))
+    redirectToPage(origin, nextPage(originService.skipItemsForService(origin), recommendServicePage))
   }
 
   def thankYou(origin: Origin): Action[AnyContent] = Action {

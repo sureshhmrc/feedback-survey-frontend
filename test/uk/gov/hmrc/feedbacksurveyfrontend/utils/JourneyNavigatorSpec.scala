@@ -21,21 +21,25 @@ import utils.UnitTestTraits
 
 
 class JourneyNavigatorSpec extends UnitTestTraits {
+
+  private val journeySkipItems1 = List( ("aboutServicePage","thankyouPage"))
+  private val journeySkipItems2 = List.empty
+
   "The journey navigator" should {
     "return the correct next page for ableToDoPage" in {
-      JourneyNavigator.nextPage("", ableToDoPage) shouldBe usingServicePage
+      JourneyNavigator.nextPage(journeySkipItems2, ableToDoPage) shouldBe usingServicePage
     }
     "return the correct next page for usingServicePage" in {
-      JourneyNavigator.nextPage("", usingServicePage) shouldBe aboutServicePage
+      JourneyNavigator.nextPage(journeySkipItems2, usingServicePage) shouldBe aboutServicePage
     }
     "return the correct next page for aboutServicePage" in {
-      JourneyNavigator.nextPage("", aboutServicePage) shouldBe recommendServicePage
+      JourneyNavigator.nextPage(journeySkipItems2, aboutServicePage) shouldBe recommendServicePage
     }
-    "return the correct next page for aboutServicePage for PODS" in {
-      JourneyNavigator.nextPage("PODS", aboutServicePage) shouldBe thankyouPage
+    "return the correct next page when default page is skipped" in {
+      JourneyNavigator.nextPage(journeySkipItems1, aboutServicePage) shouldBe thankyouPage
     }
     "return the correct next page for recommendServicePage" in {
-      JourneyNavigator.nextPage("", recommendServicePage) shouldBe thankyouPage
+      JourneyNavigator.nextPage(journeySkipItems2, recommendServicePage) shouldBe thankyouPage
     }
   }
 }

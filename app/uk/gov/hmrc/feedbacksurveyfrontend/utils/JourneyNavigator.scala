@@ -23,14 +23,17 @@ object JourneyNavigator {
   val recommendServicePage = "recommendServicePage"
   val thankyouPage = "thankyouPage"
 
-  def nextPage(origin: String, page:String): String = {
-    (page, origin) match {
-      case (`ableToDoPage`, _) => usingServicePage
-      case (`usingServicePage`, _) => aboutServicePage
-      case (`aboutServicePage`, "PODS") => thankyouPage
-      case (`aboutServicePage`, _) => recommendServicePage
-      case (`recommendServicePage`, _) => thankyouPage
-      case _ => usingServicePage
+  def nextPage(skipItems: List[(String,String)], page:String): String = {
+    skipItems.find(_._1 == page) match {
+      case None =>
+        page match {
+          case `ableToDoPage` => usingServicePage
+          case `usingServicePage` => aboutServicePage
+          case `aboutServicePage` => recommendServicePage
+          case `recommendServicePage` => thankyouPage
+          case _ => usingServicePage
+        }
+      case Some(skipItem) => skipItem._2
     }
   }
 }

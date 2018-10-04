@@ -43,7 +43,13 @@ class OriginService {
         parseSkipItem(configItem.getString("skip")))
   }
 
+  def skipItemsForService(serviceToken:String): List[(String, String)] = {
+    originConfigItems.find(_.token.contains(serviceToken))
+      .map(_.skip).fold[List[(String, String)]](List.empty)(identity)
+  }
+
   def isValid(origin: Origin): Boolean = !originConfigItems.filter(o => o.token.equals(Some(origin.origin))).isEmpty
 
-  def customFeedbackUrl(origin: Origin): Option[String] = originConfigItems.filter(o => o.token.equals(Some(origin.origin))).headOption.flatMap(_.customFeedbackUrl)
+  def customFeedbackUrl(origin: Origin): Option[String] =
+    originConfigItems.filter(o => o.token.equals(Some(origin.origin))).headOption.flatMap(_.customFeedbackUrl)
 }
