@@ -27,7 +27,7 @@ import uk.gov.hmrc.play.binders.Origin
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 import uk.gov.hmrc.renderer.TemplateRenderer
 import utils.LoggingUtils
-
+import uk.gov.hmrc.feedbacksurveyfrontend.utils.JourneyNavigator._
 
 object FeedbackSurveyController extends FeedbackSurveyController {
   val originService = new OriginService
@@ -39,25 +39,6 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
   implicit val templateRenderer: TemplateRenderer = LocalTemplateRenderer
 
   def originService: OriginService
-
-  private val ableToDoPage = "ableToDoPage"
-  private val usingServicePage = "usingServicePage"
-  private val aboutServicePage = "aboutServicePage"
-  private val recommendServicePage = "recommendServicePage"
-  private val thankyouPage = "thankyouPage"
-
-  private val modePageLoad = "pageLoad"
-  private val modePageContinue = "pageContinue"
-
-  def nextPage(origin: String, page:String): String = {
-    page match {
-      case `ableToDoPage` => usingServicePage
-      case `usingServicePage` => aboutServicePage
-      case `aboutServicePage` => recommendServicePage
-      case `recommendServicePage` => thankyouPage
-      case _ => usingServicePage
-    }
-  }
 
   private def renderPageLoad(origin: String, pageId: String)(implicit request:Request[_]): Result = {
     pageId match {
@@ -134,9 +115,7 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     val serviceReceived = request.body.serviceReceived
     audit("feedback-survey", Map("origin" -> origin,
       "serviceReceived" -> serviceReceived.getOrElse("")), eventTypeSuccess)
-    ///feedback-survey/recommendService/PODS
     redirectToPage(origin, nextPage(origin, aboutServicePage))
-
   }
 
   def recommendService(origin: String): Action[AnyContent] = Action { implicit request => renderPageLoad(origin, recommendServicePage) }

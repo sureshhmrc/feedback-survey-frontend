@@ -41,7 +41,7 @@ class pageTests extends UnitTestTraits with HtmlUtils {
 
     val originService = new OriginService {
       override lazy val originConfigItems = List(
-        OriginConfigItem(Some("AWRS"), None)
+        OriginConfigItem(Some("AWRS"), None, List.empty)
       )
     }
   }

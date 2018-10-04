@@ -24,8 +24,8 @@ class OriginServiceSpec extends UnitTestTraits {
 
   val originService = new OriginService {
     override lazy val originConfigItems = List(
-      OriginConfigItem(Some("TOKEN1"), None),
-      OriginConfigItem(Some("TOKEN2"), Some("http://example.com/custom-feedback-url"))
+      OriginConfigItem(Some("TOKEN1"), None, List.empty),
+      OriginConfigItem(Some("TOKEN2"), Some("http://example.com/custom-feedback-url"), List.empty)
     )
   }
 
@@ -53,6 +53,26 @@ class OriginServiceSpec extends UnitTestTraits {
     "not return a custom feedback url if not present" in {
 
       originService.customFeedbackUrl(Origin("TOKEN1")) shouldBe None
+    }
+  }
+
+  "Parse skip item" should {
+    "return a valid list of skip items from 2 components" in {
+      val expectedResult = List(
+        ("one","two"),
+        ("three","four")
+      )
+      originService.parseSkipItem(Some("one->two,three->four")) shouldBe expectedResult
+    }
+
+    "return a valid list of skip items from None" in {
+      val expectedResult = List.empty
+      originService.parseSkipItem(None) shouldBe expectedResult
+    }
+
+    "return a valid list of skip items from a string with no items" in {
+      val expectedResult = List.empty
+      originService.parseSkipItem(Some("")) shouldBe expectedResult
     }
   }
 

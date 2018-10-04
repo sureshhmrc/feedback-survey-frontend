@@ -48,8 +48,8 @@ class FeedbackSurveyControllerSpec extends UnitTestTraits {
 
     val originService = new OriginService {
       override lazy val originConfigItems = List(
-        OriginConfigItem(Some("TOKEN1"), None),
-        OriginConfigItem(Some("TOKEN2"), Some("http://example.com/custom-feedback-url"))
+        OriginConfigItem(Some("TOKEN1"), None, List.empty),
+        OriginConfigItem(Some("TOKEN2"), Some("http://example.com/custom-feedback-url"), List.empty)
       )
     }
   }

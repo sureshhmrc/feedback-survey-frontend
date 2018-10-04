@@ -29,13 +29,13 @@ class HomeControllerTest extends UnitTestTraits {
 
   "ableToDo page GET" should {
 
-    def buildFakeHomeController = new HomeController{
+    def buildFakeHomeController: HomeController = new HomeController{
 
       override implicit val templateRenderer: TemplateRenderer = MockTemplateRenderer
 
-      val originService = new OriginService {
+      val originService: OriginService = new OriginService {
         override lazy val originConfigItems = List(
-          OriginConfigItem(Some("TOKEN1"), None)
+          OriginConfigItem(Some("TOKEN1"), None, List.empty)
         )
       }
     }
