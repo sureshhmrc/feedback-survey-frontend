@@ -49,7 +49,8 @@ object OriginService {
     skipConfigItem.fold[List[(String, String)]](List.empty) {
       case skipItem if skipItem.nonEmpty =>
         skipItem.split(",").map(_.trim)
-          .filterNot(s=>s.endsWith(delimiter) || s.startsWith(delimiter))
+            .filter(_.contains(delimiter))
+            .filterNot(s=>s.endsWith(delimiter) || s.startsWith(delimiter))
           .map { item =>
           val sourceAndDestination = item.split(delimiter)
           (sourceAndDestination(0).trim, sourceAndDestination(1).trim)

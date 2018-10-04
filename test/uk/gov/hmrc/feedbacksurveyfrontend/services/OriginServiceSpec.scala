@@ -102,6 +102,13 @@ class OriginServiceSpec extends UnitTestTraits {
       OriginService.parseSkipItem(Some("one->two,->")) shouldBe expectedResult
     }
 
+    "return a valid list of skip items from 2 components where one has no delimiter" in {
+      val expectedResult = List(
+        ("one","two")
+      )
+      OriginService.parseSkipItem(Some("one->two,bla")) shouldBe expectedResult
+    }
+
     "return a valid list of skip items from None" in {
       val expectedResult = List.empty
       OriginService.parseSkipItem(None) shouldBe expectedResult
