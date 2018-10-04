@@ -33,7 +33,7 @@ object JourneyNavigator {
           case `usingServicePage` => aboutServicePage
           case `aboutServicePage` => recommendServicePage
           case `recommendServicePage` => thankyouPage
-          case _ => usingServicePage
+          case _ => ableToDoPage
         }
       case Some(skipItem) => skipItem._2
     }

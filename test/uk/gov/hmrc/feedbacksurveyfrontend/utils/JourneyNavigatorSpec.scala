@@ -45,5 +45,8 @@ class JourneyNavigatorSpec extends UnitTestTraits {
     "return the correct next page for recommendServicePage" in {
       JourneyNavigator.nextPage(journeySkipItems2, recommendServicePage) shouldBe thankyouPage
     }
+    "return the first page for unrecognized page" in {
+      JourneyNavigator.nextPage(journeySkipItems2, "bla") shouldBe ableToDoPage
+    }
   }
 }
