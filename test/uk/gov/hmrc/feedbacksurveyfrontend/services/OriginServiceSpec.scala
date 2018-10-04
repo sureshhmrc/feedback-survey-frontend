@@ -64,17 +64,17 @@ class OriginServiceSpec extends UnitTestTraits {
         ("one","two"),
         ("three","four")
       )
-      originService.parseSkipItem(Some("one->two,three->four")) shouldBe expectedResult
+      OriginService.parseSkipItem(Some("one->two,three->four")) shouldBe expectedResult
     }
 
     "return a valid list of skip items from None" in {
       val expectedResult = List.empty
-      originService.parseSkipItem(None) shouldBe expectedResult
+      OriginService.parseSkipItem(None) shouldBe expectedResult
     }
 
     "return a valid list of skip items from a string with no items" in {
       val expectedResult = List.empty
-      originService.parseSkipItem(Some("")) shouldBe expectedResult
+      OriginService.parseSkipItem(Some("")) shouldBe expectedResult
     }
   }
 

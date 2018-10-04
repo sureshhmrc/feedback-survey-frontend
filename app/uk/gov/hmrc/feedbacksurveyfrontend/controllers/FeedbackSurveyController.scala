@@ -40,16 +40,6 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
 
   def originService: OriginService
 
-  private def renderPageLoad(origin: String, pageId: String)(implicit request:Request[_]): Result = {
-    pageId match {
-      case `ableToDoPage` => Ok(html.feedbackSurvey.ableToDo(formMappings.ableToDoForm, origin))
-      case `usingServicePage` => Ok(html.feedbackSurvey.usingService(formMappings.usingServiceForm, origin))
-      case `aboutServicePage` => Ok(html.feedbackSurvey.aboutService(formMappings.aboutServiceForm, origin))
-      case `recommendServicePage` => Ok(html.feedbackSurvey.recommendService(formMappings.recommendServiceForm, origin))
-      case _ => Redirect(routes.FeedbackSurveyController.thankYou(Origin(origin)))
-    }
-  }
-
   private def redirectToPage(origin: String, pageId: String)(implicit request:Request[_]): Result = {
     pageId match {
       case `usingServicePage` => Redirect(routes.FeedbackSurveyController.usingService(origin))
@@ -64,7 +54,9 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     }
   }
 
-  def ableToDo(origin: String): Action[AnyContent] = Action { implicit request => renderPageLoad(origin, ableToDoPage) }
+  def ableToDo(origin: String) = Action { implicit request =>
+    Ok(html.feedbackSurvey.ableToDo(formMappings.ableToDoForm, origin))
+  }
 
   def ableToDoContinue(origin: String): Action[AbleToDo] = Action(parse.form(formMappings.ableToDoForm)) { implicit request =>
     val ableToDoWhatNeeded = request.body.ableToDoWhatNeeded
@@ -73,7 +65,9 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     redirectToPage(origin, nextPage(originService.skipItemsForService(origin), ableToDoPage))
   }
 
-  def usingService(origin: String): Action[AnyContent] = Action { implicit request => renderPageLoad(origin, usingServicePage) }
+  def usingService(origin: String) =  Action { implicit request =>
+    Ok(html.feedbackSurvey.usingService(formMappings.usingServiceForm, origin))
+  }
 
   def usingServiceContinue(origin: String): Action[UsingService] = Action(parse.form(formMappings.usingServiceForm)) { implicit request =>
     val beforeUsingThisService = request.body.beforeUsingThisService
@@ -109,7 +103,9 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     redirectToPage(origin, nextPage(originService.skipItemsForService(origin), usingServicePage))
   }
 
-  def aboutService(origin: String): Action[AnyContent] = Action { implicit request => renderPageLoad(origin, aboutServicePage) }
+  def aboutService(origin: String) = Action { implicit request =>
+    Ok(html.feedbackSurvey.aboutService(formMappings.aboutServiceForm, origin))
+  }
 
   def aboutServiceContinue(origin: String): Action[AboutService] = Action(parse.form(formMappings.aboutServiceForm)) { implicit request =>
     val serviceReceived = request.body.serviceReceived
@@ -118,7 +114,9 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     redirectToPage(origin, nextPage(originService.skipItemsForService(origin), aboutServicePage))
   }
 
-  def recommendService(origin: String): Action[AnyContent] = Action { implicit request => renderPageLoad(origin, recommendServicePage) }
+  def recommendService(origin: String) = Action { implicit request =>
+    Ok(html.feedbackSurvey.recommendService(formMappings.recommendServiceForm, origin))
+  }
 
   def recommendServiceContinue(origin: String): Action[RecommendService] = Action(parse.form(formMappings.recommendServiceForm)) { implicit request =>
     val reasonForRating = request.body.reasonForRating

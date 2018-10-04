@@ -20,22 +20,11 @@ import play.api.Play.current
 import uk.gov.hmrc.play.binders.Origin
 
 import scala.collection.JavaConversions._
+import OriginService._
 
 case class OriginConfigItem(token: Option[String], customFeedbackUrl: Option[String], skip: List[(String, String)])
 
 class OriginService {
-
-  def parseSkipItem(skipConfigItem: Option[String]): List[(String, String)] = {
-    skipConfigItem.fold[List[(String, String)]](List.empty) {
-      case skipItem if skipItem.nonEmpty =>
-        skipItem.split(",").map { item =>
-          val sourceAndDestination = item.split("->")
-          (sourceAndDestination(0), sourceAndDestination(1))
-        }.toList
-      case _ => List.empty
-    }
-  }
-
   lazy val originConfigItems: List[OriginConfigItem] = current.configuration.getConfigList("origin-services").map(_.toList).getOrElse(Nil).map {
     configItem =>
       OriginConfigItem(configItem.getString("token"),
@@ -52,4 +41,17 @@ class OriginService {
 
   def customFeedbackUrl(origin: Origin): Option[String] =
     originConfigItems.filter(o => o.token.equals(Some(origin.origin))).headOption.flatMap(_.customFeedbackUrl)
+}
+
+object OriginService {
+  def parseSkipItem(skipConfigItem: Option[String]): List[(String, String)] = {
+    skipConfigItem.fold[List[(String, String)]](List.empty) {
+      case skipItem if skipItem.nonEmpty =>
+        skipItem.split(",").map { item =>
+          val sourceAndDestination = item.split("->")
+          (sourceAndDestination(0), sourceAndDestination(1))
+        }.toList
+      case _ => List.empty
+    }
+  }
 }
