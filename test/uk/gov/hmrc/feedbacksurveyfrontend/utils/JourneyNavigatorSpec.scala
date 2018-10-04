@@ -24,6 +24,7 @@ class JourneyNavigatorSpec extends UnitTestTraits {
 
   private val journeySkipItems1 = List( ("aboutServicePage","thankyouPage"))
   private val journeySkipItems2 = List.empty
+  private val journeySkipItems3 = List( ("aboutServicePage","bla"))
 
   "The journey navigator" should {
     "return the correct next page for ableToDoPage" in {
@@ -37,6 +38,9 @@ class JourneyNavigatorSpec extends UnitTestTraits {
     }
     "return the correct next page when default page is skipped" in {
       JourneyNavigator.nextPage(journeySkipItems1, aboutServicePage) shouldBe thankyouPage
+    }
+    "return the correct next page when default page is skipped but the skip destination is not recognized" in {
+      JourneyNavigator.nextPage(journeySkipItems3, aboutServicePage) shouldBe recommendServicePage
     }
     "return the correct next page for recommendServicePage" in {
       JourneyNavigator.nextPage(journeySkipItems2, recommendServicePage) shouldBe thankyouPage

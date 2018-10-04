@@ -23,8 +23,10 @@ object JourneyNavigator {
   val recommendServicePage = "recommendServicePage"
   val thankyouPage = "thankyouPage"
 
+  private val possibleDestinations = Set(ableToDoPage, usingServicePage, aboutServicePage, recommendServicePage, thankyouPage)
+
   def nextPage(skipItems: List[(String,String)], page:String): String = {
-    skipItems.find(_._1 == page) match {
+    skipItems.find( i => i._1 == page && possibleDestinations.contains(i._2)) match {
       case None =>
         page match {
           case `ableToDoPage` => usingServicePage
