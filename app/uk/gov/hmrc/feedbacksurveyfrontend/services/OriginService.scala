@@ -45,11 +45,14 @@ class OriginService {
 
 object OriginService {
   def parseSkipItem(skipConfigItem: Option[String]): List[(String, String)] = {
+    val delimiter = "->"
     skipConfigItem.fold[List[(String, String)]](List.empty) {
       case skipItem if skipItem.nonEmpty =>
-        skipItem.split(",").map { item =>
-          val sourceAndDestination = item.split("->")
-          (sourceAndDestination(0), sourceAndDestination(1))
+        skipItem.split(",").map(_.trim)
+          .filterNot(s=>s.endsWith(delimiter) || s.startsWith(delimiter))
+          .map { item =>
+          val sourceAndDestination = item.split(delimiter)
+          (sourceAndDestination(0).trim, sourceAndDestination(1).trim)
         }.toList
       case _ => List.empty
     }
