@@ -61,6 +61,11 @@ class FeedbackSurveyControllerSpec extends UnitTestTraits {
       status(await(result)) shouldBe OK
     }
 
+    "Go to the ableToDo page via proxy" in new SpecSetup {
+      val result = TestFeedbackSurveyController.ableToDoProxy("TOKEN1", "TEST")(testRequest(""))
+      status(await(result)) shouldBe OK
+    }
+
     "redirect to the usingService page" in new SpecSetup {
       val result = TestFeedbackSurveyController.ableToDoContinue("TOKEN1")(testRequest("")).run()
       status(result) shouldBe SEE_OTHER
@@ -96,7 +101,7 @@ class FeedbackSurveyControllerSpec extends UnitTestTraits {
       redirectLocation(result).get shouldBe "http://example.com/custom-feedback-url"
     }
 
-    "Go to the Thank you page " in new SpecSetup {
+    "Go to the Thank you page" in new SpecSetup {
       val result = TestFeedbackSurveyController.recommendService("TOKEN1")(testRequest("thankYou"))
       status(result) shouldBe OK
     }

@@ -26,7 +26,6 @@ import uk.gov.hmrc.feedbacksurveyfrontend.views.html
 import uk.gov.hmrc.play.binders.Origin
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 import uk.gov.hmrc.renderer.TemplateRenderer
-import utils.FeedbackSurveySessionKeys._
 import utils.LoggingUtils
 
 
@@ -41,22 +40,48 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
 
   def originService: OriginService
 
-  def ableToDo(origin: String) = Action { implicit request =>
-    Ok(html.feedbackSurvey.ableToDo(formMappings.ableToDoForm, origin))
+  def ableToDo(origin: String,
+               journeyName: Option[String]) = Action { implicit request =>
+    Ok(html.feedbackSurvey.ableToDo(formMappings.ableToDoForm, origin, journeyName))
   }
 
-  def ableToDoContinue(origin: String) =  Action (parse.form(formMappings.ableToDoForm)) { implicit request =>
-        val ableToDoWhatNeeded = request.body.ableToDoWhatNeeded
-    audit("feedback-survey", Map("origin" -> origin,
-      "ableToDoWhatNeeded" -> ableToDoWhatNeeded.getOrElse("")), eventTypeSuccess)
-    Redirect(routes.FeedbackSurveyController.usingService(origin))
+  def ableToDoProxy(origin: String, journeyName: String): Action[AnyContent] = {
+    ableToDo(origin, Some(journeyName))
   }
 
-  def usingService(origin: String) =  Action { implicit request =>
+  def ableToDoContinue(origin: String,
+                       journeyName: Option[String]): Action[AbleToDo] =
+    Action(parse.form(formMappings.ableToDoForm)) { implicit request =>
+      val ableToDoWhatNeeded = request.body.ableToDoWhatNeeded
+      journeyName match {
+        case Some(journeyName) =>
+          audit(transactionName = "feedback-survey",
+            detail = Map("origin" -> origin,
+              "journeyName" -> journeyName,
+              "ableToDoWhatNeeded" -> ableToDoWhatNeeded.getOrElse("")
+            ), eventType = eventTypeSuccess)
+        case _ =>
+          audit(transactionName = "feedback-survey",
+            detail = Map("origin" -> origin,
+              "ableToDoWhatNeeded" -> ableToDoWhatNeeded.getOrElse("")
+            ), eventType = eventTypeSuccess)
+      }
+      Redirect(routes.FeedbackSurveyController.usingService(origin))
+    }
+
+  def ableToDoContinueProxy(origin: String, journeyName: String): Action[AbleToDo] = {
+    ableToDoContinue(origin, Some(journeyName))
+  }
+
+  def usingService(origin: String, journeyName: Option[String] = None) = Action { implicit request =>
     Ok(html.feedbackSurvey.usingService(formMappings.usingServiceForm, origin))
   }
 
-  def usingServiceContinue(origin: String) = Action (parse.form(formMappings.usingServiceForm)) { implicit request =>
+  def usingServiceProxy(origin: String, journeyName: String): Action[AnyContent] = {
+    usingService(origin, Some(journeyName))
+  }
+
+  def usingServiceContinue(origin: String): Action[UsingService] = Action (parse.form(formMappings.usingServiceForm)) { implicit request =>
     val beforeUsingThisService = request.body.beforeUsingThisService
     var option0, option1, option2, option3, option4, option5, option6: (String,String) = ("","")
     if (beforeUsingThisService.lift(0).isDefined) {option0 = beforeUsingThisService.lift(0).get -> "Checked"}
@@ -66,10 +91,10 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     if (beforeUsingThisService.lift(4).isDefined) {option4 = beforeUsingThisService.lift(4).get -> "Checked"}
     if (beforeUsingThisService.lift(5).isDefined) {option5 = beforeUsingThisService.lift(5).get -> "Checked"}
     if (beforeUsingThisService.lift(6).isDefined) {option6 = beforeUsingThisService.lift(6).get -> "Checked"}
-    audit("feedback-survey", Map(
+    audit(transactionName = "feedback-survey", detail = Map(
       "origin" -> origin,
       option0, option1, option2, option3, option4, option5, option6
-    ).filter((t) => t._1 != ""), eventTypeSuccess)
+    ).filter((t) => t._1 != ""), eventType = eventTypeSuccess)
     Redirect(routes.FeedbackSurveyController.aboutService(origin))
   }
 
@@ -77,10 +102,10 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     Ok(html.feedbackSurvey.aboutService(formMappings.aboutServiceForm, origin))
   }
 
-  def aboutServiceContinue(origin: String) =  Action (parse.form(formMappings.aboutServiceForm)) { implicit request =>
+  def aboutServiceContinue(origin: String): Action[AboutService] = Action (parse.form(formMappings.aboutServiceForm)) { implicit request =>
     val serviceReceived = request.body.serviceReceived
-    audit("feedback-survey", Map("origin" -> origin,
-      "serviceReceived" -> serviceReceived.getOrElse("")), eventTypeSuccess)
+    audit(transactionName = "feedback-survey", detail = Map("origin" -> origin,
+      "serviceReceived" -> serviceReceived.getOrElse("")), eventType = eventTypeSuccess)
     Redirect(routes.FeedbackSurveyController.recommendService(origin))
   }
 
@@ -88,13 +113,13 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     Ok(html.feedbackSurvey.recommendService(formMappings.recommendServiceForm, origin))
   }
 
-  def recommendServiceContinue(origin: String) =  Action (parse.form(formMappings.recommendServiceForm)) { implicit request =>
+  def recommendServiceContinue(origin: String): Action[RecommendService] = Action (parse.form(formMappings.recommendServiceForm)) { implicit request =>
     val reasonForRating = request.body.reasonForRating
     val recommendRating = request.body.recommendRating
-    audit("feedback-survey", Map(
+    audit(transactionName = "feedback-survey", detail = Map(
       "origin" -> origin,
       "reasonForRating" -> reasonForRating.getOrElse(""),
-      "recommendRating" -> recommendRating.getOrElse("")), eventTypeSuccess)
+      "recommendRating" -> recommendRating.getOrElse("")), eventType = eventTypeSuccess)
 
     originService.customFeedbackUrl(Origin(origin)) match {
       case Some(x) => Redirect(x)

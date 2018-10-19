@@ -4,8 +4,14 @@ GET         /                  controllers.HomeController.start(origin: Origin)
 
 # Feedback Survey specific routes
 GET        /ableToDo/:origin                  controllers.FeedbackSurveyController.ableToDo(origin: String)
+GET        /ableToDo/:origin/:journeyName     controllers.FeedbackSurveyController.ableToDoProxy(origin: String, journeyName: String)
 POST       /ableToDo/:origin                  controllers.FeedbackSurveyController.ableToDoContinue(origin: String)
+POST       /ableToDo/:origin/:journeyName     controllers.FeedbackSurveyController.ableToDoContinueProxy(origin: String, journeyName: String)
+
 GET        /usingService/:origin              controllers.FeedbackSurveyController.usingService(origin: String)
+
+
+
 POST       /usingService/:origin              controllers.FeedbackSurveyController.usingServiceContinue(origin: String)
 GET        /aboutService/:origin              controllers.FeedbackSurveyController.aboutService(origin: String)
 POST       /aboutService/:origin              controllers.FeedbackSurveyController.aboutServiceContinue(origin: String)
