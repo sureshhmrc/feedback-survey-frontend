@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.feedbacksurveyfrontend.services
 
+import uk.gov.hmrc.feedbacksurveyfrontend.services
 import uk.gov.hmrc.play.binders.Origin
 import utils.UnitTestTraits
 
@@ -24,8 +25,9 @@ class OriginServiceSpec extends UnitTestTraits {
 
   val originService = new OriginService {
     override lazy val originConfigItems = List(
-      OriginConfigItem(Some("TOKEN1"), None),
-      OriginConfigItem(Some("TOKEN2"), Some("http://example.com/custom-feedback-url"))
+      OriginConfigItem(Some("TOKEN1"), None, None),
+      OriginConfigItem(Some("TOKEN2"), Some("http://example.com/custom-feedback-url"), None),
+      OriginConfigItem(Some("TOKEN3"), None, "BTA")
     )
   }
 
@@ -39,7 +41,7 @@ class OriginServiceSpec extends UnitTestTraits {
 
     "fail with an invalid origin" in {
 
-      originService.isValid(Origin("TOKEN3")) shouldBe false
+      originService.isValid(Origin("INVALIDORIGIN")) shouldBe false
     }
   }
 
@@ -56,4 +58,16 @@ class OriginServiceSpec extends UnitTestTraits {
     }
   }
 
+  "The taxAccount of an origin" should {
+
+    "return a tax account if present" in {
+
+      originService.taxAccount(Origin("TOKEN3")) shouldBe Some("BTA")
+    }
+
+    "not return a tax account if not present" in {
+
+      originService.taxAccount(Origin("TOKEN1")) shouldBe None
+    }
+  }
 }

@@ -35,7 +35,7 @@ class HomeControllerTest extends UnitTestTraits {
 
       val originService = new OriginService {
         override lazy val originConfigItems = List(
-          OriginConfigItem(Some("TOKEN1"), None)
+          OriginConfigItem(Some("TOKEN1"), None, None)
         )
       }
     }

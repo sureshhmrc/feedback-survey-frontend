@@ -21,15 +21,22 @@ import uk.gov.hmrc.play.binders.Origin
 
 import scala.collection.JavaConversions._
 
-case class OriginConfigItem(token: Option[String], customFeedbackUrl: Option[String])
+case class OriginConfigItem(token: Option[String], customFeedbackUrl: Option[String], taxAccount: Option[String])
 
 class OriginService {
 
-  lazy val originConfigItems: List[OriginConfigItem] = current.configuration.getConfigList("origin-services").map(_.toList).getOrElse(Nil).map { configItem =>
-    OriginConfigItem(configItem.getString("token"), configItem.getString("customFeedbackUrl"))
+  lazy val originConfigItems: List[OriginConfigItem] =
+    current.configuration.getConfigList("origin-services").map(_.toList).getOrElse(Nil).map { configItem =>
+    OriginConfigItem(configItem.getString("token"),
+      configItem.getString("customFeedbackUrl"),
+      configItem.getString("taxAccount"))
   }
 
   def isValid(origin: Origin): Boolean = !originConfigItems.filter(o => o.token.equals(Some(origin.origin))).isEmpty
 
-  def customFeedbackUrl(origin: Origin): Option[String] = originConfigItems.filter(o => o.token.equals(Some(origin.origin))).headOption.flatMap(_.customFeedbackUrl)
+  def customFeedbackUrl(origin: Origin): Option[String] =
+    originConfigItems.filter(o => o.token.equals(Some(origin.origin))).headOption.flatMap(_.customFeedbackUrl)
+
+  def taxAccount(origin: Origin): Option[String] =
+    originConfigItems.filter(o => o.token.equals(Some(origin.origin))).headOption.flatMap(_.taxAccount)
 }
