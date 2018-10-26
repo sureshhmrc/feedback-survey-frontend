@@ -41,6 +41,15 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
 
   def originService: OriginService
 
+  def mainService(origin: String) = Action { implicit request =>
+    Ok(html.feedbackSurvey.mainService(formMappings.mainServiceForm, origin))
+  }
+
+  def mainThing(origin: String) = Action { implicit request =>
+    Ok(html.feedbackSurvey.mainThing(formMappings.mainThingForm, origin))
+  }
+
+
   def ableToDo(origin: String) = Action { implicit request =>
     Ok(html.feedbackSurvey.ableToDo(formMappings.ableToDoForm, origin))
   }
@@ -110,5 +119,4 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
         Ok(html.error_template("global_errors.title", "global_errors.heading", "global_errors.message"))
       }
   }
-
 }

@@ -23,6 +23,19 @@ import play.api.libs.json.Json
 import play.api.Play.current
 import play.api.i18n.Messages.Implicits._
 
+
+case class MainService(MainService: Option[String])
+
+object MainService {
+  implicit val format = Json.format[MainService]
+}
+
+case class MainThing(MainThing: Option[String])
+
+object MainThing {
+  implicit val format = Json.format[MainThing]
+}
+
 case class AbleToDo(ableToDoWhatNeeded: Option[String])
 
 object AbleToDo {
@@ -50,6 +63,15 @@ object RecommendService {
 
 
 object formMappings {
+
+  val mainServiceForm = Form(mapping(
+    "mainService" -> optional(text))(MainService.apply)(MainService.unapply))
+
+  val mainThingForm = Form(mapping(
+    "mainThing" -> optional(text))(MainThing.apply)(MainThing.unapply))
+
+
+
 
   val ableToDoForm = Form(mapping(
     "ableToDoWhatNeeded" -> optional(text))(AbleToDo.apply)(AbleToDo.unapply))

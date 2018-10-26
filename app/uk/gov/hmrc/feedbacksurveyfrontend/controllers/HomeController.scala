@@ -30,15 +30,19 @@ object HomeController extends HomeController {
   val originService = new OriginService
 }
 
-trait HomeController extends FrontendController  {
+trait HomeController extends FrontendController {
 
   def originService: OriginService
+
   implicit val templateRenderer: TemplateRenderer = LocalTemplateRenderer
 
   def start(origin : Origin): Action[AnyContent] = Action {
     implicit request =>
       if(originService.isValid(Origin(origin.origin))) {
-        Redirect(routes.FeedbackSurveyController.ableToDo(origin.origin))
+        originService.taxAccount(origin) match {
+          case Some(taxAccount) => Redirect(routes.FeedbackSurveyController.mainService(origin.origin))
+          case _ => Redirect(routes.FeedbackSurveyController.mainThing(origin.origin))
+        }
       } else {
         Ok(uk.gov.hmrc.feedbacksurveyfrontend.views.html.error_template("global_errors.title", "global_errors.heading", "global_errors.message"))
       }

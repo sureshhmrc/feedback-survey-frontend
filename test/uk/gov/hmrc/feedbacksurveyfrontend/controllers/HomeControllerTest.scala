@@ -35,14 +35,15 @@ class HomeControllerTest extends UnitTestTraits {
 
       val originService = new OriginService {
         override lazy val originConfigItems = List(
-          OriginConfigItem(Some("TOKEN1"), None, None)
+          OriginConfigItem(Some("TOKEN1"), None, None),
+          OriginConfigItem(Some("TOKEN2"), None, "BTA")
         )
       }
     }
 
     "give a status of OK, return error page if origin token not found" in {
       val controllerUnderTest = buildFakeHomeController
-      val result = controllerUnderTest.start(Origin("TOKEN2")).apply(FakeRequest("GET", ""))
+      val result = controllerUnderTest.start(Origin("INVALIDORIGIN")).apply(FakeRequest("GET", ""))
       status(result) shouldBe OK
       contentAsString(result) should include("Service unavailable")
     }
@@ -53,10 +54,25 @@ class HomeControllerTest extends UnitTestTraits {
       status(result) shouldBe SEE_OTHER
     }
 
-    "redirect to FeedbackSurveyController.ableToDo when origin is valid" in {
+    "redirect to FeedbackSurveyController.mainService when origin is valid and origin is from BTA" in {
+      val controllerUnderTest = buildFakeHomeController
+      val result = controllerUnderTest.start(Origin("TOKEN2")).apply(FakeRequest("GET", ""))
+      redirectLocation(result) should contain("/feedback-survey/mainService/TOKEN2")
+    }
+
+    "redirect to FeedbackSurveyController.mainThing when origin is valid and origin is not from BTA" in {
       val controllerUnderTest = buildFakeHomeController
       val result = controllerUnderTest.start(Origin("TOKEN1")).apply(FakeRequest("GET", ""))
-      redirectLocation(result) should contain("/feedback-survey/ableToDo/TOKEN1")
+      redirectLocation(result) should contain("/feedback-survey/mainThing/TOKEN1")
     }
+
+
+
+
+//    "redirect to FeedbackSurveyController.ableToDo when origin is valid" in {
+//      val controllerUnderTest = buildFakeHomeController
+//      val result = controllerUnderTest.start(Origin("TOKEN1")).apply(FakeRequest("GET", ""))
+//      redirectLocation(result) should contain("/feedback-survey/ableToDo/TOKEN1")
+//    }
   }
 }
