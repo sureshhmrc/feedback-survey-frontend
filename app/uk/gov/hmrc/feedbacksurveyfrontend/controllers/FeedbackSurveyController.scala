@@ -45,19 +45,37 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     Ok(html.feedbackSurvey.mainService(formMappings.mainServiceForm, origin))
   }
 
+  def mainServiceContinue(origin: String): Action[MainService] = Action (parse.form(formMappings.mainServiceForm)) { implicit request =>
+    val whatWasTheMainService = request.body.mainService
+    val whatWasTheMainServiceOther = request.body.mainServiceOther
+    println(originService.originConfigItems)
+    whatWasTheMainServiceOther match {
+      case Some(other) => audit(transactionName = "feedback-survey", detail = Map("origin" -> origin,
+        "whatWasTheMainService" -> whatWasTheMainService.getOrElse(""),
+        "whatWasTheMainServiceOther" -> other), eventType = eventTypeSuccess)
+      case _ => audit(transactionName = "feedback-survey", detail = Map("origin" -> origin,
+        "whatWasTheMainService" -> whatWasTheMainService.getOrElse("")), eventType = eventTypeSuccess)
+    }
+    Redirect(routes.FeedbackSurveyController.ableToDo(origin))
+  }
+
   def mainThing(origin: String) = Action { implicit request =>
     Ok(html.feedbackSurvey.mainThing(formMappings.mainThingForm, origin))
   }
 
-
   def ableToDo(origin: String) = Action { implicit request =>
+    println(Origin(origin))
+    println(originService.isValid(Origin(origin)))
+    println(originService.customFeedbackUrl(Origin(origin)))
+    println(originService.taxAccount(Origin(origin)))
+    println(originService.originConfigItems)
     Ok(html.feedbackSurvey.ableToDo(formMappings.ableToDoForm, origin))
   }
 
-  def ableToDoContinue(origin: String) =  Action (parse.form(formMappings.ableToDoForm)) { implicit request =>
-        val ableToDoWhatNeeded = request.body.ableToDoWhatNeeded
-    audit("feedback-survey", Map("origin" -> origin,
-      "ableToDoWhatNeeded" -> ableToDoWhatNeeded.getOrElse("")), eventTypeSuccess)
+  def ableToDoContinue(origin: String): Action[AbleToDo] =  Action (parse.form(formMappings.ableToDoForm)) { implicit request =>
+    val ableToDoWhatNeeded = request.body.ableToDoWhatNeeded
+    audit(transactionName = "feedback-survey", detail = Map("origin" -> origin,
+      "ableToDoWhatNeeded" -> ableToDoWhatNeeded.getOrElse("")), eventType = eventTypeSuccess)
     Redirect(routes.FeedbackSurveyController.usingService(origin))
   }
 

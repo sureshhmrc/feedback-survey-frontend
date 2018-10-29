@@ -1,4 +1,4 @@
-
+gov.uk=GOV.UK
 
 # Generic Error Messages
 generic.yes=Yes
@@ -14,7 +14,20 @@ global_errors.heading=Service unavailable
 global_errors.title=Service unavailable
 
 # Feedback survey Specific
-feedbackSurvey.giveFeedBack=Give feedback
+mainService.what_was_the_main_service_you_used_today=What was the main service you used today?
+mainService.we_use_your_feedback_to_improve_our_services_=We use your feedback to improve our services. To better understand it, we may link your feedback to other information we hold about you, like gender and age.
+mainService.see_the_hmrc_privacy_notice_=See the <b><u>HMRC Privacy Notice</u></b> for details about how we collect, use, protect and secure your personal information.
+mainService.the_survey_takes_about_1_minute_to_complete_=The survey takes about 1 minute to complete. There are 4 questions and they are all optional.
+mainService.what_was_the_main_service_you_used_today=What was the main service you used today?
+mainService.self_assessment=Self assessment
+mainService.PAYE_for_employers=PAYE for employers
+mainService.vat=VAT
+mainService.corporation_tax=Corporation Tax
+mainService.construction_industry_scheme_cis=Construction Industry Scheme (CIS)
+mainService.ec_sales=EC Sales
+mainService.other_please_specify=Other. Please specify:
+
+give_feedback=Give feedback
 feedbackSurvey.giveFeedBackPageTitle.page1.question1=Were you able to do what you needed to do today?
 feedbackSurvey.giveFeedBackPageTitle.page2.question1=What did you try before using this service?
 feedbackSurvey.giveFeedBackPageTitle.page3.question1=Overall, how did you feel about the service you received today?
@@ -62,5 +75,3 @@ feedbackSurvey.page4.question2.labelhint=Do not include any personal or financia
 feedbackSurvey.page5.title=Thank you for your feedback
 feedbackSurvey.page5.para1=Please <a href="{0}">join the HM Revenue and Customs (HMRC) user panel</a>.
 feedbackSurvey.page5.para2=By taking part in user research you will help us improve our service.
-
-feedbackSurvey.gov.uk=GOV.UK

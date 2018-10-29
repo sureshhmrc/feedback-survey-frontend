@@ -18,4 +18,18 @@ $(document).ready(function() {
     }
   });
 
+  if ($("textarea[id='mainServiceOtherText']").val() == "") {
+    $("textarea[id='mainServiceOtherText']").addClass("visually-hidden")
+  }
+
+  $("input[id='mainServiceOther']").click(function() {
+    $("textarea[id='mainServiceOtherText']").removeClass("visually-hidden");
+  });
+
+  $("input[id^='mainService']:not([id='mainServiceOther'])").click(function() {
+    $("textarea[id='mainServiceOtherText']")
+    .addClass("visually-hidden")
+    .val("");
+  });
+
 });
