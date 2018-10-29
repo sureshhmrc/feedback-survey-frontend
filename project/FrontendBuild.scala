@@ -11,9 +11,9 @@ private object AppDependencies {
 
     val compile = Seq(
       ws,
-      "uk.gov.hmrc" %% "frontend-bootstrap" % "8.24.0",
+      "uk.gov.hmrc" %% "frontend-bootstrap" % "10.7.0",
       "uk.gov.hmrc" %% "play-partials" % "6.1.0",
-      "uk.gov.hmrc" %% "http-caching-client" % "7.1.0",
+      "uk.gov.hmrc" %% "http-caching-client" % "7.2.0",
       "uk.gov.hmrc" %% "play-language" % "3.4.0",
       "uk.gov.hmrc" %% "local-template-renderer" % "2.0.0",
       "uk.gov.hmrc" %% "play-ui" % "7.17.0"
@@ -27,7 +27,7 @@ private object AppDependencies {
     object Test {
       def apply() = new TestDependencies {
         override lazy val test = Seq(
-          "uk.gov.hmrc" %% "hmrctest" % "2.3.0" % scope,
+          "uk.gov.hmrc" %% "hmrctest" % "3.2.0" % scope,
           "org.scalatest" %% "scalatest" % "3.0.0" % scope,
           "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0" % scope,
           "org.pegdown" % "pegdown" % "1.6.0" % scope,
