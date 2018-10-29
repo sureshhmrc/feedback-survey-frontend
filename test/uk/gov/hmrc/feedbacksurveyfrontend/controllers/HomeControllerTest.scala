@@ -54,20 +54,17 @@ class HomeControllerTest extends UnitTestTraits {
       status(result) shouldBe SEE_OTHER
     }
 
-    "redirect to FeedbackSurveyController.mainService when origin is valid and origin is from BTA" in {
+    "redirect to mainService when origin is valid and origin is from BTA" in {
       val controllerUnderTest = buildFakeHomeController
       val result = controllerUnderTest.start(Origin("TOKEN2")).apply(FakeRequest("GET", ""))
       redirectLocation(result) should contain("/feedback-survey/mainService/TOKEN2")
     }
 
-    "redirect to FeedbackSurveyController.mainThing when origin is valid and origin is not from BTA" in {
+    "redirect to mainThing when origin is valid and origin is not from BTA" in {
       val controllerUnderTest = buildFakeHomeController
       val result = controllerUnderTest.start(Origin("TOKEN1")).apply(FakeRequest("GET", ""))
       redirectLocation(result) should contain("/feedback-survey/mainThing/TOKEN1")
     }
-
-
-
 
 //    "redirect to FeedbackSurveyController.ableToDo when origin is valid" in {
 //      val controllerUnderTest = buildFakeHomeController

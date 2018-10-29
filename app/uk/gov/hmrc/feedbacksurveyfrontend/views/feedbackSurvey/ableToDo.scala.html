@@ -20,33 +20,37 @@
 @import uk.gov.hmrc.play.views.html.helpers._
 
 
-@(page1: Form[models.feedbackSurveyModels.AbleToDo], origin: String)(implicit request: Request[_], messages: play.api.i18n.Messages, templateRenderer: TemplateRenderer)
+@(page1: Form[models.feedbackSurveyModels.AbleToDo],
+  origin: String,
+  backlinkUrl: String)(implicit request: Request[_], messages: play.api.i18n.Messages, templateRenderer: TemplateRenderer)
 
-@uk.gov.hmrc.feedbacksurveyfrontend.views.html.main_template(title = "feedbackSurvey.giveFeedBackPageTitle.page1.question1") {
-  <h1 class="heading-large">@Messages("feedbackSurvey.page1.question1")</h1>
-  <p id="intro">@Messages("feedbackSurvey.page1.para1")</p>
-  <p id="gdpr">@Messages("feedbackSurvey.page1.para2")</p>
-  @form(action = controllers.routes.FeedbackSurveyController.ableToDoContinue(origin)){
+@uk.gov.hmrc.feedbacksurveyfrontend.views.html.main_template(
+  title = "feedbackSurvey.giveFeedBackPageTitle.page1.question1",
+  backlinkUrl = backlinkUrl) {
+    <h1 class="heading-large">@messages("feedbackSurvey.page1.question1")</h1>
+    <p id="intro">@messages("feedbackSurvey.page1.para1")</p>
+    <p id="gdpr">@messages("feedbackSurvey.page1.para2")</p>
+    @form(action = controllers.routes.FeedbackSurveyController.ableToDoContinue(origin)){
     <form>
       <div class="form-group">
         <fieldset class="inline">
 
           <legend id="ableToDoWhatNeeded_legend" class="visually-hidden">
-            @Messages("feedbackSurvey.page1.question1")
+            @messages("feedbackSurvey.page1.question1")
           </legend>
 
           <div class="multiple-choice">
             <input id="ableToDoWhatNeeded-yes" type="radio" name="ableToDoWhatNeeded" value="Yes">
-            <label for="ableToDoWhatNeeded-yes">@Messages("generic.yes")</label>
+            <label for="ableToDoWhatNeeded-yes">@messages("generic.yes")</label>
           </div>
           <div class="multiple-choice">
             <input id="ableToDoWhatNeeded-no" type="radio" name="ableToDoWhatNeeded" value="No">
-            <label for="ableToDoWhatNeeded-no">@Messages("generic.no")</label>
+            <label for="ableToDoWhatNeeded-no">@messages("generic.no")</label>
           </div>
 
         </fieldset>
       </div>
-      <input id="save-and-continue" type="submit" class="button" value=@Messages("generic.continue") />
+      <input id="save-and-continue" type="submit" class="button" value=@messages("generic.continue")/>
     </form>
   }
 }

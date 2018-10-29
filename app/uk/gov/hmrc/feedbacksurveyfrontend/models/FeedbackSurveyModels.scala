@@ -24,7 +24,7 @@ import play.api.Play.current
 import play.api.i18n.Messages.Implicits._
 
 
-case class MainService(MainService: Option[String])
+case class MainService(mainService: Option[String], mainServiceOther: Option[String])
 
 object MainService {
   implicit val format = Json.format[MainService]
@@ -65,13 +65,12 @@ object RecommendService {
 object formMappings {
 
   val mainServiceForm = Form(mapping(
-    "mainService" -> optional(text))(MainService.apply)(MainService.unapply))
+    "mainService" -> optional(text),
+    "mainServiceOther" -> optional(text)
+  )(MainService.apply)(MainService.unapply))
 
   val mainThingForm = Form(mapping(
     "mainThing" -> optional(text))(MainThing.apply)(MainThing.unapply))
-
-
-
 
   val ableToDoForm = Form(mapping(
     "ableToDoWhatNeeded" -> optional(text))(AbleToDo.apply)(AbleToDo.unapply))
@@ -79,6 +78,7 @@ object formMappings {
   val usingServiceForm = Form(mapping(
     "beforeUsingThisService" -> list(text.verifying("required field", _.nonEmpty))
   )(UsingService.apply)(UsingService.unapply))
+
 
   val aboutServiceForm = Form(mapping(
     "serviceReceived" -> optional(text.verifying("required field", _.nonEmpty)))(AboutService.apply)(AboutService.unapply))
@@ -90,43 +90,6 @@ object formMappings {
   def validInputCharacters(field: String, regXValue: String) = {
     if (field.matches(regXValue)) true else false
   }
-
-}
-
-object formFields {
-
-  val page2Question1Options = Seq(
-    ("telephonedHMRC", "feedbackSurvey.page2.question1.option1", Some("checkboxgroup-clear-two checkboxgroup-one")),
-    ("wroteToHMRC", "feedbackSurvey.page2.question1.option2", Some("checkboxgroup-clear-two checkboxgroup-one")),
-    ("completedAnOnlineForm", "feedbackSurvey.page2.question1.option3", Some("checkboxgroup-clear-two checkboxgroup-one")),
-    ("readGuidanceOnGovUK","feedbackSurvey.page2.question1.option4", Some("checkboxgroup-clear-two checkboxgroup-one")),
-    ("spokeToYourEmployerAgentOrAccountant", "feedbackSurvey.page2.question1.option5", Some("checkboxgroup-clear-two checkboxgroup-one")),
-    ("spokeToAFriendOrFamilyMember", "feedbackSurvey.page2.question1.option6", Some("checkboxgroup-clear-two checkboxgroup-one")),
-    ("noneOfThese", "feedbackSurvey.page2.question1.option7", Some("checkboxgroup-clear-one checkboxgroup-two"))
-  )
-
-  val page3Question1Options = Seq(
-    "5" -> "feedbackSurvey.page3.question1.option1",
-    "4" -> "feedbackSurvey.page3.question1.option2",
-    "3" -> "feedbackSurvey.page3.question1.option3",
-    "2" -> "feedbackSurvey.page3.question1.option4",
-    "1" -> "feedbackSurvey.page3.question1.option5"
-  )
-
-  val page4Question1Options = Seq(
-    "10" -> "feedbackSurvey.page4.question1.option1",
-    "9" -> "feedbackSurvey.page4.question1.option2",
-    "8" -> "feedbackSurvey.page4.question1.option3",
-    "7" -> "feedbackSurvey.page4.question1.option4",
-    "6" -> "feedbackSurvey.page4.question1.option5",
-    "5" -> "feedbackSurvey.page4.question1.option6",
-    "4" -> "feedbackSurvey.page4.question1.option7",
-    "3" -> "feedbackSurvey.page4.question1.option8",
-    "2" -> "feedbackSurvey.page4.question1.option9",
-    "1" -> "feedbackSurvey.page4.question1.option10",
-    "0" -> "feedbackSurvey.page4.question1.option11"
-  )
-
 }
 
 object fieldValidationPatterns {

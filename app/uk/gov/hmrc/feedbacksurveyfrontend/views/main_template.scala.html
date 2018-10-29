@@ -60,10 +60,10 @@
 
   val arguments = TemplateArgumentsBuilder(
     Some(PageTitleComponent(Messages(title) +
-      " - " + Messages("feedbackSurvey.giveFeedBack") +
-      " - " + Messages("feedbackSurvey.gov.uk")
+      " - " + Messages("give_feedback") +
+      " - " + Messages("gov.uk")
     )),
-    Some(NavTitleComponent(Messages("feedbackSurvey.giveFeedBack"))),
+    Some(NavTitleComponent(Messages("give_feedback"))),
     Some(AccountMenuStyleComponent(
       langUrls = Some((
         controllers.routes.LanguageController.enGb(ContinueUrl(request.uri)).url,
