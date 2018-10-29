@@ -20,13 +20,12 @@ import models.feedbackSurveyModels._
 import play.api.Play
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
-import uk.gov.hmrc.feedbacksurveyfrontend.{FrontendAppConfig, LocalTemplateRenderer}
 import uk.gov.hmrc.feedbacksurveyfrontend.services.OriginService
 import uk.gov.hmrc.feedbacksurveyfrontend.views.html
+import uk.gov.hmrc.feedbacksurveyfrontend.{FrontendAppConfig, LocalTemplateRenderer}
 import uk.gov.hmrc.play.binders.Origin
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 import uk.gov.hmrc.renderer.TemplateRenderer
-import utils.FeedbackSurveySessionKeys._
 import utils.LoggingUtils
 
 
@@ -68,7 +67,22 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     println(originService.isValid(Origin(origin)))
     println(originService.customFeedbackUrl(Origin(origin)))
     println(originService.taxAccount(Origin(origin)))
+    println(originService.taxAccount(Origin(origin))== ("BTA"))
+    println(originService.taxAccount(Origin(origin)).contains("BTA"))
     println(originService.originConfigItems)
+
+    if(originService.taxAccount(Origin(origin)).contains("BTA")){
+      println(" IN IF")
+      println(" IN IF")
+      println(" IN IF")
+
+      Ok(html.feedbackSurvey.mainService(formMappings.mainServiceForm, origin))
+    } else{
+
+      println(" IN Else")
+      println(" IN ELSE")
+      Ok(html.feedbackSurvey.mainThing(formMappings.mainThingForm, origin))
+    }
     Ok(html.feedbackSurvey.ableToDo(formMappings.ableToDoForm, origin))
   }
 
