@@ -30,7 +30,7 @@ import uk.gov.hmrc.renderer.TemplateRenderer
 import utils.{HtmlUtils, UnitTestTraits}
 
 class pageTests extends UnitTestTraits with HtmlUtils {
-  val lookupFailure = Json.parse( input = """{"reason": "Generic test reason"}""")
+  val lookupFailure = Json.parse(input = """{"reason": "Generic test reason"}""")
 
   def testRequest(page: String): FakeRequest[AnyContentAsEmpty.type] =
     FakeRequest(GET, "/feedback-survey/" + s"$page")
@@ -143,37 +143,36 @@ class pageTests extends UnitTestTraits with HtmlUtils {
       document.getElementById("howEasyWasIt2").siblingElements().text should include("2")
       document.getElementById("howEasyWasIt1").siblingElements().text should include("1")
 
-
       document.getElementById("whyDidYouGiveThisScore").text should
         include(Messages("howEasyWasIt.why_did_you_give_this_score"))
       document.getElementById("whyDidYouGiveThisScoreLegend").text should
         include(Messages("howEasyWasIt.why_did_you_give_this_score"))
     }
 
-//    "render usingService page correctly" in {
-//      val document: Document = TestLookupController.usingService("VALID_ORIGIN")(testRequest(page = "usingService"))
-//      document.getElementById("beforeUsingThisService").text shouldBe Messages("feedbackSurvey.page2.question1")
-//    }
-//
-//    "render aboutService page correctly" in {
-//      val document: Document = TestLookupController.aboutService("VALID_ORIGIN")(testRequest(page = "aboutService"))
-//      document.getElementById("serviceReceived").text shouldBe Messages("feedbackSurvey.page3.question1")
-//    }
-//
-//    "render recommendService page correctly" in {
-//      val document: Document = TestLookupController.recommendService("VALID_ORIGIN")(testRequest(page = "recommendService"))
-//      document.getElementById("reasonForRatingHeader").text shouldBe Messages("feedbackSurvey.page4.question2")
-//    }
-//
-//    "render thankYou page correctly with valid origin" in {
-//      val document: Document = TestLookupController.thankYou(Origin("VALID_ORIGIN")).apply(testRequest(page = "thankYou"))
-//      document.getElementById("thankYou").text shouldBe Messages("feedbackSurvey.page5.title")
-//    }
-//
-//    "render error page correctly with invalid origin" in {
-//      val document: Document = TestLookupController.thankYou(Origin("INVALID_ORIGIN")).apply(testRequest(page = "thankYou"))
-//      document.body.getElementsByClass("heading-large").text should include("Service unavailable")
-//    }
+    //    "render usingService page correctly" in {
+    //      val document: Document = TestLookupController.usingService("VALID_ORIGIN")(testRequest(page = "usingService"))
+    //      document.getElementById("beforeUsingThisService").text shouldBe Messages("feedbackSurvey.page2.question1")
+    //    }
+    //
+    //    "render aboutService page correctly" in {
+    //      val document: Document = TestLookupController.aboutService("VALID_ORIGIN")(testRequest(page = "aboutService"))
+    //      document.getElementById("serviceReceived").text shouldBe Messages("feedbackSurvey.page3.question1")
+    //    }
+    //
+    //    "render recommendService page correctly" in {
+    //      val document: Document = TestLookupController.recommendService("VALID_ORIGIN")(testRequest(page = "recommendService"))
+    //      document.getElementById("reasonForRatingHeader").text shouldBe Messages("feedbackSurvey.page4.question2")
+    //    }
+    //
+    //    "render thankYou page correctly with valid origin" in {
+    //      val document: Document = TestLookupController.thankYou(Origin("VALID_ORIGIN")).apply(testRequest(page = "thankYou"))
+    //      document.getElementById("thankYou").text shouldBe Messages("feedbackSurvey.page5.title")
+    //    }
+    //
+    //    "render error page correctly with invalid origin" in {
+    //      val document: Document = TestLookupController.thankYou(Origin("INVALID_ORIGIN")).apply(testRequest(page = "thankYou"))
+    //      document.body.getElementsByClass("heading-large").text should include("Service unavailable")
+    //    }
 
   }
 }

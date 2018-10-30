@@ -20,57 +20,57 @@
 @import uk.gov.hmrc.renderer.TemplateRenderer
 
 
-@(page3: Form[models.feedbackSurveyModels.HowEasyWasIt],
+@(howEasywasIt: Form[models.feedbackSurveyModels.HowEasyWasIt],
   origin: String)(
-    implicit request: Request[_],
+  implicit request: Request[_],
     messages: play.api.i18n.Messages,
     templateRenderer: TemplateRenderer)
 
 @uk.gov.hmrc.feedbacksurveyfrontend.views.html.main_template(
   title = "howEasyWasIt.how_easy_was_it_for_you_to_",
   backlinkUrl = controllers.routes.FeedbackSurveyController.ableToDo(origin).url
-) {
-  <h1 id="howEasywasIt" class="heading-large">
-    @messages("howEasyWasIt.how_easy_was_it_for_you_to_")
-  </h1>
+  ) {
+    <h1 id="howEasywasIt" class="heading-large">
+      @messages("howEasyWasIt.how_easy_was_it_for_you_to_")
+    </h1>
 
-  @uk.gov.hmrc.play.views.html.helpers.form(action = controllers.routes.FeedbackSurveyController.aboutServiceContinue(origin)){
-    <form>
-      <div class="form-group">
-        <fieldset>
+    @uk.gov.hmrc.play.views.html.helpers.form(action = controllers.routes.FeedbackSurveyController.aboutServiceContinue(origin)){
+      <form>
+        <div class="form-group">
+          <fieldset>
 
-          <legend class="visually-hidden" id="howEasyWasItLegend">
-            @messages("howEasyWasIt.how_easy_was_it_for_you_to_")
-          </legend>
+            <legend class="visually-hidden" id="howEasyWasItLegend">
+              @messages("howEasyWasIt.how_easy_was_it_for_you_to_")
+            </legend>
 
 
-          <div class="equal-space">
-            <p class="left">@Html(messages("howEasyWasIt.very_easy"))</p>
-            <p class="right">@Html(messages("howEasyWasIt.very_difficult"))</p>
-          </div>
-
-          <div class="equal-space">
-
-            <div class="item">
-              <div class="multiple-choice">
-                <input id="howEasyWasIt5" type="radio" name="howEasyWasIt" value="5">
-                <label for="howEasyWasIt5">5</label>
-              </div>
+            <div class="equal-space">
+              <p class="left">@Html(messages("howEasyWasIt.very_easy"))</p>
+              <p class="right">@Html(messages("howEasyWasIt.very_difficult"))</p>
             </div>
 
-            <div class="item">
-              <div class="multiple-choice">
-                <input id="howEasyWasIt4" type="radio" name="howEasyWasIt" value="4">
-                <label for="howEasyWasIt4">4</label>
-              </div>
-            </div>
+            <div class="equal-space">
 
-            <div class="item">
-              <div class="multiple-choice">
-                <input id="howEasyWasIt3" type="radio" name="howEasyWasIt" value="3">
-                <label for="howEasyWasIt3">3</label>
+              <div class="item">
+                <div class="multiple-choice">
+                  <input id="howEasyWasIt5" type="radio" name="howEasyWasIt" value="5">
+                  <label for="howEasyWasIt5">5</label>
+                </div>
               </div>
-            </div>
+
+              <div class="item">
+                <div class="multiple-choice">
+                  <input id="howEasyWasIt4" type="radio" name="howEasyWasIt" value="4">
+                  <label for="howEasyWasIt4">4</label>
+                </div>
+              </div>
+
+              <div class="item">
+                <div class="multiple-choice">
+                  <input id="howEasyWasIt3" type="radio" name="howEasyWasIt" value="3">
+                  <label for="howEasyWasIt3">3</label>
+                </div>
+              </div>
 
               <div class="item">
                 <div class="multiple-choice">
@@ -79,30 +79,30 @@
                 </div>
               </div>
 
-            <div class="item">
-              <div class="multiple-choice">
-                <input id="howEasyWasIt1" type="radio" name="howEasyWasIt" value="1">
-                <label for="howEasyWasIt1">1</label>
+              <div class="item">
+                <div class="multiple-choice">
+                  <input id="howEasyWasIt1" type="radio" name="howEasyWasIt" value="1">
+                  <label for="howEasyWasIt1">1</label>
+                </div>
               </div>
-            </div>
 
-        </fieldset>
+          </fieldset>
 
-        <fieldset>
-          <h2 id="whyDidYouGiveThisScore" class="heading-large">
-            @Messages("howEasyWasIt.why_did_you_give_this_score")
-          </h2>
+          <fieldset>
+            <h2 id="whyDidYouGiveThisScore" class="heading-large">
+              @Messages("howEasyWasIt.why_did_you_give_this_score")
+            </h2>
 
-          <legend class="visually-hidden" id="whyDidYouGiveThisScoreLegend" >
-            @Messages("howEasyWasIt.why_did_you_give_this_score")
-          </legend>
+            <legend class="visually-hidden" id="whyDidYouGiveThisScoreLegend">
+              @Messages("howEasyWasIt.why_did_you_give_this_score")
+            </legend>
 
-          <textarea class="form-control form-control-3-4 feedback-box" name="whyDidYouGiveThisScore" id="textarea" rows="6" maxlength="1000"></textarea>
-        </fieldset>
+            <textarea class="form-control form-control-3-4 feedback-box" name="whyDidYouGiveThisScore" id="textarea" rows="6"
+                      maxlength="1000"></textarea>
+          </fieldset>
 
-      </div>
-      <input id="saveAndContinue" type="submit" class="button" role="button" value=@messages("generic.continue") />
-    </form>
-
-  }
+        </div>
+        <input id="saveAndContinue" type="submit" class="button" role="button" value="@{messages("generic.continue")}" />
+      </form>
+    }
 }
