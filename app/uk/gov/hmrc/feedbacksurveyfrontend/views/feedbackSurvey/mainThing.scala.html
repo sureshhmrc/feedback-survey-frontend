@@ -20,9 +20,25 @@
 @import uk.gov.hmrc.play.views.html.helpers._
 
 
-@(page1: Form[models.feedbackSurveyModels.MainThing],
-  origin: String)(implicit request: Request[_],
-  messages: play.api.i18n.Messages,
-  templateRenderer: TemplateRenderer)
+@(mainThing: Form[models.feedbackSurveyModels.MainService],
+origin: String)(implicit request: Request[_],
+messages: play.api.i18n.Messages,
+templateRenderer: TemplateRenderer)
+
+@uk.gov.hmrc.feedbacksurveyfrontend.views.html.main_template(
+title = "mainService.what_was_the_main_service_you_used_today"
+) {
+
+<p id="introduction">
+ @Messages("mainService.we_use_your_feedback_to_improve_our_services_")
+</p>
+
+<p id="privacyPolicy">
+ @Html(Messages("mainService.see_the_hmrc_privacy_notice_"))
+</p>
+
+<p id="information">
+ @Messages("mainService.the_survey_takes_about_1_minute_to_complete_")
+</p>
 
 <h1 class="heading-large">mainThing</h1>
