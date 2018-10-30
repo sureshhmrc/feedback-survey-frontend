@@ -84,16 +84,6 @@ class pageTests extends UnitTestTraits with HtmlUtils {
 
     "render mainThing page correctly" in {
       val document: Document = TestLookupController.mainThing("VALID_ORIGIN")(testRequest(page = "mainThing"))
-
-      println(document.title())
-      println(document.title())
-      println(document.title())
-      println(document.title())
-      println(document.title())
-      println(document.title())
-      println(document.title())
-      println(document.title())
-      println(document.title())
       document.title shouldBe
         s"${Messages("mainThing.what_was_the_main_thing_you_needed_to_do_today_for_example_change_your_address")} - ${Messages("give_feedback")} - ${Messages("gov_uk")}"
 
