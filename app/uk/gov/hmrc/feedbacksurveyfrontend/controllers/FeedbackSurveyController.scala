@@ -48,11 +48,15 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     val whatWasTheMainService = request.body.mainService
     val whatWasTheMainServiceOther = request.body.mainServiceOther
     whatWasTheMainServiceOther match {
-      case Some(other) => audit(transactionName = "feedback-survey", detail = Map("origin" -> origin,
-        "whatWasTheMainService" -> whatWasTheMainService.getOrElse(""),
-        "whatWasTheMainServiceOther" -> other), eventType = eventTypeSuccess)
-      case _ => audit(transactionName = "feedback-survey", detail = Map("origin" -> origin,
-        "whatWasTheMainService" -> whatWasTheMainService.getOrElse("")), eventType = eventTypeSuccess)
+      case Some(other) => audit(transactionName = "feedback-survey",
+        detail = Map("origin" -> origin,
+          "whatWasTheMainService" -> whatWasTheMainService.getOrElse(""),
+          "whatWasTheMainServiceOther" -> other),
+        eventType = eventTypeSuccess)
+      case None => audit(transactionName = "feedback-survey",
+        detail = Map("origin" -> origin,
+          "whatWasTheMainService" -> whatWasTheMainService.getOrElse("")),
+        eventType = eventTypeSuccess)
     }
     Redirect(routes.FeedbackSurveyController.ableToDo(origin))
   }
@@ -70,19 +74,26 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
   def ableToDo(origin: String) = Action { implicit request =>
     val backlinkUrl = originService.taxAccount(Origin(origin)) match {
       case Some("BTA") => routes.FeedbackSurveyController.mainService(origin).url
-      case _ => routes.FeedbackSurveyController.mainThing(origin).url
+      case None => routes.FeedbackSurveyController.mainThing(origin).url
       }
     Ok(html.feedbackSurvey.ableToDo(formMappings.ableToDoForm, origin, backlinkUrl))
   }
 
-  def ableToDoContinue(origin: String): Action[AbleToDo] =  Action (parse.form(formMappings.ableToDoForm)) { implicit request =>
+  def ableToDoContinue(origin: String): Action[AbleToDo] = Action (parse.form(formMappings.ableToDoForm)) { implicit request =>
     val ableToDoWhatNeeded = request.body.ableToDoWhatNeeded
-    audit(transactionName = "feedback-survey", detail = Map("origin" -> origin,
-      "ableToDoWhatNeeded" -> ableToDoWhatNeeded.getOrElse("")), eventType = eventTypeSuccess)
-    Redirect(routes.FeedbackSurveyController.usingService(origin))
+    audit(transactionName = "feedback-survey",
+      detail = Map("origin" -> origin,
+        "ableToDoWhatNeeded" -> ableToDoWhatNeeded.getOrElse("")),
+      eventType = eventTypeSuccess)
+    Redirect(routes.FeedbackSurveyController.howEasyWasIt(origin))
   }
 
-  def usingService(origin: String) =  Action { implicit request =>
+
+  def howEasyWasIt(origin: String) = Action { implicit request =>
+    Ok(html.feedbackSurvey.howEasyWasIt(formMappings.howEasyWasItForm, origin))
+  }
+
+  def usingService(origin: String) = Action { implicit request =>
     Ok(html.feedbackSurvey.usingService(formMappings.usingServiceForm, origin))
   }
 
@@ -107,7 +118,8 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     Ok(html.feedbackSurvey.aboutService(formMappings.aboutServiceForm, origin))
   }
 
-  def aboutServiceContinue(origin: String) =  Action (parse.form(formMappings.aboutServiceForm)) { implicit request =>
+  def aboutServiceContinue(origin: String) =
+    Action (parse.form(formMappings.aboutServiceForm)) { implicit request =>
     val serviceReceived = request.body.serviceReceived
     audit("feedback-survey", Map("origin" -> origin,
       "serviceReceived" -> serviceReceived.getOrElse("")), eventTypeSuccess)
@@ -118,7 +130,8 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     Ok(html.feedbackSurvey.recommendService(formMappings.recommendServiceForm, origin))
   }
 
-  def recommendServiceContinue(origin: String) =  Action (parse.form(formMappings.recommendServiceForm)) { implicit request =>
+  def recommendServiceContinue(origin: String) =
+    Action (parse.form(formMappings.recommendServiceForm)) { implicit request =>
     val reasonForRating = request.body.reasonForRating
     val recommendRating = request.body.recommendRating
     audit("feedback-survey", Map(

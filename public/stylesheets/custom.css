@@ -6,3 +6,32 @@ textarea {
 .locked {
   resize: none;
 }
+
+.equal-space {
+  text-align: justify;
+}
+
+.equal-space:after {
+	content: '';
+	display: inline-block;
+	width: 100%;
+}
+
+.equal-space .item {
+  display: inline-block;
+}
+
+.equal-space .left,
+.equal-space .right,
+.equal-space span {
+  padding: 0;
+  margin: 0;
+}
+
+.equal-space .left {
+  float:left;
+}
+
+.equal-space .right {
+  float:right;
+}

@@ -19,15 +19,16 @@ package uk.gov.hmrc.feedbacksurveyfrontend.controllers
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
 import controllers.FeedbackSurveyController
-import play.api.mvc.AnyContentAsEmpty
+import play.api.mvc.{AnyContentAsEmpty, Result}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.feedbacksurveyfrontend.services.{OriginConfigItem, OriginService}
 import uk.gov.hmrc.feedbacksurveyfrontend.utils.MockTemplateRenderer
-import uk.gov.hmrc.play.binders.Origin
 import uk.gov.hmrc.renderer.TemplateRenderer
 import utils.FeedbackSurveySessionKeys._
 import utils.UnitTestTraits
+
+import scala.concurrent.Future
 
 
 class FeedbackSurveyControllerSpec extends UnitTestTraits {
@@ -58,24 +59,25 @@ class FeedbackSurveyControllerSpec extends UnitTestTraits {
   "FeedbackSurveyController" should {
 
     "Go to the mainService page when an origin is from BTA" in new SpecSetup {
-      val result = TestFeedbackSurveyController.mainService("TOKEN3")(testRequest(""))
+      val result: Future[Result] = TestFeedbackSurveyController.mainService(origin = "TOKEN3")(testRequest(page = ""))
       status(await(result)) shouldBe OK
     }
 
     "Go to the mainThing page when an origin is not from BTA" in new SpecSetup {
-      val result = TestFeedbackSurveyController.mainThing("TOKEN1")(testRequest(""))
+      val result = TestFeedbackSurveyController.mainThing(origin = "TOKEN1")(testRequest(page =""))
       status(await(result)) shouldBe OK
     }
 
+    "Go to the ableToDo page" in new SpecSetup {
+      val result = TestFeedbackSurveyController.ableToDo("TOKEN1")(testRequest(""))
+      status(await(result)) shouldBe OK
+    }
 
+    "Go to the howEasyWasIt page" in new SpecSetup {
+      val result = TestFeedbackSurveyController.howEasyWasIt("TOKEN1")(testRequest(""))
+      status(await(result)) shouldBe OK
+    }
 
-
-
-//    "Go to the ableToDo page" in new SpecSetup {
-//      val result = TestFeedbackSurveyController.ableToDo("TOKEN1")(testRequest(""))
-//      status(await(result)) shouldBe OK
-//    }
-//
 //    "redirect to the usingService page" in new SpecSetup {
 //      val result = TestFeedbackSurveyController.ableToDoContinue("TOKEN1")(testRequest("")).run()
 //      status(result) shouldBe SEE_OTHER
@@ -104,13 +106,13 @@ class FeedbackSurveyControllerSpec extends UnitTestTraits {
 //      redirectLocation(result).get should include("/feedback-survey/thankYou?origin=TOKEN1")
 //    }
 //
-//    "redirect to the custom feedback url when this origin has one" in new SpecSetup {
-//      override val origin = "TOKEN2"
-//      val result = TestFeedbackSurveyController.recommendServiceContinue(origin)(testRequest("")).run()
-//      status(result) shouldBe SEE_OTHER
-//      redirectLocation(result).get shouldBe "http://example.com/custom-feedback-url"
-//    }
-//
+    "redirect to the custom feedback url when this origin has one" in new SpecSetup {
+      override val origin = "TOKEN2"
+      val result = TestFeedbackSurveyController.recommendServiceContinue(origin)(testRequest("")).run()
+      status(result) shouldBe SEE_OTHER
+      redirectLocation(result).get shouldBe "http://example.com/custom-feedback-url"
+    }
+
 //    "Go to the Thank you page " in new SpecSetup {
 //      val result = TestFeedbackSurveyController.recommendService("TOKEN1")(testRequest("thankYou"))
 //      status(result) shouldBe OK

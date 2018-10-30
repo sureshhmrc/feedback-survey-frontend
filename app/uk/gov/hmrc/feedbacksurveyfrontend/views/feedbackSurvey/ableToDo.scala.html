@@ -22,35 +22,41 @@
 
 @(page1: Form[models.feedbackSurveyModels.AbleToDo],
   origin: String,
-  backlinkUrl: String)(implicit request: Request[_], messages: play.api.i18n.Messages, templateRenderer: TemplateRenderer)
+  backlinkUrl: String)(
+    implicit request: Request[_],
+    messages: play.api.i18n.Messages,
+    templateRenderer: TemplateRenderer)
 
 @uk.gov.hmrc.feedbacksurveyfrontend.views.html.main_template(
-  title = "feedbackSurvey.giveFeedBackPageTitle.page1.question1",
+  title = "ableToDo.were_you_able_to_do_what_you_needed_to_do_today",
   backlinkUrl = backlinkUrl) {
-    <h1 class="heading-large">@messages("feedbackSurvey.page1.question1")</h1>
-    <p id="intro">@messages("feedbackSurvey.page1.para1")</p>
-    <p id="gdpr">@messages("feedbackSurvey.page1.para2")</p>
+
+    <h1 class="heading-large" id="ableToDoWhatNeeded">
+      @messages("ableToDo.were_you_able_to_do_what_you_needed_to_do_today")
+    </h1>
+
     @form(action = controllers.routes.FeedbackSurveyController.ableToDoContinue(origin)){
-    <form>
-      <div class="form-group">
-        <fieldset class="inline">
+      <form>
+        <div class="form-group">
+          <fieldset class="inline">
 
-          <legend id="ableToDoWhatNeeded_legend" class="visually-hidden">
-            @messages("feedbackSurvey.page1.question1")
-          </legend>
+            <legend id="ableToDoWhatNeededLegend" class="visually-hidden">
+              @messages("ableToDo.were_you_able_to_do_what_you_needed_to_do_today")
+            </legend>
 
-          <div class="multiple-choice">
-            <input id="ableToDoWhatNeeded-yes" type="radio" name="ableToDoWhatNeeded" value="Yes">
-            <label for="ableToDoWhatNeeded-yes">@messages("generic.yes")</label>
-          </div>
-          <div class="multiple-choice">
-            <input id="ableToDoWhatNeeded-no" type="radio" name="ableToDoWhatNeeded" value="No">
-            <label for="ableToDoWhatNeeded-no">@messages("generic.no")</label>
-          </div>
+            <div class="multiple-choice">
+              <input id="ableToDoWhatNeededYes" type="radio" name="ableToDoWhatNeeded" value="Yes">
+              <label for="ableToDoWhatNeededYes">@messages("generic.yes")</label>
+            </div>
 
-        </fieldset>
-      </div>
-      <input id="save-and-continue" type="submit" class="button" value=@messages("generic.continue")>
-    </form>
-  }
+            <div class="multiple-choice">
+              <input id="ableToDoWhatNeededNo" type="radio" name="ableToDoWhatNeeded" value="No">
+              <label for="ableToDoWhatNeededNo">@messages("generic.no")</label>
+            </div>
+
+          </fieldset>
+        </div>
+        <input id="saveAndContinue" type="submit" class="button" value="@{messages("generic.continue")}" />
+      </form>
+    }
 }

@@ -27,7 +27,7 @@ import utils.UnitTestTraits
 
 class HomeControllerTest extends UnitTestTraits {
 
-  "ableToDo page GET" should {
+  "HomeController start" should {
 
     def buildFakeHomeController = new HomeController{
 
@@ -65,11 +65,5 @@ class HomeControllerTest extends UnitTestTraits {
       val result = controllerUnderTest.start(Origin("TOKEN1")).apply(FakeRequest("GET", ""))
       redirectLocation(result) should contain("/feedback-survey/mainThing/TOKEN1")
     }
-
-//    "redirect to FeedbackSurveyController.ableToDo when origin is valid" in {
-//      val controllerUnderTest = buildFakeHomeController
-//      val result = controllerUnderTest.start(Origin("TOKEN1")).apply(FakeRequest("GET", ""))
-//      redirectLocation(result) should contain("/feedback-survey/ableToDo/TOKEN1")
-//    }
   }
 }
