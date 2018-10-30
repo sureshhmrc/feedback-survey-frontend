@@ -61,6 +61,12 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     Ok(html.feedbackSurvey.mainThing(formMappings.mainThingForm, origin))
   }
 
+  def mainThingContinue(origin: String): Action[MainThing] = Action (parse.form(formMappings.mainThingForm)) { implicit request =>
+    audit("feedback-survey", Map("origin" -> origin,
+      "mainThing" -> request.body.mainThing.getOrElse("")), eventTypeSuccess)
+    Redirect(routes.FeedbackSurveyController.ableToDo(origin))
+  }
+
   def ableToDo(origin: String) = Action { implicit request =>
     val backlinkUrl = originService.taxAccount(Origin(origin)) match {
       case Some("BTA") => routes.FeedbackSurveyController.mainService(origin).url

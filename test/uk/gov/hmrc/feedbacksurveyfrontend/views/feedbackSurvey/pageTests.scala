@@ -23,12 +23,10 @@ import play.api.libs.json.Json
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.twirl.api.Html
 import uk.gov.hmrc.feedbacksurveyfrontend.services.{OriginConfigItem, OriginService}
-import utils.{HtmlUtils, UnitTestTraits}
 import uk.gov.hmrc.feedbacksurveyfrontend.utils.MockTemplateRenderer
-import uk.gov.hmrc.play.binders.Origin
 import uk.gov.hmrc.renderer.TemplateRenderer
+import utils.{HtmlUtils, UnitTestTraits}
 
 class pageTests extends UnitTestTraits with HtmlUtils {
   val lookupFailure = Json.parse( """{"reason": "Generic test reason"}""")
@@ -82,6 +80,24 @@ class pageTests extends UnitTestTraits with HtmlUtils {
         include(Messages("mainService.other_please_specify"))
     }
 
+    "render mainThing page correctly" in {
+      val document: Document = TestLookupController.mainThing("VALID_ORIGIN")(testRequest(page = "mainThing"))
+
+      document.title shouldBe
+        s"${Messages("mainThing.what_was_the_main_thing_you_needed_to_do_today_for_example_change_your_address")} - ${Messages("give_feedback")} - ${Messages("gov.uk")}"
+
+      document.getElementById("introduction").text shouldBe
+        Messages("mainService.we_use_your_feedback_to_improve_our_services_")
+      document.getElementById("privacyPolicy").html() shouldBe
+        Messages("mainService.see_the_hmrc_privacy_notice_")
+      document.getElementById("information").text shouldBe
+        Messages("mainService.the_survey_takes_about_1_minute_to_complete_")
+      document.getElementById("mainThing").text shouldBe
+        Messages("mainThing.what_was_the_main_thing_you_needed_to_do_today_for_example_change_your_address")
+
+      document.getElementById("mainThingLegend").text should
+        include(Messages("mainThing.what_was_the_main_thing_you_needed_to_do_today_for_example_change_your_address"))
+    }
 //TODO
 //    "render ableToDo page correctly" in {
 //      val document: Document = TestLookupController.ableToDo("VALID_ORIGIN")(testRequest(page = "ableToDo"))

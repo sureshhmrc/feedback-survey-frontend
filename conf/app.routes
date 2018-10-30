@@ -6,7 +6,7 @@ GET         /                  controllers.HomeController.start(origin: Origin)
 GET        /mainService/:origin                controllers.FeedbackSurveyController.mainService(origin: String)
 POST       /mainService/:origin                controllers.FeedbackSurveyController.mainServiceContinue(origin: String)
 GET        /mainThing/:origin                  controllers.FeedbackSurveyController.mainThing(origin: String)
-
+POST       /mainThing/:origin                  controllers.FeedbackSurveyController.mainThingContinue(origin: String)
 
 
 GET        /ableToDo/:origin                  controllers.FeedbackSurveyController.ableToDo(origin: String)

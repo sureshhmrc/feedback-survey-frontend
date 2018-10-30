@@ -18,10 +18,7 @@ package models.feedbackSurveyModels
 
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.i18n.Messages
 import play.api.libs.json.Json
-import play.api.Play.current
-import play.api.i18n.Messages.Implicits._
 
 
 case class MainService(mainService: Option[String], mainServiceOther: Option[String])
@@ -30,7 +27,7 @@ object MainService {
   implicit val format = Json.format[MainService]
 }
 
-case class MainThing(MainThing: Option[String])
+case class MainThing(mainThing: Option[String])
 
 object MainThing {
   implicit val format = Json.format[MainThing]
@@ -60,7 +57,6 @@ case class RecommendService(recommendRating: Option[String],
 object RecommendService {
   implicit val format = Json.format[RecommendService]
 }
-
 
 object formMappings {
 
