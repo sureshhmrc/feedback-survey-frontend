@@ -19,18 +19,19 @@ package uk.gov.hmrc.feedbacksurveyfrontend.controllers
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
 import controllers.FeedbackSurveyController
-import play.api.mvc.AnyContentAsEmpty
+import play.api.mvc.{AnyContentAsEmpty, Result}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.feedbacksurveyfrontend.services.{OriginConfigItem, OriginService}
 import uk.gov.hmrc.feedbacksurveyfrontend.utils.MockTemplateRenderer
-import uk.gov.hmrc.play.binders.Origin
 import uk.gov.hmrc.renderer.TemplateRenderer
 import utils.FeedbackSurveySessionKeys._
-import utils.UnitTestTraits
+import utils.{LoggingUtils, UnitTestTraits}
+
+import scala.concurrent.Future
 
 
-class FeedbackSurveyControllerSpec extends UnitTestTraits {
+class FeedbackSurveyControllerSpec extends UnitTestTraits with LoggingUtils {
 
   trait SpecSetup {
 
@@ -58,12 +59,12 @@ class FeedbackSurveyControllerSpec extends UnitTestTraits {
   "FeedbackSurveyController" should {
 
     "Go to the mainService page when an origin is from BTA" in new SpecSetup {
-      val result = TestFeedbackSurveyController.mainService("TOKEN3")(testRequest(""))
+      val result: Future[Result] = TestFeedbackSurveyController.mainService(origin = "TOKEN3")(testRequest(page = ""))
       status(await(result)) shouldBe OK
     }
 
     "Go to the mainThing page when an origin is not from BTA" in new SpecSetup {
-      val result = TestFeedbackSurveyController.mainThing("TOKEN1")(testRequest(""))
+      val result = TestFeedbackSurveyController.mainThing(origin = "TOKEN1")(testRequest(page =""))
       status(await(result)) shouldBe OK
     }
 

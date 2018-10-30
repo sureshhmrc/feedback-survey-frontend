@@ -18,31 +18,33 @@
 @import views.html.helpers._
 @import models.feedbackSurveyModels._
 @import uk.gov.hmrc.renderer.TemplateRenderer
+@import uk.gov.hmrc.feedbacksurveyfrontend.FrontendAppConfig
 
 
 @(mainService: Form[models.feedbackSurveyModels.MainService],
-  origin: String)(implicit request: Request[_],
-  messages: play.api.i18n.Messages,
-  templateRenderer: TemplateRenderer)
+  origin: String)(
+    implicit request: Request[_],
+    messages: play.api.i18n.Messages,
+    templateRenderer: TemplateRenderer)
 
 @uk.gov.hmrc.feedbacksurveyfrontend.views.html.main_template(
   title = "mainService.what_was_the_main_service_you_used_today"
 ) {
 
-  <p id="introduction">
-    @Messages("mainService.we_use_your_feedback_to_improve_our_services_")
+  <p id="introduction" class="full_width">
+    @messages("mainService.we_use_your_feedback_to_improve_our_services_")
   </p>
 
-  <p id="privacyPolicy">
-    @Html(Messages("mainService.see_the_hmrc_privacy_notice_"))
+  <p id="privacyPolicy" class="full_width">
+    @Html(Messages("mainService.see_the_hmrc_privacy_notice_", FrontendAppConfig.hmrcPrivacyNoticeUrl))
   </p>
 
-  <p id="information">
-    @Messages("mainService.the_survey_takes_about_1_minute_to_complete_")
+  <p id="information" class="full_width">
+    @messages("mainService.the_survey_takes_about_1_minute_to_complete_")
   </p>
 
   <h1 id="mainService" class="heading-large">
-    @Messages("mainService.what_was_the_main_service_you_used_today")
+    @messages("mainService.what_was_the_main_service_you_used_today")
   </h1>
 
   @uk.gov.hmrc.play.views.html.helpers.form(action = controllers.routes.FeedbackSurveyController.mainServiceContinue(origin)){
@@ -51,49 +53,49 @@
         <fieldset>
 
           <legend class="visually-hidden" id="mainServiceLegend">
-            @Messages("mainService.what_was_the_main_service_you_used_today")
+            @messages("mainService.what_was_the_main_service_you_used_today")
           </legend>
 
           <div class="multiple-choice">
             <input id="mainServiceSelfAssessment" type="radio" name="mainService" value="SelfAssessment">
-            <label for="mainServiceSelfAssessment">@Messages("mainService.self_assessment")</label>
+            <label for="mainServiceSelfAssessment">@messages("mainService.self_assessment")</label>
           </div>
 
           <div class="multiple-choice">
             <input id="mainServicePayeForEmployers" type="radio" name="mainService" value="PayeForEmployers">
-            <label for="mainServicePayeForEmployers">@Messages("mainService.PAYE_for_employers")</label>
+            <label for="mainServicePayeForEmployers">@messages("mainService.PAYE_for_employers")</label>
           </div>
 
           <div class="multiple-choice">
             <input id="mainServiceVat" type="radio" name="mainService" value="VAT">
-            <label for="mainServiceVat">@Messages("mainService.vat")</label>
+            <label for="mainServiceVat">@messages("mainService.vat")</label>
           </div>
 
           <div class="multiple-choice">
             <input id="mainServiceCorporationTax" type="radio" name="mainService" value="CorporationTax">
-            <label for="mainServiceCorporationTax">@Messages("mainService.corporation_tax")</label>
+            <label for="mainServiceCorporationTax">@messages("mainService.corporation_tax")</label>
           </div>
 
           <div class="multiple-choice">
             <input id="mainServiceCIS" type="radio" name="mainService" value="ConstructionIndustryScheme">
-            <label for="mainServiceCIS">@Messages("mainService.construction_industry_scheme_cis")</label>
+            <label for="mainServiceCIS">@messages("mainService.construction_industry_scheme_cis")</label>
           </div>
 
           <div class="multiple-choice">
             <input id="mainServiceEcSales" type="radio" name="mainService" value="EcSales">
-            <label for="mainServiceEcSales">@Messages("mainService.ec_sales")</label>
+            <label for="mainServiceEcSales">@messages("mainService.ec_sales")</label>
           </div>
 
           <div class="multiple-choice">
             <input id="mainServiceOther" type="radio" name="mainService" value="Other">
-            <label for="mainServiceOther">@Messages("mainService.other_please_specify")</label>
+            <label for="mainServiceOther">@messages("mainService.other_please_specify")</label>
             <textarea id="mainServiceOtherText" class="form-control form-control-3-4 feedback-box locked" name="mainServiceOther" id="textarea" rows="1" maxlength="100"></textarea>
           </div>
 
         </fieldset>
       </div>
 
-      <input id="save-and-continue" type="submit" class="button" role="button" value=@Messages("generic.continue") />
+      <input id="saveAndContinue" type="submit" class="button" role="button" value="@{messages("generic.continue")}" />
     </form>
   }
 }

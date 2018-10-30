@@ -23,15 +23,14 @@ import play.api.libs.json.Json
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.twirl.api.Html
+import uk.gov.hmrc.feedbacksurveyfrontend.FrontendAppConfig
 import uk.gov.hmrc.feedbacksurveyfrontend.services.{OriginConfigItem, OriginService}
-import utils.{HtmlUtils, UnitTestTraits}
 import uk.gov.hmrc.feedbacksurveyfrontend.utils.MockTemplateRenderer
-import uk.gov.hmrc.play.binders.Origin
 import uk.gov.hmrc.renderer.TemplateRenderer
+import utils.{HtmlUtils, UnitTestTraits}
 
 class pageTests extends UnitTestTraits with HtmlUtils {
-  val lookupFailure = Json.parse( """{"reason": "Generic test reason"}""")
+  val lookupFailure = Json.parse( input = """{"reason": "Generic test reason"}""")
 
   def testRequest(page: String): FakeRequest[AnyContentAsEmpty.type] =
     FakeRequest(GET, "/feedback-survey/" + s"$page")
@@ -50,15 +49,16 @@ class pageTests extends UnitTestTraits with HtmlUtils {
   "FeedbackSurvey Controller" should {
 
     "render mainService page correctly" in {
-      val document: Document = TestLookupController.mainService("VALID_ORIGIN")(testRequest(page = "mainService"))
+
+      val document: Document = TestLookupController.mainService(origin = "VALID_ORIGIN")(testRequest(page = "mainService"))
 
       document.title shouldBe
-        s"${Messages("mainService.what_was_the_main_service_you_used_today")} - ${Messages("give_feedback")} - ${Messages("gov.uk")}"
+        s"${Messages("mainService.what_was_the_main_service_you_used_today")} - ${Messages("give_feedback")} - ${Messages("gov_uk")}"
 
       document.getElementById("introduction").text shouldBe
         Messages("mainService.we_use_your_feedback_to_improve_our_services_")
       document.getElementById("privacyPolicy").html() shouldBe
-        Messages("mainService.see_the_hmrc_privacy_notice_")
+        Messages("mainService.see_the_hmrc_privacy_notice_", FrontendAppConfig.hmrcPrivacyNoticeUrl)
       document.getElementById("information").text shouldBe
         Messages("mainService.the_survey_takes_about_1_minute_to_complete_")
       document.getElementById("mainService").text shouldBe
@@ -82,16 +82,23 @@ class pageTests extends UnitTestTraits with HtmlUtils {
         include(Messages("mainService.other_please_specify"))
     }
 
-//TODO
-//    "render ableToDo page correctly" in {
-//      val document: Document = TestLookupController.ableToDo("VALID_ORIGIN")(testRequest(page = "ableToDo"))
-//      document.getElementById("intro").text shouldBe Messages("feedbackSurvey.page1.para1")
-//      document.getElementById("gdpr").text shouldBe Messages("feedbackSurvey.page1.para2")
-//      document.getElementById("ableToDoWhatNeeded_legend").text should include(Messages("feedbackSurvey.page1.question1"))
-//      document.getElementById("ableToDoWhatNeeded-yes").text shouldBe ""
-//      document.getElementById("ableToDoWhatNeeded-no").text shouldBe ""
-//    }
-//
+    "render ableToDo page correctly" in {
+
+      val document: Document = TestLookupController.ableToDo("VALID_ORIGIN")(testRequest(page = "ableToDo"))
+
+      document.title shouldBe
+        s"${Messages("ableToDo.Were_you_able_to_do_what_you_needed_to_do_today")} - ${Messages("give_feedback")} - ${Messages("gov_uk")}"
+
+      document.getElementById("ableToDoWhatNeededLegend").text should
+        include(Messages("ableToDo.Were_you_able_to_do_what_you_needed_to_do_today"))
+      document.getElementById("ableToDoWhatNeededYes").siblingElements().text should
+        include(Messages("generic.yes"))
+      document.getElementById("ableToDoWhatNeededYes").text shouldBe ""
+      document.getElementById("ableToDoWhatNeededNo").siblingElements().text should
+        include(Messages("generic.no"))
+      document.getElementById("ableToDoWhatNeededNo").text shouldBe ""
+    }
+
 //    "render usingService page correctly" in {
 //      val document: Document = TestLookupController.usingService("VALID_ORIGIN")(testRequest(page = "usingService"))
 //      document.getElementById("beforeUsingThisService").text shouldBe Messages("feedbackSurvey.page2.question1")

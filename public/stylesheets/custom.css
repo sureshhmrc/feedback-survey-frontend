@@ -6,3 +6,10 @@ textarea {
 .locked {
   resize: none;
 }
+
+//TODO full width?
+/*
+.content_body {
+  width: 100%;
+}
+*/
