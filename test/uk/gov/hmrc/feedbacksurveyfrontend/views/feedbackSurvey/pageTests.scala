@@ -87,16 +87,40 @@ class pageTests extends UnitTestTraits with HtmlUtils {
       val document: Document = TestLookupController.ableToDo("VALID_ORIGIN")(testRequest(page = "ableToDo"))
 
       document.title shouldBe
-        s"${Messages("ableToDo.Were_you_able_to_do_what_you_needed_to_do_today")} - ${Messages("give_feedback")} - ${Messages("gov_uk")}"
+        s"${Messages("ableToDo.were_you_able_to_do_what_you_needed_to_do_today")} - ${Messages("give_feedback")} - ${Messages("gov_uk")}"
 
+      document.getElementById("ableToDoWhatNeeded").text should
+        include(Messages("ableToDo.were_you_able_to_do_what_you_needed_to_do_today"))
       document.getElementById("ableToDoWhatNeededLegend").text should
-        include(Messages("ableToDo.Were_you_able_to_do_what_you_needed_to_do_today"))
-      document.getElementById("ableToDoWhatNeededYes").siblingElements().text should
-        include(Messages("generic.yes"))
+        include(Messages("ableToDo.were_you_able_to_do_what_you_needed_to_do_today"))
+      document.getElementById("ableToDoWhatNeededYes").siblingElements().text should include(Messages("generic.yes"))
       document.getElementById("ableToDoWhatNeededYes").text shouldBe ""
-      document.getElementById("ableToDoWhatNeededNo").siblingElements().text should
-        include(Messages("generic.no"))
+      document.getElementById("ableToDoWhatNeededNo").siblingElements().text should include(Messages("generic.no"))
       document.getElementById("ableToDoWhatNeededNo").text shouldBe ""
+    }
+
+    "render howEasyWasIt page correctly" in {
+
+      val document: Document = TestLookupController.howEasyWasIt("VALID_ORIGIN")(testRequest(page = "howEasyWasIt"))
+
+      document.title shouldBe
+        s"${Messages("howEasyWasIt.how_easy_was_it_for_you_to_")} - ${Messages("give_feedback")} - ${Messages("gov_uk")}"
+
+      document.getElementById("howEasywasIt").text should
+        include(Messages("howEasyWasIt.how_easy_was_it_for_you_to_"))
+      document.getElementById("howEasyWasItLegend").text should
+        include(Messages("howEasyWasIt.how_easy_was_it_for_you_to_"))
+      document.getElementById("howEasyWasIt5").siblingElements().text should include("5")
+      document.getElementById("howEasyWasIt4").siblingElements().text should include("4")
+      document.getElementById("howEasyWasIt3").siblingElements().text should include("3")
+      document.getElementById("howEasyWasIt2").siblingElements().text should include("2")
+      document.getElementById("howEasyWasIt1").siblingElements().text should include("1")
+
+
+      document.getElementById("whyDidYouGiveThisScore").text should
+        include(Messages("howEasyWasIt.why_did_you_give_this_score"))
+      document.getElementById("whyDidYouGiveThisScoreLegend").text should
+        include(Messages("howEasyWasIt.why_did_you_give_this_score"))
     }
 
 //    "render usingService page correctly" in {

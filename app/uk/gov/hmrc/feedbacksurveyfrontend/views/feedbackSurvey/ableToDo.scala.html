@@ -28,11 +28,11 @@
     templateRenderer: TemplateRenderer)
 
 @uk.gov.hmrc.feedbacksurveyfrontend.views.html.main_template(
-  title = "ableToDo.Were_you_able_to_do_what_you_needed_to_do_today",
+  title = "ableToDo.were_you_able_to_do_what_you_needed_to_do_today",
   backlinkUrl = backlinkUrl) {
 
-    <h1 class="heading-large">
-      @messages("ableToDo.Were_you_able_to_do_what_you_needed_to_do_today")
+    <h1 class="heading-large" id="ableToDoWhatNeeded">
+      @messages("ableToDo.were_you_able_to_do_what_you_needed_to_do_today")
     </h1>
 
     @form(action = controllers.routes.FeedbackSurveyController.ableToDoContinue(origin)){
@@ -41,7 +41,7 @@
           <fieldset class="inline">
 
             <legend id="ableToDoWhatNeededLegend" class="visually-hidden">
-              @messages("ableToDo.Were_you_able_to_do_what_you_needed_to_do_today")
+              @messages("ableToDo.were_you_able_to_do_what_you_needed_to_do_today")
             </legend>
 
             <div class="multiple-choice">
