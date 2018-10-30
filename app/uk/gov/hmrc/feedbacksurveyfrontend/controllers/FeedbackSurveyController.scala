@@ -20,13 +20,12 @@ import models.feedbackSurveyModels._
 import play.api.Play
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
-import uk.gov.hmrc.feedbacksurveyfrontend.{FrontendAppConfig, LocalTemplateRenderer}
 import uk.gov.hmrc.feedbacksurveyfrontend.services.OriginService
 import uk.gov.hmrc.feedbacksurveyfrontend.views.html
+import uk.gov.hmrc.feedbacksurveyfrontend.{FrontendAppConfig, LocalTemplateRenderer}
 import uk.gov.hmrc.play.binders.Origin
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 import uk.gov.hmrc.renderer.TemplateRenderer
-import utils.FeedbackSurveySessionKeys._
 import utils.LoggingUtils
 
 
