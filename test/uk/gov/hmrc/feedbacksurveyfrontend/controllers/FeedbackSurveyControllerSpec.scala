@@ -78,43 +78,22 @@ class FeedbackSurveyControllerSpec extends UnitTestTraits {
       status(await(result)) shouldBe OK
     }
 
-//    "redirect to the usingService page" in new SpecSetup {
-//      val result = TestFeedbackSurveyController.ableToDoContinue("TOKEN1")(testRequest("")).run()
-//      status(result) shouldBe SEE_OTHER
-//      redirectLocation(result).get should include("/feedback-survey/usingService")
-//    }
-//
-//    "Go to the usingService page" in new SpecSetup {
-//      val result = TestFeedbackSurveyController.usingService("TOKEN1")(testRequest("usingService"))
-//      status(result) shouldBe OK
-//    }
-//
-//    "redirect to the aboutService page" in new SpecSetup {
-//      val result = TestFeedbackSurveyController.usingServiceContinue("TOKEN1")(testRequest("")).run()
-//      status(result) shouldBe SEE_OTHER
-//      redirectLocation(result).get should include("/feedback-survey/aboutService")
-//    }
-//
-//    "Go to the recommendService page" in new SpecSetup {
-//      val result = TestFeedbackSurveyController.recommendService("TOKEN1")(testRequest("recommendService"))
-//      status(result) shouldBe OK
-//    }
-//
+//    //TODO - Custom Feedback URL
 //    "redirect to the Thank you page when this origin does not have a custom feedback url" in new SpecSetup {
-//      val result = TestFeedbackSurveyController.recommendServiceContinue("TOKEN1")(testRequest("")).run()
+//      val result = TestFeedbackSurveyController.feelingAboutServiceContinue("TOKEN1")(testRequest("")).run()
 //      status(result) shouldBe SEE_OTHER
 //      redirectLocation(result).get should include("/feedback-survey/thankYou?origin=TOKEN1")
 //    }
 //
-    "redirect to the custom feedback url when this origin has one" in new SpecSetup {
-      override val origin = "TOKEN2"
-      val result = TestFeedbackSurveyController.recommendServiceContinue(origin)(testRequest("")).run()
-      status(result) shouldBe SEE_OTHER
-      redirectLocation(result).get shouldBe "http://example.com/custom-feedback-url"
-    }
-
+//    "redirect to the custom feedback url when this origin has one" in new SpecSetup {
+//      override val origin = "TOKEN2"
+//      val result = TestFeedbackSurveyController.feelingAboutServiceContinue(origin)(testRequest("")).run()
+//      status(result) shouldBe SEE_OTHER
+//      redirectLocation(result).get shouldBe "http://example.com/custom-feedback-url"
+//    }
+//
 //    "Go to the Thank you page " in new SpecSetup {
-//      val result = TestFeedbackSurveyController.recommendService("TOKEN1")(testRequest("thankYou"))
+//      val result = TestFeedbackSurveyController.feelingAboutServiceContinue("TOKEN1")(testRequest("thankYou"))
 //      status(result) shouldBe OK
 //    }
   }

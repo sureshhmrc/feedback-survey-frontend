@@ -51,24 +51,7 @@ case class FeelingAboutService(feelingAboutService: Option[String])
 object FeelingAboutService {
   implicit val format = Json.format[FeelingAboutService]
 }
-case class UsingService(beforeUsingThisService: List[String])
 
-object UsingService {
-  implicit val format = Json.format[UsingService]
-}
-
-case class AboutService(serviceReceived: Option[String])
-
-object AboutService {
-  implicit val format = Json.format[AboutService]
-}
-
-case class RecommendService(recommendRating: Option[String],
-                            reasonForRating: Option[String])
-
-object RecommendService {
-  implicit val format = Json.format[RecommendService]
-}
 
 object formMappings {
 
@@ -89,17 +72,6 @@ object formMappings {
 
   val feelingAboutService = Form(mapping(
     "feelingAboutService" -> optional(text))(FeelingAboutService.apply)(FeelingAboutService.unapply))
-
-  val usingServiceForm = Form(mapping(
-    "beforeUsingThisService" -> list(text.verifying("required field", _.nonEmpty))
-  )(UsingService.apply)(UsingService.unapply))
-
-  val aboutServiceForm = Form(mapping(
-    "serviceReceived" -> optional(text.verifying("required field", _.nonEmpty)))(AboutService.apply)(AboutService.unapply))
-
-  val recommendServiceForm = Form(mapping(
-    "recommendRating" -> optional(text.verifying("required field", _.nonEmpty)),
-    "reasonForRating" -> optional(text.verifying("required field", _.nonEmpty)))(RecommendService.apply)(RecommendService.unapply))
 
   def validInputCharacters(field: String, regXValue: String) = {
     if (field.matches(regXValue)) true else false

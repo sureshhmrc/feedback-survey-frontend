@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import uk.gov.hmrc.feedbacksurveyfrontend.FrontendAppConfig
 import uk.gov.hmrc.feedbacksurveyfrontend.services.{OriginConfigItem, OriginService}
 import uk.gov.hmrc.feedbacksurveyfrontend.utils.MockTemplateRenderer
+import uk.gov.hmrc.play.binders.Origin
 import uk.gov.hmrc.renderer.TemplateRenderer
 import utils.{HtmlUtils, UnitTestTraits}
 
@@ -141,30 +142,14 @@ class pageTests extends UnitTestTraits with HtmlUtils {
         include(Messages("howEasyWasIt.why_did_you_give_this_score"))
     }
 
-    //    "render usingService page correctly" in {
-    //      val document: Document = TestLookupController.usingService("VALID_ORIGIN")(testRequest(page = "usingService"))
-    //      document.getElementById("beforeUsingThisService").text shouldBe Messages("feedbackSurvey.page2.question1")
-    //    }
-    //
-    //    "render aboutService page correctly" in {
-    //      val document: Document = TestLookupController.aboutService("VALID_ORIGIN")(testRequest(page = "aboutService"))
-    //      document.getElementById("serviceReceived").text shouldBe Messages("feedbackSurvey.page3.question1")
-    //    }
-    //
-    //    "render recommendService page correctly" in {
-    //      val document: Document = TestLookupController.recommendService("VALID_ORIGIN")(testRequest(page = "recommendService"))
-    //      document.getElementById("reasonForRatingHeader").text shouldBe Messages("feedbackSurvey.page4.question2")
-    //    }
-    //
-    //    "render thankYou page correctly with valid origin" in {
-    //      val document: Document = TestLookupController.thankYou(Origin("VALID_ORIGIN")).apply(testRequest(page = "thankYou"))
-    //      document.getElementById("thankYou").text shouldBe Messages("feedbackSurvey.page5.title")
-    //    }
-    //
-    //    "render error page correctly with invalid origin" in {
-    //      val document: Document = TestLookupController.thankYou(Origin("INVALID_ORIGIN")).apply(testRequest(page = "thankYou"))
-    //      document.body.getElementsByClass("heading-large").text should include("Service unavailable")
-    //    }
+    "render thankYou page correctly with valid origin" in {
+      val document: Document = TestLookupController.thankYou(Origin("VALID_ORIGIN")).apply(testRequest(page = "thankYou"))
+      document.getElementById("thankYou").text shouldBe Messages("feedbackSurvey.page5.title")
+    }
 
+    "render error page correctly with invalid origin" in {
+      val document: Document = TestLookupController.thankYou(Origin("INVALID_ORIGIN")).apply(testRequest(page = "thankYou"))
+      document.body.getElementsByClass("heading-large").text should include("Service unavailable")
+    }
   }
 }
