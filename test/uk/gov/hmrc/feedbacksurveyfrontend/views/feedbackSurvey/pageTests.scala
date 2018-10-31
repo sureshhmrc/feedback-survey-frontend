@@ -142,25 +142,20 @@ class pageTests extends UnitTestTraits with HtmlUtils {
         include(Messages("howEasyWasIt.why_did_you_give_this_score"))
     }
 
-    "render feelingAboutService page correctly" in {
-      val document: Document = TestLookupController.feelingAboutService("VALID_ORIGIN")(testRequest(page = "feelingAboutService"))
+    "render howDidYouFeel page correctly" in {
+      val document: Document = TestLookupController.howDidYouFeel("VALID_ORIGIN")(testRequest(page = "howDidYouFeel"))
 
       document.title shouldBe
-        s"${Messages("feelingAboutService.overall_how_did_you_feel_about_the_service_you_received_today")} - ${Messages("give_feedback")} - ${Messages("gov_uk")}"
+        s"${Messages("howDidYouFeel.overall_how_did_you_feel_about_the_service_you_received_today")} - ${Messages("give_feedback")} - ${Messages("gov_uk")}"
 
-      document.getElementById("howEasyWasItLegend").text should
-        include(Messages("feelingAboutService.overall_how_did_you_feel_about_the_service_you_received_today"))
+      document.getElementById("howDidYouFeelLegend").text should
+        include(Messages("howDidYouFeel.overall_how_did_you_feel_about_the_service_you_received_today"))
 
-      document.getElementById("feelingAboutService5").siblingElements().text should include("5")
-      document.getElementById("feelingAboutService4").siblingElements().text should include("4")
-      document.getElementById("feelingAboutService3").siblingElements().text should include("3")
-      document.getElementById("feelingAboutService2").siblingElements().text should include("2")
-      document.getElementById("feelingAboutService1").siblingElements().text should include("1")
-
-      document.getElementById("thankYou").text should
-        include(Messages("feelingAboutService.thank_you_for_your_feedback"))
-      document.getElementById("betterService").text should
-        include(Messages("feelingAboutService.we_will_use_your_feedback_"))
+      document.getElementById("howDidYouFeel5").siblingElements().text should include("5")
+      document.getElementById("howDidYouFeel4").siblingElements().text should include("4")
+      document.getElementById("howDidYouFeel3").siblingElements().text should include("3")
+      document.getElementById("howDidYouFeel2").siblingElements().text should include("2")
+      document.getElementById("howDidYouFeel1").siblingElements().text should include("1")
     }
 
     "render thankYou page correctly with valid origin" in {

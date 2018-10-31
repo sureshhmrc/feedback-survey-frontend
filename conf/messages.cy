@@ -38,6 +38,10 @@ howEasyWasIt.very_easy=Hawdd Iawn
 howEasyWasIt.very_difficult=Anodd Iawn
 howEasyWasIt.why_did_you_give_this_score=Pam gwnaethoch roi’r sgôr hon?
 
+howDidYouFeel.overall_how_did_you_feel_about_the_service_you_received_today=At ei gilydd, beth oedd eich barn am y gwasanaeth a gawsoch heddiw?
+howDidYouFeel.very_satisfied=Bodlon Iawn
+howDidYouFeel.very_dissatisfied=Anfodlon Iawn
+
 thankYou.thank_you_for_your_feedback=Diolch am eich adborth
 thankYou.we_will_use_your_feedback_to_make_our_services_better=Byddwn yn defnyddio’ch adborth i wella ein gwasanaethau.
 

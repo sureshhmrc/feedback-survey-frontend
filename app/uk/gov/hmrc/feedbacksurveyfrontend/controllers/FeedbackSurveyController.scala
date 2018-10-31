@@ -102,19 +102,23 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
         "origin" -> origin,
         "howEasyWasIt" -> howEasyWasIt.getOrElse(""),
         "whyDidYouGiveThisScore" -> whyDidYouGiveThisScore.getOrElse("")), eventType = eventTypeSuccess)
-      Redirect(routes.FeedbackSurveyController.feelingAboutService(origin))
+      Redirect(routes.FeedbackSurveyController.howDidYouFeel(origin))
     }
 
-  def feelingAboutService(origin: String) = Action { implicit request =>
-    Ok(html.feedbackSurvey.feelingAboutService(formMappings.feelingAboutServiceForm, origin))
+  def howDidYouFeel(origin: String) = Action { implicit request =>
+    Ok(html.feedbackSurvey.howDidYouFeel(formMappings.howDidYouFeelForm, origin))
   }
 
-  def feelingAboutServiceContinue(origin: String): Action[FeelingAboutService] = Action (parse.form(formMappings.feelingAboutServiceForm)) { implicit request =>
+  def howDidYouFeelContinue(origin: String): Action[HowDidYouFeel] = Action (parse.form(formMappings.howDidYouFeelForm)) { implicit request =>
     audit(transactionName = "feedback-survey",
       detail = Map("origin" -> origin,
-        "feelingAboutService" -> request.body.feelingAboutService.getOrElse("")),
+        "howDidYouFeel" -> request.body.howDidYouFeel.getOrElse("")),
       eventType = eventTypeSuccess)
-    Redirect("stub")
+
+    originService.customFeedbackUrl(Origin(origin)) match {
+      case Some(x) => Redirect(x)
+      case None => Redirect(routes.FeedbackSurveyController.thankYou(origin))
+    }
   }
 
   def thankYou(origin: String): Action[AnyContent] = Action {

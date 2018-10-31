@@ -19,8 +19,8 @@ POST       /ableToDo/:origin                  controllers.FeedbackSurveyControll
 GET        /howEasyWasIt/:origin              controllers.FeedbackSurveyController.howEasyWasIt(origin: String)
 POST       /howEasyWasIt/:origin              controllers.FeedbackSurveyController.howEasyWasItContinue(origin: String)
 
-GET        /feelingAboutService/:origin       controllers.FeedbackSurveyController.feelingAboutService(origin: String)
-POST       /feelingAboutService/:origin       controllers.FeedbackSurveyController.feelingAboutServiceContinue(origin: String)
+GET        /howDidYouFeel/:origin       controllers.FeedbackSurveyController.howDidYouFeel(origin: String)
+POST       /howDidYouFeel/:origin       controllers.FeedbackSurveyController.howDidYouFeelContinue(origin: String)
 
 GET        /thankYou                          controllers.FeedbackSurveyController.thankYou(origin: String)
 

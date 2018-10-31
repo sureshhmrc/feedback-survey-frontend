@@ -46,10 +46,10 @@ object HowEasyWasIt {
   implicit val format = Json.format[HowEasyWasIt]
 }
 
-case class FeelingAboutService(feelingAboutService: Option[String])
+case class HowDidYouFeel(howDidYouFeel: Option[String])
 
-object FeelingAboutService {
-  implicit val format = Json.format[FeelingAboutService]
+object HowDidYouFeel {
+  implicit val format = Json.format[HowDidYouFeel]
 }
 
 
@@ -70,8 +70,8 @@ object formMappings {
     "howEasyWasIt" -> optional(text),
     "whyDidYouGiveThisScore" -> optional(text))(HowEasyWasIt.apply)(HowEasyWasIt.unapply))
 
-  val feelingAboutServiceForm = Form(mapping(
-    "feelingAboutService" -> optional(text))(FeelingAboutService.apply)(FeelingAboutService.unapply))
+  val howDidYouFeelForm = Form(mapping(
+    "howDidYouFeel" -> optional(text))(HowDidYouFeel.apply)(HowDidYouFeel.unapply))
 
   def validInputCharacters(field: String, regXValue: String) = {
     if (field.matches(regXValue)) true else false
