@@ -30,7 +30,7 @@
   ) {
 
     <p id="introduction">
-     @Messages("mainService.we_use_your_feedback_to_improve_our_services_")
+     @messages("mainService.we_use_your_feedback_to_improve_our_services_")
     </p>
 
     <p id="privacyPolicy" class="full_width">
@@ -38,11 +38,11 @@
     </p>
 
     <p id="information">
-     @Messages("mainService.the_survey_takes_about_1_minute_to_complete_")
+     @messages("mainService.the_survey_takes_about_1_minute_to_complete_")
     </p>
 
     <h1 id="mainThing" class="heading-large">
-     @Messages("mainThing.what_was_the_main_thing_you_needed_to_do_")
+     @messages("mainThing.what_was_the_main_thing_you_needed_to_do_")
     </h1>
 
     @uk.gov.hmrc.play.views.html.helpers.form(action = controllers.routes.FeedbackSurveyController.mainThingContinue(origin)){
@@ -53,7 +53,7 @@
         <fieldset>
 
          <legend class="visually-hidden" id="mainThingLegend">
-          @Messages("mainThing.what_was_the_main_thing_you_needed_to_do_")
+          @messages("mainThing.what_was_the_main_thing_you_needed_to_do_")
          </legend>
 
           <textarea class="form-control form-control-3-4 feedback-box" name="mainThing" rows="6" maxlength="1000"></textarea>
@@ -61,7 +61,7 @@
         </fieldset>
        </div>
 
-        <input id="save-and-continue" type="submit" class="button" role="button" value=@Messages("generic.continue")>
+        <input id="save-and-continue" type="submit" class="button" role="button" value=@messages("generic.continue")>
 
       </form>
   }
