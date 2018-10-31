@@ -81,7 +81,7 @@ class FeedbackSurveyControllerSpec extends UnitTestTraits {
     }
 
     "Go to the ableToDo page" in new SpecSetup {
-      val result = TestFeedbackSurveyController.ableToDo("TOKEN1")(testRequest(""))
+      val result = TestFeedbackSurveyController.ableToDo(origin = "TOKEN1")(testRequest(page = ""))
       status(await(result)) shouldBe OK
     }
 
@@ -92,7 +92,7 @@ class FeedbackSurveyControllerSpec extends UnitTestTraits {
     }
 
     "Go to the howEasyWasIt page" in new SpecSetup {
-      val result = TestFeedbackSurveyController.howEasyWasIt("TOKEN1")(testRequest(""))
+      val result = TestFeedbackSurveyController.howEasyWasIt(origin = "TOKEN1")(testRequest(page = ""))
       status(await(result)) shouldBe OK
     }
 
@@ -103,24 +103,24 @@ class FeedbackSurveyControllerSpec extends UnitTestTraits {
     }
 
     "Go to the howDidYouFeel page" in new SpecSetup {
-      val result = TestFeedbackSurveyController.howDidYouFeel("TOKEN1")(testRequest(""))
+      val result = TestFeedbackSurveyController.howDidYouFeel(origin = "TOKEN1")(testRequest(page = ""))
       status(await(result)) shouldBe OK
     }
 
     "redirect to the Thank you page from howDidYouFeelContinue when this origin does not have a custom feedback url" in new SpecSetup {
-      val result = TestFeedbackSurveyController.howDidYouFeelContinue("TOKEN1")(testRequest("")).run()
+      val result = TestFeedbackSurveyController.howDidYouFeelContinue(origin = "TOKEN1")(testRequest(page = "")).run()
       status(result) shouldBe SEE_OTHER
       redirectLocation(result).get should include("/feedback-survey/thankYou?origin=TOKEN1")
     }
 
     "redirect to the custom feedback url from howDidYouFeelContinue when this origin has a custom feedback url" in new SpecSetup {
-      val result = TestFeedbackSurveyController.howDidYouFeelContinue("TOKEN2")(testRequest("")).run()
+      val result = TestFeedbackSurveyController.howDidYouFeelContinue(origin = "TOKEN2")(testRequest(page = "")).run()
       status(result) shouldBe SEE_OTHER
       redirectLocation(result).get shouldBe "http://example.com/custom-feedback-url"
     }
 
     "Go to the Thank you page " in new SpecSetup {
-      val result = TestFeedbackSurveyController.thankYou("TOKEN1")(testRequest("thankYou"))
+      val result = TestFeedbackSurveyController.thankYou(origin = "TOKEN1")(testRequest(page = "thankYou"))
       status(result) shouldBe OK
     }
   }

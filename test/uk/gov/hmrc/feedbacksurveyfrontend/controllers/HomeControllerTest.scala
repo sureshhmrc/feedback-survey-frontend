@@ -29,7 +29,7 @@ class HomeControllerTest extends UnitTestTraits {
 
   "HomeController start" should {
 
-    def buildFakeHomeController = new HomeController{
+    def buildFakeHomeController: HomeController = new HomeController{
 
       override implicit val templateRenderer: TemplateRenderer = MockTemplateRenderer
 
