@@ -1,4 +1,4 @@
-gov.uk=GOV.UK
+gov_uk=GOV.UK
 
 # Generic Error Messages
 generic.yes=Yes
@@ -29,7 +29,6 @@ mainService.construction_industry_scheme_cis=Construction Industry Scheme (CIS)
 mainService.ec_sales=EC Sales
 mainService.other_please_specify=Other. Please specify:
 
-# mainThing separate question
 mainThing.what_was_the_main_thing_you_needed_to_do_=What was the main thing you needed to do today? For example, change your address
 
 ableToDo.were_you_able_to_do_what_you_needed_to_do_today=Were you able to do what you needed to do today?
