@@ -22,12 +22,29 @@
 @(urLinkUrl: Option[String], origin: String)(implicit request: Request[_], messages: play.api.i18n.Messages, templateRenderer: TemplateRenderer)
 
 @uk.gov.hmrc.feedbacksurveyfrontend.views.html.main_template(
-  title = "feedbackSurvey.giveFeedBackPageTitle.page5.title",
+  title = "thankYou.thank_you_for_your_feedback",
   backlinkUrl = controllers.routes.FeedbackSurveyController.howEasyWasIt(origin).url
 ) {
-  <h1 id="thankYou" class="heading-large">@Messages("feedbackSurvey.page5.title")</h1>
+
+  <h1 id="thankYou" class="heading-large">
+    @messages("thankYou.thank_you_for_your_feedback")
+  </h1>
+
+  <p>
+    @messages("thankYou.we_will_use_your_feedback_to_make_our_services_better")
+  </p>
+
   @urLinkUrl.map { urLinkUrl =>
-    <p>@Html(Messages("feedbackSurvey.page5.para1", urLinkUrl))</p>
-    <p>@Messages("feedbackSurvey.page5.para2")</p>
+    <h2>
+      @Html(Messages("thankYou.help_improve_gov_uk", "https://www.gov.uk/"))
+    </h2>
+
+    <p>
+      @Html(Messages("thankYou.gov_uk_needs_your_help", "https://www.gov.uk/"))
+    </p>
+
+    <p>
+      @Html(Messages("thankYou.get_involved_in_making_", urLinkUrl))
+    </p>
   }
 }

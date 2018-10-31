@@ -165,7 +165,7 @@ class pageTests extends UnitTestTraits with HtmlUtils {
 
     "render thankYou page correctly with valid origin" in {
       val document: Document = TestLookupController.thankYou(Origin("VALID_ORIGIN")).apply(testRequest(page = "thankYou"))
-      document.getElementById("thankYou").text shouldBe Messages("feedbackSurvey.page5.title")
+      document.getElementById("thankYou").text shouldBe Messages("thankYou.thank_you_for_your_feedback")
     }
 
     "render error page correctly with invalid origin" in {
