@@ -1,4 +1,4 @@
-gov.uk=GOV.UK
+gov_uk=GOV.UK
 
 # Generic Error Messages
 generic.yes=Iawn
@@ -17,32 +17,30 @@ global_errors.title=Nid yw’r gwasanaeth ar gael
 give_feedback=Rhoi adborth
 
 mainService.what_was_the_main_service_you_used_today=What was the main service you used today?
-mainService.we_use_your_feedback_to_improve_our_services_=We use your feedback to improve our services. To better understand it, we may link your feedback to other information we hold about you, like gender and age.
-mainService.see_the_hmrc_privacy_notice_=See the <a href="{0}" target="_blank">HMRC Privacy Notice</a> for details about how we collect, use, protect and secure your personal information.
-mainService.the_survey_takes_about_1_minute_to_complete_=The survey takes about 1 minute to complete. There are 4 questions and they are all optional.
-mainService.what_was_the_main_service_you_used_today=What was the main service you used today?
-mainService.self_assessment=Self assessment
-mainService.PAYE_for_employers=PAYE for employers
-mainService.vat=VAT
-mainService.corporation_tax=Corporation Tax
-mainService.construction_industry_scheme_cis=Construction Industry Scheme (CIS)
-mainService.ec_sales=EC Sales
-mainService.other_please_specify=Other. Please specify:
+mainService.we_use_your_feedback_to_improve_our_services_=Rydym yn defnyddio’ch adborth i wella ein gwasanaethau. I ddeall eich adborth yn well, efallai y byddwn yn ei gysylltu â gwybodaeth arall sydd gennym amdanoch, megis rhywedd ac oedran.
+mainService.see_the_hmrc_privacy_notice_=Gweler <a href="{0}" target="_blank">Hysbysiad Preifatrwydd CThEM</a> i gael gwybod sut yr ydym yn casglu, defnyddio a diogelu’ch gwybodaeth bersonol.
+mainService.the_survey_takes_about_1_minute_to_complete_=Mae’r arolwg yn cymryd tua 1 munud i’w lenwi. Mae 4 cwestiwn ac maent i gyd yn ddewisol.
+mainService.what_was_the_main_service_you_used_today=Beth oedd y prif wasanaeth a ddefnyddioch heddiw?
+mainService.self_assessment=Hunanasesiad
+mainService.PAYE_for_employers=TWE ar gyfer cyflogwyr
+mainService.vat=TAW
+mainService.corporation_tax=Treth Gorfforaeth
+mainService.construction_industry_scheme_cis=Cynllun y Diwydiant Adeiladu (CIS)
+mainService.ec_sales=Gwerthiannau yn y GE
+mainService.other_please_specify=Arall. Rhowch fanylion:
 
-# mainThing separate question
-mainThing.what_was_the_main_thing_you_needed_to_do_=What was the main thing you needed to do today? For example, change your address
+mainThing.what_was_the_main_thing_you_needed_to_do_=Beth oedd y prif beth yr oedd angen i chi ei wneud heddiw? Er enghraifft, newid eich cyfeiriad
 
-ableToDo.were_you_able_to_do_what_you_needed_to_do_today=Were you able to do what you needed to do today?
+ableToDo.were_you_able_to_do_what_you_needed_to_do_today=Oeddech chi’n gallu gwneud yr hyn yr oedd angen i chi ei wneud heddiw?
 
-howEasyWasIt.how_easy_was_it_for_you_to_=How easy was it for you to do what you needed to do today?
-howEasyWasIt.very_easy=Very easy
-howEasyWasIt.very_difficult=Very difficult
-howEasyWasIt.why_did_you_give_this_score=Why did you give this score?
+howEasyWasIt.how_easy_was_it_for_you_to_=Pa mor hawdd oedd hi i wneud yr hyn yr oedd angen i chi ei wneud heddiw?
+howEasyWasIt.very_easy=Hawdd Iawn
+howEasyWasIt.very_difficult=Anodd Iawn
+howEasyWasIt.why_did_you_give_this_score=Pam gwnaethoch roi’r sgôr hon?
 
-thankYou.thank_you_for_your_feedback=Thank you for your feedback
-thankYou.we_will_use_your_feedback_to_make_our_services_better=We will use your feedback to make our services better.
+thankYou.thank_you_for_your_feedback=Diolch am eich adborth
+thankYou.we_will_use_your_feedback_to_make_our_services_better=Byddwn yn defnyddio’ch adborth i wella ein gwasanaethau.
 
-thankYou.help_improve_gov_uk=Help improve <a href="{0}" target="_blank">GOV.UK</a>
-thankYou.gov_uk_needs_your_help=<a href="{0}" target="_blank">GOV.UK</a> needs your help to improve and to make sure the website works well for the people who need it.
-thankYou.get_involved_in_making_=<a href="{0}" target="_blank">Get involved in making government services better</a>
-
+thankYou.help_improve_gov_uk=Helpwch i wella <a href="{0}" target="_blank">GOV.UK</a>
+thankYou.gov_uk_needs_your_help=Mae angen eich help ar <a href="{0}" target="_blank">GOV.UK</a> i wella ac i sicrhau bod y wefan yn gweithio’n dda i’r bobl sydd ei hangen.
+thankYou.get_involved_in_making_=<a href="{0}" target="_blank">Gallwch fod yn rhan o wneud gwasanaethau’r Llywodraeth yn well</a>
