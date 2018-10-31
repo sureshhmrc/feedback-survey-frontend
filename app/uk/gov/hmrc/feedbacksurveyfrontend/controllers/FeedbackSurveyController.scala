@@ -40,7 +40,7 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
 
   def originService: OriginService
 
-  def mainService(origin: String) = Action { implicit request =>
+  def mainService(origin: String): Action[AnyContent] = Action { implicit request =>
     Ok(html.feedbackSurvey.mainService(formMappings.mainServiceForm, origin))
   }
 
@@ -61,7 +61,7 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     Redirect(routes.FeedbackSurveyController.ableToDo(origin))
   }
 
-  def mainThing(origin: String) = Action { implicit request =>
+  def mainThing(origin: String): Action[AnyContent] = Action { implicit request =>
     Ok(html.feedbackSurvey.mainThing(formMappings.mainThingForm, origin))
   }
 
@@ -73,7 +73,7 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     Redirect(routes.FeedbackSurveyController.ableToDo(origin))
   }
 
-  def ableToDo(origin: String) = Action { implicit request =>
+  def ableToDo(origin: String): Action[AnyContent] = Action { implicit request =>
     val backlinkUrl = originService.taxAccount(Origin(origin)) match {
       case Some("BTA") => routes.FeedbackSurveyController.mainService(origin).url
       case None => routes.FeedbackSurveyController.mainThing(origin).url
@@ -90,7 +90,7 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     Redirect(routes.FeedbackSurveyController.howEasyWasIt(origin))
   }
   
-  def howEasyWasIt(origin: String) = Action { implicit request =>
+  def howEasyWasIt(origin: String): Action[AnyContent] = Action { implicit request =>
     Ok(html.feedbackSurvey.howEasyWasIt(formMappings.howEasyWasItForm, origin))
   }
 
@@ -105,7 +105,7 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
       Redirect(routes.FeedbackSurveyController.howDidYouFeel(origin))
     }
 
-  def howDidYouFeel(origin: String) = Action { implicit request =>
+  def howDidYouFeel(origin: String): Action[AnyContent] = Action { implicit request =>
     Ok(html.feedbackSurvey.howDidYouFeel(formMappings.howDidYouFeelForm, origin))
   }
 
