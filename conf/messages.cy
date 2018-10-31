@@ -1,4 +1,4 @@
-
+gov.uk=GOV.UK
 
 # Generic Error Messages
 generic.yes=Iawn
@@ -14,53 +14,35 @@ global_errors.heading=Nid yw’r gwasanaeth ar gael
 global_errors.title=Nid yw’r gwasanaeth ar gael
 
 # Feedback survey Specific
-feedbackSurvey.giveFeedBack=Rhoi adborth
-feedbackSurvey.giveFeedBackPageTitle.page1.question1=A oeddech yn gallu gwneud yr hyn yr oedd angen i chi’i wneud heddiw?
-feedbackSurvey.giveFeedBackPageTitle.page2.question1=Pa ffynonellau o wybodaeth a roesoch gynnig arnynt cyn i chi ddefnyddio’r gwasanaeth hwn?
-feedbackSurvey.giveFeedBackPageTitle.page3.question1=At ei gilydd, sut oeddech yn teimlo am y gwasanaeth a gawsoch heddiw?
-feedbackSurvey.giveFeedBackPageTitle.page4.question1=Pa mor debygol ydych i argymell y gwasanaeth hwn i ffrind neu gydweithiwr pe bai angen iddo wneud yr un peth?
-feedbackSurvey.giveFeedBackPageTitle.page5.title=Diolch am eich adborth
+give_feedback=Rhoi adborth
 
-feedbackSurvey.page1.title=Rhoi adborth
-feedbackSurvey.page1.para1=Mae pob cwestiwn yn yr arolwg yn ddewisol.
-feedbackSurvey.page1.para2=Rydym yn defnyddio’ch adborth i wella ein gwasanaethau.
-feedbackSurvey.page1.question1=A oeddech yn gallu gwneud yr hyn yr oedd angen i chi’i wneud heddiw?
+mainService.what_was_the_main_service_you_used_today=What was the main service you used today?
+mainService.we_use_your_feedback_to_improve_our_services_=We use your feedback to improve our services. To better understand it, we may link your feedback to other information we hold about you, like gender and age.
+mainService.see_the_hmrc_privacy_notice_=See the <a href="{0}" target="_blank">HMRC Privacy Notice</a> for details about how we collect, use, protect and secure your personal information.
+mainService.the_survey_takes_about_1_minute_to_complete_=The survey takes about 1 minute to complete. There are 4 questions and they are all optional.
+mainService.what_was_the_main_service_you_used_today=What was the main service you used today?
+mainService.self_assessment=Self assessment
+mainService.PAYE_for_employers=PAYE for employers
+mainService.vat=VAT
+mainService.corporation_tax=Corporation Tax
+mainService.construction_industry_scheme_cis=Construction Industry Scheme (CIS)
+mainService.ec_sales=EC Sales
+mainService.other_please_specify=Other. Please specify:
 
-feedbackSurvey.page2.question1=Pa ffynonellau o wybodaeth a roesoch gynnig arnynt cyn i chi ddefnyddio’r gwasanaeth hwn?
-feedbackSurvey.page2.question1.formhint=Dewiswch bob un sy’n gymwys.
-feedbackSurvey.page2.question1.option1=Ffonio CThEM
-feedbackSurvey.page2.question1.option2=Ysgrifennu at CThEM
-feedbackSurvey.page2.question1.option3=Llenwi ffurflen ar-lein
-feedbackSurvey.page2.question1.option4=Darllen arweiniad ar GOV.UK
-feedbackSurvey.page2.question1.option5=Siarad â’ch cyflogwr, asiant neu gyfrifydd
-feedbackSurvey.page2.question1.option6=Siarad â ffrind neu aelod o’r teulu
-feedbackSurvey.page2.question1.option7=Dim un o’r rhain
+# mainThing separate question
+mainThing.what_was_the_main_thing_you_needed_to_do_=What was the main thing you needed to do today? For example, change your address
 
+ableToDo.were_you_able_to_do_what_you_needed_to_do_today=Were you able to do what you needed to do today?
 
-feedbackSurvey.page3.question1=At ei gilydd, sut oeddech yn teimlo am y gwasanaeth a gawsoch heddiw?
-feedbackSurvey.page3.question1.option1=Bodlon iawn
-feedbackSurvey.page3.question1.option2=Bodlon
-feedbackSurvey.page3.question1.option3=Ddim yn fodlon nac yn anfodlon
-feedbackSurvey.page3.question1.option4=Anfodlon
-feedbackSurvey.page3.question1.option5=Anfodlon iawn
+howEasyWasIt.how_easy_was_it_for_you_to_=How easy was it for you to do what you needed to do today?
+howEasyWasIt.very_easy=Very easy
+howEasyWasIt.very_difficult=Very difficult
+howEasyWasIt.why_did_you_give_this_score=Why did you give this score?
 
-feedbackSurvey.page4.question1=Pa mor debygol ydych i argymell y gwasanaeth hwn i ffrind neu gydweithiwr pe bai angen iddo wneud yr un peth?
-feedbackSurvey.page4.question1.option1=10 Tebygol iawn
-feedbackSurvey.page4.question1.option2=9
-feedbackSurvey.page4.question1.option3=8
-feedbackSurvey.page4.question1.option4=7
-feedbackSurvey.page4.question1.option5=6
-feedbackSurvey.page4.question1.option6=5
-feedbackSurvey.page4.question1.option7=4
-feedbackSurvey.page4.question1.option8=3
-feedbackSurvey.page4.question1.option9=2
-feedbackSurvey.page4.question1.option10=1
-feedbackSurvey.page4.question1.option11=0 Annhebygol iawn
-feedbackSurvey.page4.question2=Pam wnaethoch roi’r asesiad hwn?
-feedbackSurvey.page4.question2.labelhint=Peidiwch â chynnwys gwybodaeth bersonol neu ariannol, fel eich rhif Yswiriant Gwladol neu fanylion banc.
+thankYou.thank_you_for_your_feedback=Thank you for your feedback
+thankYou.we_will_use_your_feedback_to_make_our_services_better=We will use your feedback to make our services better.
 
-feedbackSurvey.page5.title=Diolch am eich adborth
-feedbackSurvey.page5.para1=<a href="{0}">Dewch i ymuno â phanel defnyddwyr Cyllid a Thollau EM (CThEM)</a>.
-feedbackSurvey.page5.para2=O gymryd rhan yn yr ymchwil defnyddwyr, byddwch yn ein helpu i wella ein gwasanaeth.
+thankYou.help_improve_gov_uk=Help improve <a href="{0}" target="_blank">GOV.UK</a>
+thankYou.gov_uk_needs_your_help=<a href="{0}" target="_blank">GOV.UK</a> needs your help to improve and to make sure the website works well for the people who need it.
+thankYou.get_involved_in_making_=<a href="{0}" target="_blank">Get involved in making government services better</a>
 
-feedbackSurvey.gov.uk=GOV.UK
