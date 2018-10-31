@@ -21,7 +21,7 @@ textarea {
   display: inline-block;
 }
 
-.equal-space .item.first {
+.equal-space .item:first-child {
   margin-left: 1em;
 }
 
@@ -40,7 +40,7 @@ textarea {
   float:right;
 }
 
-.equal-space .left.veryDifficult {
+.equal-space .left.very-difficult {
   display: none;
 }
 
@@ -51,15 +51,15 @@ textarea {
     margin-bottom: 1em;
   }
 
-  .equal-space .item.first {
+  .equal-space .item:first-child {
     margin-left: 0em;
   }
 
-  .equal-space .left.veryDifficult {
+  .equal-space .left.very-difficult {
     display: block;
   }
 
-  .equal-space .right.veryDifficult {
+  .equal-space .right.very-difficult {
     display: none;
   }
 }
