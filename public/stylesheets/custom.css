@@ -21,6 +21,10 @@ textarea {
   display: inline-block;
 }
 
+.equal-space .item.first {
+  margin-left: 1em;
+}
+
 .equal-space .left,
 .equal-space .right,
 .equal-space span {
@@ -41,9 +45,14 @@ textarea {
 }
 
 @media screen and (max-width:400px) {
+
   .equal-space .item {
     display: block;
     margin-bottom: 1em;
+  }
+
+  .equal-space .item.first {
+    margin-left: 0em;
   }
 
   .equal-space .left.veryDifficult {

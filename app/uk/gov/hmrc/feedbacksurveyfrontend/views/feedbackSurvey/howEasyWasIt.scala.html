@@ -34,7 +34,7 @@
       @messages("howEasyWasIt.how_easy_was_it_for_you_to_")
     </h1>
 
-    @uk.gov.hmrc.play.views.html.helpers.form(action = controllers.routes.FeedbackSurveyController.aboutServiceContinue(origin)){
+    @uk.gov.hmrc.play.views.html.helpers.form(action = controllers.routes.FeedbackSurveyController.howEasyWasItContinue(origin)){
       <form>
         <div class="form-group">
           <fieldset>
@@ -51,7 +51,7 @@
 
             <div class="equal-space">
 
-              <div class="item">
+              <div class="item first">
                 <div class="multiple-choice">
                   <input id="howEasyWasIt5" type="radio" name="howEasyWasIt" value="5">
                   <label for="howEasyWasIt5">5</label>
@@ -101,7 +101,7 @@
               @Messages("howEasyWasIt.why_did_you_give_this_score")
             </legend>
 
-            <textarea class="form-control form-control-3-4 feedback-box" name="whyDidYouGiveThisScore" id="textarea" rows="6" maxlength="1000"></textarea>
+            <textarea class="form-control form-control-3-4 feedback-box" name="whyDidYouGiveThisScore" rows="6" maxlength="1000"></textarea>
           </fieldset>
 
         </div>
