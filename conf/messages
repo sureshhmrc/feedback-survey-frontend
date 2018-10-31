@@ -34,8 +34,8 @@ mainThing.what_was_the_main_thing_you_needed_to_do_=What was the main thing you 
 ableToDo.were_you_able_to_do_what_you_needed_to_do_today=Were you able to do what you needed to do today?
 
 howEasyWasIt.how_easy_was_it_for_you_to_=How easy was it for you to do what you needed to do today?
-howEasyWasIt.very_easy=Very easy
-howEasyWasIt.very_difficult=Very difficult
+howEasyWasIt.very_easy=Very Easy
+howEasyWasIt.very_difficult=Very Difficult
 howEasyWasIt.why_did_you_give_this_score=Why did you give this score?
 
 howDidYouFeel.overall_how_did_you_feel_about_the_service_you_received_today=Overall, how did you feel about the service you received today?
