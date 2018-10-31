@@ -102,7 +102,11 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
         "origin" -> origin,
         "howEasyWasIt" -> howEasyWasIt.getOrElse(""),
         "whyDidYouGiveThisScore" -> whyDidYouGiveThisScore.getOrElse("")), eventType = eventTypeSuccess)
-        Redirect(routes.FeedbackSurveyController.thankYou(Origin(origin)))
+      Redirect(routes.FeedbackSurveyController.thankYou(Origin(origin)))
+    }
+
+  def feelingAboutService(origin: String) = Action { implicit request =>
+    Ok(html.feedbackSurvey.feelingAboutService(formMappings.feelingAboutService, origin))
   }
 
   def usingService(origin: String) = Action { implicit request =>
