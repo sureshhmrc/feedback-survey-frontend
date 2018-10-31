@@ -68,7 +68,7 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
   def mainThingContinue(origin: String): Action[MainThing] = Action (parse.form(formMappings.mainThingForm)) { implicit request =>
     audit(transactionName = "feedback-survey",
       detail = Map("origin" -> origin,
-        "mainThing" -> request.body.mainThing.getOrElse("")),
+        "whatWastheMainThing" -> request.body.mainThing.getOrElse("")),
       eventType = eventTypeSuccess)
     Redirect(routes.FeedbackSurveyController.ableToDo(origin))
   }
@@ -109,7 +109,7 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     Ok(html.feedbackSurvey.usingService(formMappings.usingServiceForm, origin))
   }
 
-  def usingServiceContinue(origin: String) = Action (parse.form(formMappings.usingServiceForm)) { implicit request =>
+  def usingServiceContinue(origin: String): Action[UsingService] = Action (parse.form(formMappings.usingServiceForm)) { implicit request =>
     val beforeUsingThisService = request.body.beforeUsingThisService
     var option0, option1, option2, option3, option4, option5, option6: (String,String) = ("","")
     if (beforeUsingThisService.lift(0).isDefined) {option0 = beforeUsingThisService.lift(0).get -> "Checked"}
@@ -119,10 +119,10 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     if (beforeUsingThisService.lift(4).isDefined) {option4 = beforeUsingThisService.lift(4).get -> "Checked"}
     if (beforeUsingThisService.lift(5).isDefined) {option5 = beforeUsingThisService.lift(5).get -> "Checked"}
     if (beforeUsingThisService.lift(6).isDefined) {option6 = beforeUsingThisService.lift(6).get -> "Checked"}
-    audit("feedback-survey", Map(
+    audit(transactionName = "feedback-survey", detail = Map(
       "origin" -> origin,
       option0, option1, option2, option3, option4, option5, option6
-    ).filter((t) => t._1 != ""), eventTypeSuccess)
+    ).filter((t) => t._1 != ""), eventType = eventTypeSuccess)
     Redirect(routes.FeedbackSurveyController.aboutService(origin))
   }
 

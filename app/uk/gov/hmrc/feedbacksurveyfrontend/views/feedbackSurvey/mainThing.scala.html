@@ -20,42 +20,48 @@
 @import uk.gov.hmrc.play.views.html.helpers._
 
 
-@(mainService: Form[models.feedbackSurveyModels.MainThing],
-origin: String)(implicit request: Request[_],
-messages: play.api.i18n.Messages,
-templateRenderer: TemplateRenderer)
+@(mainThing: Form[models.feedbackSurveyModels.MainThing],
+  origin: String)(implicit request: Request[_],
+  messages: play.api.i18n.Messages,
+  templateRenderer: TemplateRenderer)
 
 @uk.gov.hmrc.feedbacksurveyfrontend.views.html.main_template(
-title = "mainThing.what_was_the_main_thing_you_needed_to_do_today_for_example_change_your_address"
-) {
+  title = "mainThing.what_was_the_main_thing_you_needed_to_do_"
+  ) {
+    <p id="introduction">
+     @Messages("mainService.we_use_your_feedback_to_improve_our_services_")
+    </p>
 
-  <p id="introduction">
-   @Messages("mainService.we_use_your_feedback_to_improve_our_services_")
-  </p>
+    <p id="privacyPolicy">
+     @Html(Messages("mainService.see_the_hmrc_privacy_notice_"))
+    </p>
 
-  <p id="privacyPolicy">
-   @Html(Messages("mainService.see_the_hmrc_privacy_notice_"))
-  </p>
+    <p id="information">
+     @Messages("mainService.the_survey_takes_about_1_minute_to_complete_")
+    </p>
 
-  <p id="information">
-   @Messages("mainService.the_survey_takes_about_1_minute_to_complete_")
-  </p>
+    <h1 id="mainThing" class="heading-large">
+     @Messages("mainThing.what_was_the_main_thing_you_needed_to_do_")
+    </h1>
 
-  <h1 id="mainThing" class="heading-large">
-   @Messages("mainThing.what_was_the_main_thing_you_needed_to_do_today_for_example_change_your_address")
-  </h1>
+    @uk.gov.hmrc.play.views.html.helpers.form(action = controllers.routes.FeedbackSurveyController.mainThingContinue(origin)){
 
-  @uk.gov.hmrc.play.views.html.helpers.form(action = controllers.routes.FeedbackSurveyController.mainThingContinue(origin)){
-  <form id="mainThingForm">
-   <div class="form-group">
-    <fieldset>
-     <legend class="visually-hidden" id="mainThingLegend">
-      @Messages("mainThing.what_was_the_main_thing_you_needed_to_do_today_for_example_change_your_address")
-     </legend>
-     <input id="mainThingWhatYouWantToDoToday" name="mainThing">
-    </fieldset>
-   </div>
-   <input id="save-and-continue" type="submit" class="button" role="button" value=@Messages("generic.continue")>
-  </form>
- }
+      <form id="mainThingForm">
+
+        <div class="form-group">
+        <fieldset>
+
+         <legend class="visually-hidden" id="mainThingLegend">
+          @Messages("mainThing.what_was_the_main_thing_you_needed_to_do_")
+         </legend>
+
+          <textarea class="form-control form-control-3-4 feedback-box" name="mainThing" rows="6" maxlength="1000"></textarea>
+
+        </fieldset>
+       </div>
+
+        <input id="save-and-continue" type="submit" class="button" role="button" value=@Messages("generic.continue")>
+
+      </form>
+  }
 }

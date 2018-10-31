@@ -28,7 +28,7 @@ mainService.ec_sales=EC Sales
 mainService.other_please_specify=Other. Please specify:
 
 # mainThing separate question
-mainThing.what_was_the_main_thing_you_needed_to_do_today_for_example_change_your_address=What was the main thing you needed to do today? For example, change your address
+mainThing.what_was_the_main_thing_you_needed_to_do_=What was the main thing you needed to do today? For example, change your address
 
 give_feedback=Give feedback
 feedbackSurvey.giveFeedBackPageTitle.page1.question1=Were you able to do what you needed to do today?

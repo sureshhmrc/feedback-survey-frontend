@@ -83,9 +83,11 @@ class pageTests extends UnitTestTraits with HtmlUtils {
     }
 
     "render mainThing page correctly" in {
+
       val document: Document = TestLookupController.mainThing("VALID_ORIGIN")(testRequest(page = "mainThing"))
+
       document.title shouldBe
-        s"${Messages("mainThing.what_was_the_main_thing_you_needed_to_do_today_for_example_change_your_address")} - ${Messages("give_feedback")} - ${Messages("gov_uk")}"
+        s"${Messages("mainThing.what_was_the_main_thing_you_needed_to_do_")} - ${Messages("give_feedback")} - ${Messages("gov_uk")}"
 
       document.getElementById("introduction").text shouldBe
         Messages("mainService.we_use_your_feedback_to_improve_our_services_")
@@ -94,21 +96,11 @@ class pageTests extends UnitTestTraits with HtmlUtils {
       document.getElementById("information").text shouldBe
         Messages("mainService.the_survey_takes_about_1_minute_to_complete_")
       document.getElementById("mainThing").text shouldBe
-        Messages("mainThing.what_was_the_main_thing_you_needed_to_do_today_for_example_change_your_address")
-
+        Messages("mainThing.what_was_the_main_thing_you_needed_to_do_")
       document.getElementById("mainThingLegend").text should
-        include(Messages("mainThing.what_was_the_main_thing_you_needed_to_do_today_for_example_change_your_address"))
+        include(Messages("mainThing.what_was_the_main_thing_you_needed_to_do_"))
     }
-//TODO
-//    "render ableToDo page correctly" in {
-//      val document: Document = TestLookupController.ableToDo("VALID_ORIGIN")(testRequest(page = "ableToDo"))
-//      document.getElementById("intro").text shouldBe Messages("feedbackSurvey.page1.para1")
-//      document.getElementById("gdpr").text shouldBe Messages("feedbackSurvey.page1.para2")
-//      document.getElementById("ableToDoWhatNeeded_legend").text should include(Messages("feedbackSurvey.page1.question1"))
-//      document.getElementById("ableToDoWhatNeeded-yes").text shouldBe ""
-//      document.getElementById("ableToDoWhatNeeded-no").text shouldBe ""
-//    }
-//
+
     "render ableToDo page correctly" in {
 
       val document: Document = TestLookupController.ableToDo("VALID_ORIGIN")(testRequest(page = "ableToDo"))
