@@ -7,16 +7,17 @@ GET        /mainService/:origin               controllers.FeedbackSurveyControll
 POST       /mainService/:origin               controllers.FeedbackSurveyController.mainServiceContinue(origin: String)
 GET        /mainThing/:origin                 controllers.FeedbackSurveyController.mainThing(origin: String)
 
-GET        /mainService/:origin                controllers.FeedbackSurveyController.mainService(origin: String)
-POST       /mainService/:origin                controllers.FeedbackSurveyController.mainServiceContinue(origin: String)
-GET        /mainThing/:origin                  controllers.FeedbackSurveyController.mainThing(origin: String)
-POST       /mainThing/:origin                  controllers.FeedbackSurveyController.mainThingContinue(origin: String)
+GET        /mainService/:origin               controllers.FeedbackSurveyController.mainService(origin: String)
+POST       /mainService/:origin               controllers.FeedbackSurveyController.mainServiceContinue(origin: String)
+GET        /mainThing/:origin                 controllers.FeedbackSurveyController.mainThing(origin: String)
+POST       /mainThing/:origin                 controllers.FeedbackSurveyController.mainThingContinue(origin: String)
 
 
 GET        /ableToDo/:origin                  controllers.FeedbackSurveyController.ableToDo(origin: String)
 POST       /ableToDo/:origin                  controllers.FeedbackSurveyController.ableToDoContinue(origin: String)
 
 GET        /howEasyWasIt/:origin              controllers.FeedbackSurveyController.howEasyWasIt(origin: String)
+POST       /howEasyWasIt/:origin              controllers.FeedbackSurveyController.howEasyWasItContinue(origin: String)
 
 GET        /usingService/:origin              controllers.FeedbackSurveyController.usingService(origin: String)
 POST       /usingService/:origin              controllers.FeedbackSurveyController.usingServiceContinue(origin: String)

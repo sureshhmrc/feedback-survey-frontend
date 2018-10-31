@@ -39,7 +39,8 @@ object AbleToDo {
   implicit val format = Json.format[AbleToDo]
 }
 
-case class HowEasyWasIt(howEasyWasIt: Option[String])
+case class HowEasyWasIt(howEasyWasIt: Option[String],
+                        whyDidYouGiveThisScore: Option[String])
 
 object HowEasyWasIt {
   implicit val format = Json.format[HowEasyWasIt]
@@ -78,7 +79,8 @@ object formMappings {
     "ableToDoWhatNeeded" -> optional(text))(AbleToDo.apply)(AbleToDo.unapply))
 
   val howEasyWasItForm = Form(mapping(
-    "howEasyWasIt" -> optional(text))(HowEasyWasIt.apply)(HowEasyWasIt.unapply))
+    "howEasyWasIt" -> optional(text),
+    "whyDidYouGiveThisScore" -> optional(text))(HowEasyWasIt.apply)(HowEasyWasIt.unapply))
 
   val usingServiceForm = Form(mapping(
     "beforeUsingThisService" -> list(text.verifying("required field", _.nonEmpty))
