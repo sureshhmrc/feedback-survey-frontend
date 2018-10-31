@@ -46,12 +46,12 @@
 
             <div class="equal-space">
               <p class="left">@Html(messages("howEasyWasIt.very_easy"))</p>
-              <p class="right">@Html(messages("howEasyWasIt.very_difficult"))</p>
+              <p class="right veryDifficult">@Html(messages("howEasyWasIt.very_difficult"))</p>
             </div>
 
             <div class="equal-space">
 
-              <div class="item">
+              <div class="item first">
                 <div class="multiple-choice">
                   <input id="howEasyWasIt5" type="radio" name="howEasyWasIt" value="5">
                   <label for="howEasyWasIt5">5</label>
@@ -86,6 +86,10 @@
                 </div>
               </div>
 
+              <p class="left veryDifficult">@Html(messages("howEasyWasIt.very_difficult"))</p>
+
+            </div>
+
           </fieldset>
 
           <fieldset>
@@ -97,8 +101,7 @@
               @Messages("howEasyWasIt.why_did_you_give_this_score")
             </legend>
 
-            <textarea class="form-control form-control-3-4 feedback-box" name="whyDidYouGiveThisScore" id="textarea" rows="6"
-                      maxlength="1000"></textarea>
+            <textarea class="form-control form-control-3-4 feedback-box" name="whyDidYouGiveThisScore" id="textarea" rows="6" maxlength="1000"></textarea>
           </fieldset>
 
         </div>

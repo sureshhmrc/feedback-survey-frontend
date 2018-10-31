@@ -66,8 +66,10 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
   }
 
   def mainThingContinue(origin: String): Action[MainThing] = Action (parse.form(formMappings.mainThingForm)) { implicit request =>
-    audit("feedback-survey", Map("origin" -> origin,
-      "mainThing" -> request.body.mainThing.getOrElse("")), eventTypeSuccess)
+    audit(transactionName = "feedback-survey",
+      detail = Map("origin" -> origin,
+        "mainThing" -> request.body.mainThing.getOrElse("")),
+      eventType = eventTypeSuccess)
     Redirect(routes.FeedbackSurveyController.ableToDo(origin))
   }
 
@@ -87,8 +89,7 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
       eventType = eventTypeSuccess)
     Redirect(routes.FeedbackSurveyController.howEasyWasIt(origin))
   }
-
-
+  
   def howEasyWasIt(origin: String) = Action { implicit request =>
     Ok(html.feedbackSurvey.howEasyWasIt(formMappings.howEasyWasItForm, origin))
   }

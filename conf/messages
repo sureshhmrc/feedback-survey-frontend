@@ -44,8 +44,8 @@ feedbackSurvey.page1.question1=Were you able to do what you needed to do today?
 ableToDo.were_you_able_to_do_what_you_needed_to_do_today=Were you able to do what you needed to do today?
 
 howEasyWasIt.how_easy_was_it_for_you_to_=How easy was it for you to do what you needed to do today?
-howEasyWasIt.very_easy=Very<br>easy
-howEasyWasIt.very_difficult=Very<br>difficult
+howEasyWasIt.very_easy=Very easy
+howEasyWasIt.very_difficult=Very difficult
 howEasyWasIt.why_did_you_give_this_score=Why did you give this score?
 
 feedbackSurvey.page2.question1=What did you try before using this service?

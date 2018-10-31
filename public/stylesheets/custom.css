@@ -21,6 +21,10 @@ textarea {
   display: inline-block;
 }
 
+.equal-space .item.first {
+  margin-left: 1em;
+}
+
 .equal-space .left,
 .equal-space .right,
 .equal-space span {
@@ -34,4 +38,28 @@ textarea {
 
 .equal-space .right {
   float:right;
+}
+
+.equal-space .left.veryDifficult {
+  display: none;
+}
+
+@media screen and (max-width:400px) {
+
+  .equal-space .item {
+    display: block;
+    margin-bottom: 1em;
+  }
+
+  .equal-space .item.first {
+    margin-left: 0em;
+  }
+
+  .equal-space .left.veryDifficult {
+    display: block;
+  }
+
+  .equal-space .right.veryDifficult {
+    display: none;
+  }
 }
