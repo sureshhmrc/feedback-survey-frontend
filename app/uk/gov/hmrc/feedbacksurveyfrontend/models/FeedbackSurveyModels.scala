@@ -70,7 +70,7 @@ object formMappings {
     "howEasyWasIt" -> optional(text),
     "whyDidYouGiveThisScore" -> optional(text))(HowEasyWasIt.apply)(HowEasyWasIt.unapply))
 
-  val feelingAboutService = Form(mapping(
+  val feelingAboutServiceForm = Form(mapping(
     "feelingAboutService" -> optional(text))(FeelingAboutService.apply)(FeelingAboutService.unapply))
 
   def validInputCharacters(field: String, regXValue: String) = {

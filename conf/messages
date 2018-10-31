@@ -48,6 +48,16 @@ howEasyWasIt.very_easy=Very easy
 howEasyWasIt.very_difficult=Very difficult
 howEasyWasIt.why_did_you_give_this_score=Why did you give this score?
 
+feelingAboutService.overall_how_did_you_feel_about_the_service_you_received_today=Overall, how did you feel about the service you received today?
+feelingAboutService.very_satisfied=Very Satisfied
+feelingAboutService.very_dissatisfied=Very Dissatisfied
+feelingAboutService.thank_you_for_your_feedback=Thank you for your feedback
+feelingAboutService.we_will_use_your_feedback_=We will use your feedback to make our services better.
+feelingAboutService.help_improve_gov_uk=Help improve <a href="{0}" target="_blank">GOV.UK</a>
+feelingAboutService.gov_uk_needs_your_help_=<a href="{0}" target="_blank">GOV.UK</a> needs your help to improve and to make sure the website works well for the people who need it.
+feelingAboutService.get_involved_in_making_government_services_better=<a href="{0}" target="_blank">Get involved in making government services better</a>
+
+
 feedbackSurvey.page2.question1=What did you try before using this service?
 feedbackSurvey.page2.question1.formhint=Select all that apply.
 feedbackSurvey.page2.question1.option1=Telephoned HMRC

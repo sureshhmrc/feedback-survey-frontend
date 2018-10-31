@@ -78,6 +78,11 @@ class FeedbackSurveyControllerSpec extends UnitTestTraits {
       status(await(result)) shouldBe OK
     }
 
+    "Go to the feelingAboutService page" in new SpecSetup {
+      val result = TestFeedbackSurveyController.feelingAboutService("TOKEN1")(testRequest(""))
+      status(await(result)) shouldBe OK
+    }
+
 //    //TODO - Custom Feedback URL
 //    "redirect to the Thank you page when this origin does not have a custom feedback url" in new SpecSetup {
 //      val result = TestFeedbackSurveyController.feelingAboutServiceContinue("TOKEN1")(testRequest("")).run()
