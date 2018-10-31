@@ -15,7 +15,7 @@ POST       /ableToDo/:origin                  controllers.FeedbackSurveyControll
 GET        /howEasyWasIt/:origin              controllers.FeedbackSurveyController.howEasyWasIt(origin: String)
 POST       /howEasyWasIt/:origin              controllers.FeedbackSurveyController.howEasyWasItContinue(origin: String)
 
-GET        /thankYou                          controllers.FeedbackSurveyController.thankYou(origin: Origin)
+GET        /thankYou                          controllers.FeedbackSurveyController.thankYou(origin: String)
 
 GET        /lang/enGb                         controllers.LanguageController.enGb(redirectUrl: ContinueUrl)
 GET        /lang/cyGb                         controllers.LanguageController.cyGb(redirectUrl: ContinueUrl)
