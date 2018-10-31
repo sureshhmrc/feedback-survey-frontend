@@ -46,6 +46,11 @@ object HowEasyWasIt {
   implicit val format = Json.format[HowEasyWasIt]
 }
 
+case class FeelingAboutService(feelingAboutService: Option[String])
+
+object FeelingAboutService {
+  implicit val format = Json.format[FeelingAboutService]
+}
 case class UsingService(beforeUsingThisService: List[String])
 
 object UsingService {
@@ -82,10 +87,12 @@ object formMappings {
     "howEasyWasIt" -> optional(text),
     "whyDidYouGiveThisScore" -> optional(text))(HowEasyWasIt.apply)(HowEasyWasIt.unapply))
 
+  val feelingAboutService = Form(mapping(
+    "feelingAboutService" -> optional(text))(FeelingAboutService.apply)(FeelingAboutService.unapply))
+
   val usingServiceForm = Form(mapping(
     "beforeUsingThisService" -> list(text.verifying("required field", _.nonEmpty))
   )(UsingService.apply)(UsingService.unapply))
-
 
   val aboutServiceForm = Form(mapping(
     "serviceReceived" -> optional(text.verifying("required field", _.nonEmpty)))(AboutService.apply)(AboutService.unapply))
