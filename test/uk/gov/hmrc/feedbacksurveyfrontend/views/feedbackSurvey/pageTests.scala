@@ -93,7 +93,7 @@ class pageTests extends UnitTestTraits with HtmlUtils {
       document.getElementById("introduction").text shouldBe
         Messages("mainService.we_use_your_feedback_to_improve_our_services_")
       document.getElementById("privacyPolicy").html() shouldBe
-        Messages("mainService.see_the_hmrc_privacy_notice_")
+        Messages("mainService.see_the_hmrc_privacy_notice_", FrontendAppConfig.hmrcPrivacyNoticeUrl)
       document.getElementById("information").text shouldBe
         Messages("mainService.the_survey_takes_about_1_minute_to_complete_")
       document.getElementById("mainThing").text shouldBe

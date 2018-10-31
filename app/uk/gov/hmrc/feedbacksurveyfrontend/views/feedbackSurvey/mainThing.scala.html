@@ -18,7 +18,7 @@
 @import views.html.helpers._
 @import uk.gov.hmrc.renderer.TemplateRenderer
 @import uk.gov.hmrc.play.views.html.helpers._
-
+@import uk.gov.hmrc.feedbacksurveyfrontend.FrontendAppConfig
 
 @(mainThing: Form[models.feedbackSurveyModels.MainThing],
   origin: String)(implicit request: Request[_],
@@ -28,12 +28,13 @@
 @uk.gov.hmrc.feedbacksurveyfrontend.views.html.main_template(
   title = "mainThing.what_was_the_main_thing_you_needed_to_do_"
   ) {
+
     <p id="introduction">
      @Messages("mainService.we_use_your_feedback_to_improve_our_services_")
     </p>
 
-    <p id="privacyPolicy">
-     @Html(Messages("mainService.see_the_hmrc_privacy_notice_"))
+    <p id="privacyPolicy" class="full_width">
+      @Html(Messages("mainService.see_the_hmrc_privacy_notice_", FrontendAppConfig.hmrcPrivacyNoticeUrl))
     </p>
 
     <p id="information">
