@@ -63,9 +63,21 @@ class FeedbackSurveyControllerSpec extends UnitTestTraits {
       status(await(result)) shouldBe OK
     }
 
+    "redirect to the ableToDo page from mainServiceContinue" in new SpecSetup {
+      val result: Future[Result] = TestFeedbackSurveyController.mainServiceContinue(origin = "TOKEN3")(testRequest(page = "")).run()
+      status(result) shouldBe SEE_OTHER
+      redirectLocation(result).get shouldBe "/feedback-survey/ableToDo/TOKEN3"
+    }
+
     "Go to the mainThing page when an origin is not from BTA" in new SpecSetup {
       val result = TestFeedbackSurveyController.mainThing(origin = "TOKEN1")(testRequest(page =""))
       status(await(result)) shouldBe OK
+    }
+
+    "redirect to the ableToDo page from mainThingContinue" in new SpecSetup {
+      val result: Future[Result] = TestFeedbackSurveyController.mainServiceContinue(origin = "TOKEN1")(testRequest(page = "")).run()
+      status(result) shouldBe SEE_OTHER
+      redirectLocation(result).get shouldBe "/feedback-survey/ableToDo/TOKEN1"
     }
 
     "Go to the ableToDo page" in new SpecSetup {
@@ -73,9 +85,21 @@ class FeedbackSurveyControllerSpec extends UnitTestTraits {
       status(await(result)) shouldBe OK
     }
 
+    "redirect to the howEasyWasIt page from ableToDoContinue" in new SpecSetup {
+      val result: Future[Result] = TestFeedbackSurveyController.ableToDoContinue(origin = "TOKEN1")(testRequest(page = "")).run()
+      status(result) shouldBe SEE_OTHER
+      redirectLocation(result).get shouldBe "/feedback-survey/howEasyWasIt/TOKEN1"
+    }
+
     "Go to the howEasyWasIt page" in new SpecSetup {
       val result = TestFeedbackSurveyController.howEasyWasIt("TOKEN1")(testRequest(""))
       status(await(result)) shouldBe OK
+    }
+
+    "redirect to the howDidYouFeel page from howEasyWasItContinue" in new SpecSetup {
+      val result: Future[Result] = TestFeedbackSurveyController.howEasyWasItContinue(origin = "TOKEN1")(testRequest(page = "")).run()
+      status(result) shouldBe SEE_OTHER
+      redirectLocation(result).get shouldBe "/feedback-survey/howDidYouFeel/TOKEN1"
     }
 
     "Go to the howDidYouFeel page" in new SpecSetup {
@@ -83,13 +107,13 @@ class FeedbackSurveyControllerSpec extends UnitTestTraits {
       status(await(result)) shouldBe OK
     }
 
-    "redirect to the Thank you page when this origin does not have a custom feedback url" in new SpecSetup {
+    "redirect to the Thank you page from howDidYouFeelContinue when this origin does not have a custom feedback url" in new SpecSetup {
       val result = TestFeedbackSurveyController.howDidYouFeelContinue("TOKEN1")(testRequest("")).run()
       status(result) shouldBe SEE_OTHER
       redirectLocation(result).get should include("/feedback-survey/thankYou?origin=TOKEN1")
     }
 
-    "redirect to the custom feedback url when this origin has one" in new SpecSetup {
+    "redirect to the custom feedback url from howDidYouFeelContinue when this origin has a custom feedback url" in new SpecSetup {
       val result = TestFeedbackSurveyController.howDidYouFeelContinue("TOKEN2")(testRequest("")).run()
       status(result) shouldBe SEE_OTHER
       redirectLocation(result).get shouldBe "http://example.com/custom-feedback-url"
