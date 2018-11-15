@@ -25,6 +25,8 @@ trait AppConfig {
   val reportAProblemPartialUrl: String
   val deskproToken: Option[String]
   val urLinkUrl: Option[String]
+  val redirectToNewSurveyEnabled: Boolean
+  val newFeedbackUrl: String
 }
 
 object FrontendAppConfig extends AppConfig with ServicesConfig {
@@ -38,5 +40,7 @@ object FrontendAppConfig extends AppConfig with ServicesConfig {
   override lazy val reportAProblemPartialUrl = s"$contactFrontendService/contact/problem_reports?secure=true"
   override lazy val deskproToken = configuration.getString("deskproToken")
   override lazy val urLinkUrl = configuration.getString("feature.ur-link.url")
+  override lazy val redirectToNewSurveyEnabled = configuration.getBoolean("feature.redirect-to-new-survey").getOrElse(false)
+  override lazy val newFeedbackUrl = configuration.getString("feature.new-survey-url").getOrElse("")
   lazy val frontendTemplatePath = configuration.getString("microservice.services.frontend-template-provider.path").getOrElse("/templates/mustache")
 }

@@ -19,7 +19,7 @@ package controllers
 import play.api.Play.current
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
-import uk.gov.hmrc.feedbacksurveyfrontend.LocalTemplateRenderer
+import uk.gov.hmrc.feedbacksurveyfrontend.{AppConfig, FrontendAppConfig, LocalTemplateRenderer}
 import uk.gov.hmrc.feedbacksurveyfrontend.services.OriginService
 import uk.gov.hmrc.play.binders.Origin
 import uk.gov.hmrc.play.frontend.controller.FrontendController
@@ -28,17 +28,23 @@ import utils.FeedbackSurveySessionKeys._
 
 object HomeController extends HomeController {
   val originService = new OriginService
+  val appConfig = FrontendAppConfig
 }
 
 trait HomeController extends FrontendController  {
 
   def originService: OriginService
+  val appConfig: AppConfig
+
   implicit val templateRenderer: TemplateRenderer = LocalTemplateRenderer
 
   def start(origin : Origin): Action[AnyContent] = Action {
     implicit request =>
       if(originService.isValid(Origin(origin.origin))) {
-        Redirect(routes.FeedbackSurveyController.ableToDo(origin.origin))
+        appConfig.redirectToNewSurveyEnabled match {
+          case true => Redirect(s"${appConfig.newFeedbackUrl}/${origin.origin}/other")
+          case false => Redirect(routes.FeedbackSurveyController.ableToDo(origin.origin))
+        }
       } else {
         Ok(uk.gov.hmrc.feedbacksurveyfrontend.views.html.error_template("global_errors.title", "global_errors.heading", "global_errors.message"))
       }

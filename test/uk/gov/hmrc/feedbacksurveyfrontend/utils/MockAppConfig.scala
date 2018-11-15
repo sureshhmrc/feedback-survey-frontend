@@ -16,16 +16,14 @@
 
 package uk.gov.hmrc.feedbacksurveyfrontend.utils
 
-import play.api.i18n.Messages
-import play.twirl.api.Html
-import uk.gov.hmrc.renderer.TemplateRenderer
+import uk.gov.hmrc.feedbacksurveyfrontend.AppConfig
 
-object MockTemplateRenderer extends TemplateRenderer {
-  override def templateServiceBaseUrl = ???
-  override def refreshAfter = ???
-  override def fetchTemplate(path: String) = ???
-
-  override def renderDefaultTemplate(path: String, content: Html, extraArgs: Map[String, Any])(implicit messages: Messages) = {
-    Html("<title>" + extraArgs("pageTitle") + "</title>" + content)
-  }
+class MockAppConfig(newSurveyFeatureEnabled: Boolean = false, newSurveyUrl: String = "") extends AppConfig {
+  override val analyticsToken: Option[String] = None
+  override val analyticsHost: String = ""
+  override val reportAProblemPartialUrl: String = ""
+  override val deskproToken: Option[String] = None
+  override val urLinkUrl: Option[String] = None
+  override val redirectToNewSurveyEnabled: Boolean = newSurveyFeatureEnabled
+  override val newFeedbackUrl: String = newSurveyUrl
 }

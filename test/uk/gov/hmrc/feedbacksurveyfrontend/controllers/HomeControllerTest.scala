@@ -19,19 +19,20 @@ package controllers
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.feedbacksurveyfrontend.services.{OriginConfigItem, OriginService}
-import uk.gov.hmrc.feedbacksurveyfrontend.utils.MockTemplateRenderer
+import uk.gov.hmrc.feedbacksurveyfrontend.utils.{MockAppConfig, MockTemplateRenderer}
 import uk.gov.hmrc.play.binders.Origin
 import uk.gov.hmrc.renderer.TemplateRenderer
 import utils.UnitTestTraits
-
+import uk.gov.hmrc.feedbacksurveyfrontend.{AppConfig, FrontendAppConfig}
 
 class HomeControllerTest extends UnitTestTraits {
 
   "ableToDo page GET" should {
 
-    def buildFakeHomeController = new HomeController{
+    def buildFakeHomeController(newSurveyFeatureEnabled: Boolean, newSurveyUrl: String)= new HomeController {
 
       override implicit val templateRenderer: TemplateRenderer = MockTemplateRenderer
+      override val appConfig: AppConfig = new MockAppConfig(newSurveyFeatureEnabled, newSurveyUrl)
 
       val originService = new OriginService {
         override lazy val originConfigItems = List(
@@ -41,22 +42,34 @@ class HomeControllerTest extends UnitTestTraits {
     }
 
     "give a status of OK, return error page if origin token not found" in {
-      val controllerUnderTest = buildFakeHomeController
+      val controllerUnderTest = buildFakeHomeController(false, "")
       val result = controllerUnderTest.start(Origin("TOKEN2")).apply(FakeRequest("GET", ""))
       status(result) shouldBe OK
       contentAsString(result) should include("Service unavailable")
     }
 
     "give a status of OK, if origin token found" in {
-      val controllerUnderTest = buildFakeHomeController
+      val controllerUnderTest = buildFakeHomeController(false, "")
       val result = controllerUnderTest.start(Origin("TOKEN1")).apply(FakeRequest("GET", ""))
       status(result) shouldBe SEE_OTHER
     }
 
     "redirect to FeedbackSurveyController.ableToDo when origin is valid" in {
-      val controllerUnderTest = buildFakeHomeController
+      val controllerUnderTest = buildFakeHomeController(false, "")
       val result = controllerUnderTest.start(Origin("TOKEN1")).apply(FakeRequest("GET", ""))
       redirectLocation(result) should contain("/feedback-survey/ableToDo/TOKEN1")
+    }
+
+    "redirect to FeedbackSurveyController.ableToDoPage when newSurveyFeatureEnabled is false" in {
+      val controllerUnderTest = buildFakeHomeController(false, "")
+      val result = controllerUnderTest.start(Origin("TOKEN1")).apply(FakeRequest("GET", ""))
+      redirectLocation(result) should contain("/feedback-survey/ableToDo/TOKEN1")
+    }
+
+    "redirect to new feedback survey URL when newSurveyFeatureEnabled is true" in {
+      val controllerUnderTest = buildFakeHomeController(true, "newSurveyUrl")
+      val result = controllerUnderTest.start(Origin("TOKEN1")).apply(FakeRequest("GET", ""))
+      redirectLocation(result) should contain("newSurveyUrl/TOKEN1/other")
     }
   }
 }
