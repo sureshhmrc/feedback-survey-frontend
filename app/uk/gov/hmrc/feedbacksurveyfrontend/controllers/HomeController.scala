@@ -35,32 +35,36 @@ trait HomeController extends FrontendController  {
 
   def originService: OriginService
   val appConfig: AppConfig
+  lazy val redirectToNewSurveyEnabled: Boolean = appConfig.redirectToNewSurveyEnabled
+
+  val ptaRedirects = Seq("CARBEN",
+    "FANDF",
+    "MEDBEN",
+    "NISP",
+    "P800",
+    "PERTAX",
+    "REPAYMENTS",
+    "PLA",
+    "TAI",
+    "TCR",
+    "TCS",
+    "TCSHOME",
+    "TES",
+    "TYF")
 
   implicit val templateRenderer: TemplateRenderer = LocalTemplateRenderer
 
   def start(origin : Origin): Action[AnyContent] = Action {
     implicit request =>
       if(originService.isValid(Origin(origin.origin))) {
-        appConfig.redirectToNewSurveyEnabled match {
-          case true =>
-            Seq("CARBEN",
-              "FANDF",
-              "MEDBEN",
-              "NISP",
-              "P800",
-              "PERTAX",
-              "PLA",
-              "REPAYMENTS",
-              "TAI",
-              "TCR",
-              "TCS",
-              "TCSHOME",
-              "TES",
-              "TYF").contains(origin.origin) match {
-                case true => Redirect(s"${appConfig.newFeedbackUrl}/${origin.origin}/pta")
-                case false => Redirect(s"${appConfig.newFeedbackUrl}/${origin.origin}/other")
+        if (redirectToNewSurveyEnabled) {
+          if (ptaRedirects.contains(origin.origin)) {
+            Redirect(s"${appConfig.newFeedbackUrl}/${origin.origin}/pta")
+          } else {
+            Redirect(s"${appConfig.newFeedbackUrl}/${origin.origin}/other")
           }
-          case false => Redirect(routes.FeedbackSurveyController.ableToDo(origin.origin))
+        } else {
+          Redirect(routes.FeedbackSurveyController.ableToDo(origin.origin))
         }
       } else {
         Ok(uk.gov.hmrc.feedbacksurveyfrontend.views.html.error_template("global_errors.title", "global_errors.heading", "global_errors.message"))
