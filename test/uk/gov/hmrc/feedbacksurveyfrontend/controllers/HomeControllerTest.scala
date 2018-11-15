@@ -44,7 +44,7 @@ class HomeControllerTest extends UnitTestTraits {
 
     "give a status of OK, return error page if origin token not found" in {
       val controllerUnderTest = buildFakeHomeController(false, "")
-      val result = controllerUnderTest.start(Origin("TOKEN2")).apply(FakeRequest("GET", ""))
+      val result = controllerUnderTest.start(Origin("INVALIDTOKEN")).apply(FakeRequest("GET", ""))
       status(result) shouldBe OK
       contentAsString(result) should include("Service unavailable")
     }
