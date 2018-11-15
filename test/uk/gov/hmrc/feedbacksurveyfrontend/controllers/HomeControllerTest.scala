@@ -36,7 +36,8 @@ class HomeControllerTest extends UnitTestTraits {
 
       val originService = new OriginService {
         override lazy val originConfigItems = List(
-          OriginConfigItem(Some("TOKEN1"), None)
+          OriginConfigItem(Some("TOKEN1"), None),
+          OriginConfigItem(Some("PERTAX"), None)
         )
       }
     }
@@ -66,10 +67,16 @@ class HomeControllerTest extends UnitTestTraits {
       redirectLocation(result) should contain("/feedback-survey/ableToDo/TOKEN1")
     }
 
-    "redirect to new feedback survey URL when newSurveyFeatureEnabled is true" in {
+    "redirect to new feedback survey with other questions when newSurveyFeatureEnabled is true and Origin is not PTA service" in {
       val controllerUnderTest = buildFakeHomeController(true, "newSurveyUrl")
       val result = controllerUnderTest.start(Origin("TOKEN1")).apply(FakeRequest("GET", ""))
       redirectLocation(result) should contain("newSurveyUrl/TOKEN1/other")
+    }
+
+    "redirect to new feedback survey with PTA questions when newSurveyFeatureEnabled is true and Origin is PTA service" in {
+      val controllerUnderTest = buildFakeHomeController(true, "newSurveyUrl")
+      val result = controllerUnderTest.start(Origin("PERTAX")).apply(FakeRequest("GET", ""))
+      redirectLocation(result) should contain("newSurveyUrl/PERTAX/pta")
     }
   }
 }

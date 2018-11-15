@@ -41,8 +41,28 @@ trait HomeController extends FrontendController  {
   def start(origin : Origin): Action[AnyContent] = Action {
     implicit request =>
       if(originService.isValid(Origin(origin.origin))) {
+
         appConfig.redirectToNewSurveyEnabled match {
-          case true => Redirect(s"${appConfig.newFeedbackUrl}/${origin.origin}/other")
+          case true => {
+
+            Seq("CARBEN",
+              "FANDF",
+              "MEDBEN",
+              "NISP",
+              "P800",
+              "PERTAX",
+              "PLA",
+              "REPAYMENTS",
+              "TAI",
+              "TCR",
+              "TCS",
+              "TCSHOME",
+              "TES",
+              "TYF").contains(origin.origin) match {
+                case true => Redirect(s"${appConfig.newFeedbackUrl}/${origin.origin}/pta")
+                case false => Redirect(s"${appConfig.newFeedbackUrl}/${origin.origin}/other")
+              }
+          }
           case false => Redirect(routes.FeedbackSurveyController.ableToDo(origin.origin))
         }
       } else {
