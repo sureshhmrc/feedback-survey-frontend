@@ -56,18 +56,15 @@ trait HomeController extends FrontendController  {
 
   def start(origin : Origin): Action[AnyContent] = Action {
     implicit request =>
-      if(originService.isValid(Origin(origin.origin))) {
-        if (redirectToNewSurveyEnabled) {
-          if (ptaRedirects.contains(origin.origin)) {
+      if(originService.isValid(Origin(origin.origin)))
+        if (redirectToNewSurveyEnabled)
+          if (ptaRedirects.contains(origin.origin))
             Redirect(s"${appConfig.newFeedbackUrl}/${origin.origin}/pta")
-          } else {
+          else
             Redirect(s"${appConfig.newFeedbackUrl}/${origin.origin}/other")
-          }
-        } else {
+        else
           Redirect(routes.FeedbackSurveyController.ableToDo(origin.origin))
-        }
-      } else {
+      else
         Ok(uk.gov.hmrc.feedbacksurveyfrontend.views.html.error_template("global_errors.title", "global_errors.heading", "global_errors.message"))
-      }
   }
 }
