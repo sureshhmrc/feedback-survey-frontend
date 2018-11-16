@@ -34,7 +34,6 @@ object FrontendAppConfig extends AppConfig with ServicesConfig {
   private lazy val contactFrontendBaseUrl = getConfString("contact-frontend.external-url", "")
   private val contactFrontendService = baseUrl("contact-frontend")
   private val contactFormServiceIdentifier = "FEEDBACK-SURVEY"
-  private lazy val newFeedbackBaseUrl = baseUrl("feedback")
 
   lazy val frontendTemplatePath = configuration.getString("microservice.services.frontend-template-provider.path").getOrElse("/templates/mustache")
 
@@ -44,5 +43,5 @@ object FrontendAppConfig extends AppConfig with ServicesConfig {
   override lazy val deskproToken = configuration.getString("deskproToken")
   override lazy val urLinkUrl = configuration.getString("feature.ur-link.url")
   override lazy val redirectToNewSurveyEnabled = configuration.getBoolean("feature.redirect-to-new-survey").getOrElse(false)
-  override lazy val newFeedbackUrl = s"$newFeedbackBaseUrl${configuration.getString("microservice.services.feedback.path").getOrElse("/feedback")}"
+  override lazy val newFeedbackUrl = configuration.getString("microservice.services.feedback.url").getOrElse("/feedback")
 }
