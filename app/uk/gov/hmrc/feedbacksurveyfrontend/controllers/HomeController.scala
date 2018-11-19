@@ -59,9 +59,9 @@ trait HomeController extends FrontendController  {
       if(originService.isValid(Origin(origin.origin)))
         if (redirectToNewSurveyEnabled)
           if (ptaRedirects.contains(origin.origin))
-            Redirect(s"${appConfig.newFeedbackUrl}/${origin.origin}/pta")
+            Redirect(s"${appConfig.newFeedbackUrl}/${origin.origin}/personal")
           else
-            Redirect(s"${appConfig.newFeedbackUrl}/${origin.origin}/other")
+            Redirect(s"${appConfig.newFeedbackUrl}/${origin.origin}")
         else
           Redirect(routes.FeedbackSurveyController.ableToDo(origin.origin))
       else

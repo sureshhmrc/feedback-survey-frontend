@@ -70,13 +70,13 @@ class HomeControllerTest extends UnitTestTraits {
     "redirect to new feedback survey with other questions when newSurveyFeatureEnabled is true and Origin is not PTA service" in {
       val controllerUnderTest = buildFakeHomeController(true, "newSurveyUrl")
       val result = controllerUnderTest.start(Origin("TOKEN1")).apply(FakeRequest("GET", ""))
-      redirectLocation(result) should contain("newSurveyUrl/TOKEN1/other")
+      redirectLocation(result) should contain("newSurveyUrl/TOKEN1")
     }
 
     "redirect to new feedback survey with PTA questions when newSurveyFeatureEnabled is true and Origin is PTA service" in {
       val controllerUnderTest = buildFakeHomeController(true, "newSurveyUrl")
       val result = controllerUnderTest.start(Origin("PERTAX")).apply(FakeRequest("GET", ""))
-      redirectLocation(result) should contain("newSurveyUrl/PERTAX/pta")
+      redirectLocation(result) should contain("newSurveyUrl/PERTAX/personal")
     }
   }
 }
