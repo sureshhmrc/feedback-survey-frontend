@@ -20,7 +20,7 @@ import play.api.mvc.{Action, AnyContent, Request, Result}
 import uk.gov.hmrc.feedbacksurveyfrontend.AppConfig
 
 object FakeNewSurveyRedirect extends NewSurveyRedirect {
-  override val appConfig: AppConfig = null
+  override def appConfig: AppConfig = ???
 
   override def apply(origin: String)(f: Request[AnyContent] => Result): Action[AnyContent] = Action(f(_))
 }

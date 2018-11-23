@@ -18,7 +18,6 @@ package controllers.actions
 
 import play.api.mvc.{Action, AnyContent, Request, Result}
 import uk.gov.hmrc.feedbacksurveyfrontend.{AppConfig, FrontendAppConfig}
-import uk.gov.hmrc.play.binders.Origin
 import play.api.mvc.Results._
 
 object NewSurveyRedirect extends NewSurveyRedirect {
@@ -27,7 +26,7 @@ object NewSurveyRedirect extends NewSurveyRedirect {
 
 trait NewSurveyRedirect {
 
-  val appConfig: AppConfig
+  def appConfig: AppConfig
 
   private val ptaRedirects =
     Seq(
