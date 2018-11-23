@@ -17,6 +17,7 @@
 package views.feedbackSurvey
 
 import controllers.FeedbackSurveyController
+import controllers.actions.{FakeNewSurveyRedirect, NewSurveyRedirect}
 import org.jsoup.nodes.Document
 import play.api.i18n.Messages
 import play.api.libs.json.Json
@@ -38,6 +39,7 @@ class pageTests extends UnitTestTraits with HtmlUtils {
   object TestLookupController extends FeedbackSurveyController {
 
     override implicit val templateRenderer: TemplateRenderer = MockTemplateRenderer
+    override val newSurveyRedirect: NewSurveyRedirect = FakeNewSurveyRedirect
 
     val originService = new OriginService {
       override lazy val originConfigItems = List(
