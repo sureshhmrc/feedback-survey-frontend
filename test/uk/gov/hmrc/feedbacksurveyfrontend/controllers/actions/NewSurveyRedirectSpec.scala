@@ -65,3 +65,4 @@ class NewSurveyRedirectSpec extends UnitSpec with MockitoSugar with BeforeAndAft
     }
   }
 }
+

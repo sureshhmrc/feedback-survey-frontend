@@ -24,3 +24,4 @@ object FakeNewSurveyRedirect extends NewSurveyRedirect {
 
   override def apply(origin: String)(f: Request[AnyContent] => Result): Action[AnyContent] = Action(f(_))
 }
+
