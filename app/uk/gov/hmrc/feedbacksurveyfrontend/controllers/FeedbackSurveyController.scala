@@ -16,6 +16,7 @@
 
 package controllers
 
+import controllers.actions.NewSurveyRedirect
 import models.feedbackSurveyModels._
 import play.api.Play
 import play.api.i18n.{I18nSupport, MessagesApi}
@@ -26,12 +27,12 @@ import uk.gov.hmrc.feedbacksurveyfrontend.views.html
 import uk.gov.hmrc.play.binders.Origin
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 import uk.gov.hmrc.renderer.TemplateRenderer
-import utils.FeedbackSurveySessionKeys._
 import utils.LoggingUtils
 
 
 object FeedbackSurveyController extends FeedbackSurveyController {
   val originService = new OriginService
+  val newSurveyRedirect: NewSurveyRedirect = NewSurveyRedirect
 }
 
 trait FeedbackSurveyController extends FrontendController with LoggingUtils with I18nSupport {
@@ -40,8 +41,9 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
   implicit val templateRenderer: TemplateRenderer = LocalTemplateRenderer
 
   def originService: OriginService
+  val newSurveyRedirect: NewSurveyRedirect
 
-  def ableToDo(origin: String) = Action { implicit request =>
+  def ableToDo(origin: String) = newSurveyRedirect(origin) { implicit request =>
     Ok(html.feedbackSurvey.ableToDo(formMappings.ableToDoForm, origin))
   }
 
@@ -52,7 +54,7 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     Redirect(routes.FeedbackSurveyController.usingService(origin))
   }
 
-  def usingService(origin: String) =  Action { implicit request =>
+  def usingService(origin: String) = newSurveyRedirect(origin) { implicit request =>
     Ok(html.feedbackSurvey.usingService(formMappings.usingServiceForm, origin))
   }
 
@@ -73,7 +75,7 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     Redirect(routes.FeedbackSurveyController.aboutService(origin))
   }
 
-  def aboutService(origin: String) = Action { implicit request =>
+  def aboutService(origin: String) = newSurveyRedirect(origin) { implicit request =>
     Ok(html.feedbackSurvey.aboutService(formMappings.aboutServiceForm, origin))
   }
 
@@ -84,7 +86,7 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     Redirect(routes.FeedbackSurveyController.recommendService(origin))
   }
 
-  def recommendService(origin: String) = Action { implicit request =>
+  def recommendService(origin: String) = newSurveyRedirect(origin) { implicit request =>
     Ok(html.feedbackSurvey.recommendService(formMappings.recommendServiceForm, origin))
   }
 
@@ -102,7 +104,7 @@ trait FeedbackSurveyController extends FrontendController with LoggingUtils with
     }
   }
 
-  def thankYou(origin : Origin): Action[AnyContent] = Action {
+  def thankYou(origin : Origin): Action[AnyContent] = newSurveyRedirect(origin.origin) {
     implicit request =>
       if(originService.isValid(Origin(origin.origin))) {
         Ok(html.feedbackSurvey.thankYou(FrontendAppConfig.urLinkUrl, origin.origin))

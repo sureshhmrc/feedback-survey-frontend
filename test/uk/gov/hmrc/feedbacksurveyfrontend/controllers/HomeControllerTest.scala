@@ -16,14 +16,14 @@
 
 package controllers
 
+import controllers.actions.{FakeNewSurveyRedirect, NewSurveyRedirect}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.feedbacksurveyfrontend.services.{OriginConfigItem, OriginService}
-import uk.gov.hmrc.feedbacksurveyfrontend.utils.{MockAppConfig, MockTemplateRenderer}
+import uk.gov.hmrc.feedbacksurveyfrontend.utils.MockTemplateRenderer
 import uk.gov.hmrc.play.binders.Origin
 import uk.gov.hmrc.renderer.TemplateRenderer
 import utils.UnitTestTraits
-import uk.gov.hmrc.feedbacksurveyfrontend.{AppConfig, FrontendAppConfig}
 
 class HomeControllerTest extends UnitTestTraits {
 
@@ -32,7 +32,7 @@ class HomeControllerTest extends UnitTestTraits {
     def buildFakeHomeController(newSurveyFeatureEnabled: Boolean, newSurveyUrl: String)= new HomeController {
 
       override implicit val templateRenderer: TemplateRenderer = MockTemplateRenderer
-      override val appConfig: AppConfig = new MockAppConfig(newSurveyFeatureEnabled, newSurveyUrl)
+      override val newSurveyRedirect: NewSurveyRedirect = FakeNewSurveyRedirect
 
       val originService = new OriginService {
         override lazy val originConfigItems = List(
@@ -40,6 +40,7 @@ class HomeControllerTest extends UnitTestTraits {
           OriginConfigItem(Some("PERTAX"), None)
         )
       }
+
     }
 
     "give a status of OK, return error page if origin token not found" in {
@@ -65,18 +66,6 @@ class HomeControllerTest extends UnitTestTraits {
       val controllerUnderTest = buildFakeHomeController(false, "")
       val result = controllerUnderTest.start(Origin("TOKEN1")).apply(FakeRequest("GET", ""))
       redirectLocation(result) should contain("/feedback-survey/ableToDo/TOKEN1")
-    }
-
-    "redirect to new feedback survey with other questions when newSurveyFeatureEnabled is true and Origin is not PTA service" in {
-      val controllerUnderTest = buildFakeHomeController(true, "newSurveyUrl")
-      val result = controllerUnderTest.start(Origin("TOKEN1")).apply(FakeRequest("GET", ""))
-      redirectLocation(result) should contain("newSurveyUrl/TOKEN1")
-    }
-
-    "redirect to new feedback survey with PTA questions when newSurveyFeatureEnabled is true and Origin is PTA service" in {
-      val controllerUnderTest = buildFakeHomeController(true, "newSurveyUrl")
-      val result = controllerUnderTest.start(Origin("PERTAX")).apply(FakeRequest("GET", ""))
-      redirectLocation(result) should contain("newSurveyUrl/PERTAX/personal")
     }
   }
 }
