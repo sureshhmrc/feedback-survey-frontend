@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,9 @@ import uk.gov.hmrc.play.config.AppName
 import uk.gov.hmrc.feedbacksurveyfrontend.FrontendAuditConnector
 import uk.gov.hmrc.http.HeaderCarrier
 
-trait Auditable {
+trait Auditable { this:AppName =>
 
-  def appName: String = AppName.appName
-
-  def audit: Audit = new Audit(AppName.appName, FrontendAuditConnector)
+    def audit: Audit = new Audit(appName, FrontendAuditConnector)
 
   def sendDataEvent(transactionName: String,
                     path: String = "N/A",

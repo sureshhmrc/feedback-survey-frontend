@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package controllers
 
 import controllers.actions.NewSurveyRedirect
 import models.feedbackSurveyModels._
-import play.api.Play
+import play.api.{Configuration, Play}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
 import uk.gov.hmrc.feedbacksurveyfrontend.{FrontendAppConfig, LocalTemplateRenderer}
@@ -33,6 +33,8 @@ import utils.LoggingUtils
 object FeedbackSurveyController extends FeedbackSurveyController {
   val originService = new OriginService
   val newSurveyRedirect: NewSurveyRedirect = NewSurveyRedirect
+
+  override protected def appNameConfiguration: Configuration = Play.current.configuration
 }
 
 trait FeedbackSurveyController extends FrontendController with LoggingUtils with I18nSupport {
