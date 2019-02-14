@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,10 @@
 
 package uk.gov.hmrc.feedbacksurveyfrontend
 
+import akka.actor.ActorSystem
+import com.typesafe.config.Config
+import play.api.{Configuration, Play}
+import uk.gov.hmrc.crypto.ApplicationCrypto
 import uk.gov.hmrc.http.{HttpDelete, HttpGet, HttpPost, HttpPut}
 import uk.gov.hmrc.http.hooks.HttpHooks
 import uk.gov.hmrc.play.audit.http.HttpAuditing
@@ -29,6 +33,8 @@ import uk.gov.hmrc.play.frontend.config.LoadAuditingConfig
 
 object FrontendAuditConnector extends AuditConnector with AppName {
   override lazy val auditingConfig = LoadAuditingConfig("auditing")
+
+  override protected def appNameConfiguration: Configuration = Play.current.configuration
 }
 
 trait Hooks extends HttpHooks with HttpAuditing {
@@ -37,9 +43,17 @@ trait Hooks extends HttpHooks with HttpAuditing {
 }
 
 trait WSHttp extends HttpGet with WSGet with HttpPut with WSPut with HttpPost with WSPost with HttpDelete with WSDelete with Hooks with AppName
-object WSHttp extends WSHttp
+object WSHttp extends WSHttp {
+  override protected def actorSystem: ActorSystem = Play.current.actorSystem
+
+  override protected def configuration: Option[Config] = Some(Play.current.configuration.underlying)
+
+  override protected def appNameConfiguration: Configuration = Play.current.configuration
+}
 
 object LocalPartialRetriever extends FormPartialRetriever {
-  override def crypto = SessionCookieCryptoFilter.encrypt
+  val applicationCrypto = new ApplicationCrypto(Play.current.configuration.underlying)
+  val sessionCookieCryptoFilter = new SessionCookieCryptoFilter(applicationCrypto)
+  override def crypto = sessionCookieCryptoFilter.encrypt
   override val httpGet = WSHttp
 }

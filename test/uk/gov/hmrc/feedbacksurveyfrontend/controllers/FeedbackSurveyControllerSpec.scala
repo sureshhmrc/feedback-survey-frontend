@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
 import controllers.FeedbackSurveyController
 import controllers.actions.{FakeNewSurveyRedirect, NewSurveyRedirect}
+import play.api.{Configuration, Play}
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -53,6 +54,8 @@ class FeedbackSurveyControllerSpec extends UnitTestTraits {
         OriginConfigItem(Some("TOKEN2"), Some("http://example.com/custom-feedback-url"))
       )
     }
+
+    override protected def appNameConfiguration: Configuration = Play.current.configuration
   }
 
   "FeedbackSurveyController" should {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,13 @@ package utils
 import audit.Auditable
 import play.api.Logger
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.config.AppName
 
 // This logging utility should be used to replace any manual logging or Splunk auditing
 // This means that any Splunk audit calls will automatically be logged as DEBUG to aid local debugging but not appear in
 // the production logs. All trace and debug calls will only appear locally so should only be used for local debugging
 // and not for anything that you would want to see logged in production.
-trait LoggingUtils extends Auditable {
+trait LoggingUtils extends Auditable with AppName {
 
   final val eventTypeSuccess: String = "FeedbackSuccess"
   final val eventTypeFailure: String = "FeedbackFailure"

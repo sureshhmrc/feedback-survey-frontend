@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,8 @@
 package uk.gov.hmrc.feedbacksurveyfrontend
 
 
+import play.api.{Configuration, Play}
+import play.api.Mode.Mode
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.renderer.TemplateRenderer
 
@@ -36,4 +38,8 @@ trait LocalTemplateRenderer extends TemplateRenderer with ServicesConfig {
   }
 }
 
-object LocalTemplateRenderer extends LocalTemplateRenderer
+object LocalTemplateRenderer extends LocalTemplateRenderer {
+  override protected def mode: Mode = Play.current.mode
+
+  override protected def runModeConfiguration: Configuration = Play.current.configuration
+}

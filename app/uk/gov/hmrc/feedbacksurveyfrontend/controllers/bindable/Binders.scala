@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package controllers.bindable
 
+import play.api.Play
 import play.api.mvc.QueryStringBindable
 import uk.gov.hmrc.play.binders.ContinueUrl
 import uk.gov.hmrc.play.config.RunMode
@@ -31,7 +32,7 @@ package object Binders {
 
     def bind(key: String, params: Map[String, Seq[String]]) =
       parentBinder.bind(key, params).map {
-        case Right(continueUrl) if continueUrl.isRelativeOrDev(RunMode.env) => Right(continueUrl)
+        case Right(continueUrl) if continueUrl.isRelativeOrDev(RunMode(Play.current.mode, Play.current.configuration).env) => Right(continueUrl)
         case Right(continueUrl) => Left(errorFor(continueUrl.url))
         case Left(message) => Left(message)
       }
