@@ -29,9 +29,7 @@ private object AppDependencies {
         override lazy val test = Seq(
           "uk.gov.hmrc" %% "hmrctest" % "3.6.0-play-25" % scope,
           "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.1" % scope,
-          "org.pegdown" % "pegdown" % "1.6.0" % scope,
           "org.jsoup" % "jsoup" % "1.11.3" % scope,
-          "com.typesafe.play" %% "play-test" % PlayVersion.current % scope,
           "org.mockito" % "mockito-all" % "2.0.2-beta" % scope
         )
       }.test
